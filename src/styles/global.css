@@ -3,3 +3,18 @@
 @theme {
   --font-sans: 'Inter', sans-serif;
 }
+
+/* /lab-двери — поведение по data-portal. */
+.lab-door[data-portal=""] {
+  cursor: default;
+  text-decoration: none;
+}
+.lab-door:not([data-portal=""]) {
+  cursor: pointer;
+  text-decoration: none;
+}
+.lab-door:not([data-portal=""]):hover .edu-title,
+.lab-door:not([data-portal=""]):hover .cert-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
