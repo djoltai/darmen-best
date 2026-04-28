@@ -1,0 +1,1776 @@
+{
+  "series": [
+    {
+      "date": "2010-01-01",
+      "rate": 147.48,
+      "dailyReturn": 0.0
+    },
+    {
+      "date": "2010-03-15",
+      "rate": 147.37,
+      "dailyReturn": -0.00072
+    },
+    {
+      "date": "2010-05-27",
+      "rate": 147.28,
+      "dailyReturn": -0.00059
+    },
+    {
+      "date": "2010-08-08",
+      "rate": 147.3,
+      "dailyReturn": 0.00016
+    },
+    {
+      "date": "2010-10-20",
+      "rate": 147.08,
+      "dailyReturn": -0.00149
+    },
+    {
+      "date": "2011-01-01",
+      "rate": 146.78,
+      "dailyReturn": -0.00204
+    },
+    {
+      "date": "2011-03-15",
+      "rate": 147.35,
+      "dailyReturn": 0.00388
+    },
+    {
+      "date": "2011-05-27",
+      "rate": 147.56,
+      "dailyReturn": 0.00143
+    },
+    {
+      "date": "2011-08-08",
+      "rate": 147.87,
+      "dailyReturn": 0.00209
+    },
+    {
+      "date": "2011-10-20",
+      "rate": 148.22,
+      "dailyReturn": 0.00235
+    },
+    {
+      "date": "2012-01-01",
+      "rate": 148.53,
+      "dailyReturn": 0.00212
+    },
+    {
+      "date": "2012-03-14",
+      "rate": 149.11,
+      "dailyReturn": 0.00393
+    },
+    {
+      "date": "2012-05-26",
+      "rate": 149.48,
+      "dailyReturn": 0.00247
+    },
+    {
+      "date": "2012-08-07",
+      "rate": 149.84,
+      "dailyReturn": 0.00239
+    },
+    {
+      "date": "2012-10-19",
+      "rate": 150.15,
+      "dailyReturn": 0.00206
+    },
+    {
+      "date": "2013-01-01",
+      "rate": 150.55,
+      "dailyReturn": 0.00264
+    },
+    {
+      "date": "2013-03-23",
+      "rate": 151.6,
+      "dailyReturn": 0.00696
+    },
+    {
+      "date": "2013-06-12",
+      "rate": 152.62,
+      "dailyReturn": 0.00673
+    },
+    {
+      "date": "2013-09-01",
+      "rate": 153.29,
+      "dailyReturn": 0.00437
+    },
+    {
+      "date": "2013-11-21",
+      "rate": 154.12,
+      "dailyReturn": 0.00544
+    },
+    {
+      "date": "2014-02-10",
+      "rate": 155.04,
+      "dailyReturn": 0.00598
+    },
+    {
+      "date": "2014-02-11",
+      "rate": 184.87,
+      "dailyReturn": 0.19237
+    },
+    {
+      "date": "2014-03-05",
+      "rate": 185.07,
+      "dailyReturn": 0.00109
+    },
+    {
+      "date": "2014-03-27",
+      "rate": 185.25,
+      "dailyReturn": 0.00095
+    },
+    {
+      "date": "2014-04-18",
+      "rate": 185.38,
+      "dailyReturn": 0.00071
+    },
+    {
+      "date": "2014-05-10",
+      "rate": 185.38,
+      "dailyReturn": -1e-05
+    },
+    {
+      "date": "2014-06-01",
+      "rate": 185.53,
+      "dailyReturn": 0.00084
+    },
+    {
+      "date": "2014-07-13",
+      "rate": 185.62,
+      "dailyReturn": 0.0005
+    },
+    {
+      "date": "2014-08-25",
+      "rate": 185.77,
+      "dailyReturn": 0.00082
+    },
+    {
+      "date": "2014-10-06",
+      "rate": 185.7,
+      "dailyReturn": -0.0004
+    },
+    {
+      "date": "2014-11-18",
+      "rate": 185.95,
+      "dailyReturn": 0.00136
+    },
+    {
+      "date": "2014-12-31",
+      "rate": 185.86,
+      "dailyReturn": -0.00049
+    },
+    {
+      "date": "2015-01-30",
+      "rate": 185.96,
+      "dailyReturn": 0.00052
+    },
+    {
+      "date": "2015-03-01",
+      "rate": 186.34,
+      "dailyReturn": 0.00206
+    },
+    {
+      "date": "2015-04-01",
+      "rate": 186.51,
+      "dailyReturn": 0.00094
+    },
+    {
+      "date": "2015-05-01",
+      "rate": 186.88,
+      "dailyReturn": 0.00199
+    },
+    {
+      "date": "2015-06-01",
+      "rate": 187.06,
+      "dailyReturn": 0.00097
+    },
+    {
+      "date": "2015-06-16",
+      "rate": 187.09,
+      "dailyReturn": 0.00014
+    },
+    {
+      "date": "2015-07-02",
+      "rate": 187.48,
+      "dailyReturn": 0.00208
+    },
+    {
+      "date": "2015-07-18",
+      "rate": 187.51,
+      "dailyReturn": 0.00014
+    },
+    {
+      "date": "2015-08-03",
+      "rate": 187.79,
+      "dailyReturn": 0.0015
+    },
+    {
+      "date": "2015-08-19",
+      "rate": 187.97,
+      "dailyReturn": 0.00097
+    },
+    {
+      "date": "2015-08-20",
+      "rate": 252.58,
+      "dailyReturn": 0.34371
+    },
+    {
+      "date": "2015-08-21",
+      "rate": 257.65,
+      "dailyReturn": 0.02007
+    },
+    {
+      "date": "2015-08-22",
+      "rate": 258.26,
+      "dailyReturn": 0.00235
+    },
+    {
+      "date": "2015-08-23",
+      "rate": 258.29,
+      "dailyReturn": 0.00014
+    },
+    {
+      "date": "2015-08-24",
+      "rate": 261.35,
+      "dailyReturn": 0.01186
+    },
+    {
+      "date": "2015-08-25",
+      "rate": 261.98,
+      "dailyReturn": 0.00242
+    },
+    {
+      "date": "2015-08-26",
+      "rate": 257.73,
+      "dailyReturn": -0.01623
+    },
+    {
+      "date": "2015-08-27",
+      "rate": 258.73,
+      "dailyReturn": 0.00389
+    },
+    {
+      "date": "2015-08-28",
+      "rate": 261.52,
+      "dailyReturn": 0.01078
+    },
+    {
+      "date": "2015-08-29",
+      "rate": 268.15,
+      "dailyReturn": 0.02536
+    },
+    {
+      "date": "2015-08-30",
+      "rate": 265.66,
+      "dailyReturn": -0.00927
+    },
+    {
+      "date": "2015-08-31",
+      "rate": 281.04,
+      "dailyReturn": 0.0579
+    },
+    {
+      "date": "2015-09-01",
+      "rate": 265.58,
+      "dailyReturn": -0.05502
+    },
+    {
+      "date": "2015-09-02",
+      "rate": 264.29,
+      "dailyReturn": -0.00484
+    },
+    {
+      "date": "2015-09-03",
+      "rate": 274.62,
+      "dailyReturn": 0.0391
+    },
+    {
+      "date": "2015-09-04",
+      "rate": 278.4,
+      "dailyReturn": 0.01376
+    },
+    {
+      "date": "2015-09-05",
+      "rate": 273.67,
+      "dailyReturn": -0.01698
+    },
+    {
+      "date": "2015-09-06",
+      "rate": 275.7,
+      "dailyReturn": 0.00742
+    },
+    {
+      "date": "2015-09-07",
+      "rate": 279.14,
+      "dailyReturn": 0.01249
+    },
+    {
+      "date": "2015-09-08",
+      "rate": 271.12,
+      "dailyReturn": -0.02872
+    },
+    {
+      "date": "2015-09-09",
+      "rate": 264.13,
+      "dailyReturn": -0.02578
+    },
+    {
+      "date": "2015-09-10",
+      "rate": 269.2,
+      "dailyReturn": 0.01921
+    },
+    {
+      "date": "2015-09-11",
+      "rate": 277.52,
+      "dailyReturn": 0.03092
+    },
+    {
+      "date": "2015-09-12",
+      "rate": 264.7,
+      "dailyReturn": -0.04621
+    },
+    {
+      "date": "2015-09-13",
+      "rate": 272.98,
+      "dailyReturn": 0.03129
+    },
+    {
+      "date": "2015-09-14",
+      "rate": 274.42,
+      "dailyReturn": 0.00526
+    },
+    {
+      "date": "2015-09-15",
+      "rate": 271.54,
+      "dailyReturn": -0.01049
+    },
+    {
+      "date": "2015-09-16",
+      "rate": 277.46,
+      "dailyReturn": 0.0218
+    },
+    {
+      "date": "2015-09-17",
+      "rate": 276.91,
+      "dailyReturn": -0.00197
+    },
+    {
+      "date": "2015-09-18",
+      "rate": 286.69,
+      "dailyReturn": 0.03531
+    },
+    {
+      "date": "2015-09-19",
+      "rate": 277.6,
+      "dailyReturn": -0.03171
+    },
+    {
+      "date": "2015-09-20",
+      "rate": 271.09,
+      "dailyReturn": -0.02346
+    },
+    {
+      "date": "2015-09-21",
+      "rate": 271.58,
+      "dailyReturn": 0.00181
+    },
+    {
+      "date": "2015-09-22",
+      "rate": 270.33,
+      "dailyReturn": -0.00461
+    },
+    {
+      "date": "2015-09-23",
+      "rate": 280.37,
+      "dailyReturn": 0.03715
+    },
+    {
+      "date": "2015-09-24",
+      "rate": 272.24,
+      "dailyReturn": -0.02898
+    },
+    {
+      "date": "2015-09-25",
+      "rate": 275.21,
+      "dailyReturn": 0.01092
+    },
+    {
+      "date": "2015-09-26",
+      "rate": 279.97,
+      "dailyReturn": 0.01728
+    },
+    {
+      "date": "2015-09-27",
+      "rate": 272.07,
+      "dailyReturn": -0.02821
+    },
+    {
+      "date": "2015-09-28",
+      "rate": 274.68,
+      "dailyReturn": 0.00958
+    },
+    {
+      "date": "2015-09-29",
+      "rate": 266.35,
+      "dailyReturn": -0.03033
+    },
+    {
+      "date": "2015-09-30",
+      "rate": 270.77,
+      "dailyReturn": 0.01661
+    },
+    {
+      "date": "2015-10-01",
+      "rate": 273.85,
+      "dailyReturn": 0.01139
+    },
+    {
+      "date": "2015-10-02",
+      "rate": 280.21,
+      "dailyReturn": 0.02324
+    },
+    {
+      "date": "2015-10-03",
+      "rate": 285.46,
+      "dailyReturn": 0.01874
+    },
+    {
+      "date": "2015-10-04",
+      "rate": 279.61,
+      "dailyReturn": -0.02051
+    },
+    {
+      "date": "2015-10-05",
+      "rate": 282.08,
+      "dailyReturn": 0.00883
+    },
+    {
+      "date": "2015-10-06",
+      "rate": 282.46,
+      "dailyReturn": 0.00135
+    },
+    {
+      "date": "2015-10-07",
+      "rate": 288.55,
+      "dailyReturn": 0.02155
+    },
+    {
+      "date": "2015-10-08",
+      "rate": 288.38,
+      "dailyReturn": -0.00057
+    },
+    {
+      "date": "2015-10-09",
+      "rate": 285.78,
+      "dailyReturn": -0.00901
+    },
+    {
+      "date": "2015-10-10",
+      "rate": 279.36,
+      "dailyReturn": -0.02245
+    },
+    {
+      "date": "2015-10-11",
+      "rate": 291.2,
+      "dailyReturn": 0.04238
+    },
+    {
+      "date": "2015-10-12",
+      "rate": 289.12,
+      "dailyReturn": -0.00714
+    },
+    {
+      "date": "2015-10-13",
+      "rate": 294.9,
+      "dailyReturn": 0.02
+    },
+    {
+      "date": "2015-10-14",
+      "rate": 288.57,
+      "dailyReturn": -0.02147
+    },
+    {
+      "date": "2015-10-15",
+      "rate": 300.96,
+      "dailyReturn": 0.04293
+    },
+    {
+      "date": "2015-10-16",
+      "rate": 288.46,
+      "dailyReturn": -0.04152
+    },
+    {
+      "date": "2015-10-17",
+      "rate": 300.74,
+      "dailyReturn": 0.04256
+    },
+    {
+      "date": "2015-10-18",
+      "rate": 293.03,
+      "dailyReturn": -0.02564
+    },
+    {
+      "date": "2015-10-19",
+      "rate": 290.23,
+      "dailyReturn": -0.00956
+    },
+    {
+      "date": "2015-10-20",
+      "rate": 287.52,
+      "dailyReturn": -0.00933
+    },
+    {
+      "date": "2015-10-21",
+      "rate": 294.17,
+      "dailyReturn": 0.02314
+    },
+    {
+      "date": "2015-10-22",
+      "rate": 304.39,
+      "dailyReturn": 0.03475
+    },
+    {
+      "date": "2015-10-23",
+      "rate": 301.72,
+      "dailyReturn": -0.00878
+    },
+    {
+      "date": "2015-10-24",
+      "rate": 301.88,
+      "dailyReturn": 0.00052
+    },
+    {
+      "date": "2015-10-25",
+      "rate": 284.49,
+      "dailyReturn": -0.05762
+    },
+    {
+      "date": "2015-10-26",
+      "rate": 303.84,
+      "dailyReturn": 0.06802
+    },
+    {
+      "date": "2015-10-27",
+      "rate": 303.82,
+      "dailyReturn": -5e-05
+    },
+    {
+      "date": "2015-10-28",
+      "rate": 298.07,
+      "dailyReturn": -0.01892
+    },
+    {
+      "date": "2015-10-29",
+      "rate": 298.5,
+      "dailyReturn": 0.00143
+    },
+    {
+      "date": "2015-10-30",
+      "rate": 303.18,
+      "dailyReturn": 0.01568
+    },
+    {
+      "date": "2015-10-31",
+      "rate": 314.59,
+      "dailyReturn": 0.03763
+    },
+    {
+      "date": "2015-11-01",
+      "rate": 298.56,
+      "dailyReturn": -0.05094
+    },
+    {
+      "date": "2015-11-02",
+      "rate": 303.51,
+      "dailyReturn": 0.01659
+    },
+    {
+      "date": "2015-11-03",
+      "rate": 315.64,
+      "dailyReturn": 0.03995
+    },
+    {
+      "date": "2015-11-04",
+      "rate": 305.65,
+      "dailyReturn": -0.03166
+    },
+    {
+      "date": "2015-11-05",
+      "rate": 307.28,
+      "dailyReturn": 0.00533
+    },
+    {
+      "date": "2015-11-06",
+      "rate": 311.27,
+      "dailyReturn": 0.013
+    },
+    {
+      "date": "2015-11-07",
+      "rate": 304.06,
+      "dailyReturn": -0.02317
+    },
+    {
+      "date": "2015-11-08",
+      "rate": 314.31,
+      "dailyReturn": 0.03371
+    },
+    {
+      "date": "2015-11-09",
+      "rate": 306.47,
+      "dailyReturn": -0.02495
+    },
+    {
+      "date": "2015-11-10",
+      "rate": 320.78,
+      "dailyReturn": 0.04669
+    },
+    {
+      "date": "2015-11-11",
+      "rate": 316.35,
+      "dailyReturn": -0.0138
+    },
+    {
+      "date": "2015-11-12",
+      "rate": 331.96,
+      "dailyReturn": 0.04936
+    },
+    {
+      "date": "2015-11-13",
+      "rate": 320.39,
+      "dailyReturn": -0.03486
+    },
+    {
+      "date": "2015-11-14",
+      "rate": 328.47,
+      "dailyReturn": 0.02521
+    },
+    {
+      "date": "2015-11-15",
+      "rate": 312.5,
+      "dailyReturn": -0.04861
+    },
+    {
+      "date": "2015-11-16",
+      "rate": 321.21,
+      "dailyReturn": 0.02788
+    },
+    {
+      "date": "2015-11-17",
+      "rate": 325.22,
+      "dailyReturn": 0.01249
+    },
+    {
+      "date": "2015-11-18",
+      "rate": 335.59,
+      "dailyReturn": 0.03188
+    },
+    {
+      "date": "2015-11-19",
+      "rate": 314.46,
+      "dailyReturn": -0.06296
+    },
+    {
+      "date": "2015-11-20",
+      "rate": 333.0,
+      "dailyReturn": 0.05897
+    },
+    {
+      "date": "2015-11-21",
+      "rate": 331.54,
+      "dailyReturn": -0.00438
+    },
+    {
+      "date": "2015-11-22",
+      "rate": 338.88,
+      "dailyReturn": 0.02215
+    },
+    {
+      "date": "2015-11-23",
+      "rate": 334.63,
+      "dailyReturn": -0.01253
+    },
+    {
+      "date": "2015-11-24",
+      "rate": 331.41,
+      "dailyReturn": -0.00962
+    },
+    {
+      "date": "2015-11-25",
+      "rate": 328.73,
+      "dailyReturn": -0.00807
+    },
+    {
+      "date": "2015-11-26",
+      "rate": 325.01,
+      "dailyReturn": -0.01131
+    },
+    {
+      "date": "2015-11-27",
+      "rate": 335.77,
+      "dailyReturn": 0.03312
+    },
+    {
+      "date": "2015-11-28",
+      "rate": 334.31,
+      "dailyReturn": -0.00434
+    },
+    {
+      "date": "2015-11-29",
+      "rate": 350.34,
+      "dailyReturn": 0.04795
+    },
+    {
+      "date": "2015-11-30",
+      "rate": 333.74,
+      "dailyReturn": -0.04739
+    },
+    {
+      "date": "2015-12-01",
+      "rate": 341.17,
+      "dailyReturn": 0.02227
+    },
+    {
+      "date": "2015-12-02",
+      "rate": 328.39,
+      "dailyReturn": -0.03745
+    },
+    {
+      "date": "2015-12-03",
+      "rate": 336.38,
+      "dailyReturn": 0.02434
+    },
+    {
+      "date": "2015-12-04",
+      "rate": 340.87,
+      "dailyReturn": 0.01334
+    },
+    {
+      "date": "2015-12-05",
+      "rate": 344.72,
+      "dailyReturn": 0.01129
+    },
+    {
+      "date": "2015-12-06",
+      "rate": 348.98,
+      "dailyReturn": 0.01237
+    },
+    {
+      "date": "2015-12-07",
+      "rate": 338.89,
+      "dailyReturn": -0.0289
+    },
+    {
+      "date": "2015-12-08",
+      "rate": 331.65,
+      "dailyReturn": -0.02138
+    },
+    {
+      "date": "2015-12-09",
+      "rate": 342.36,
+      "dailyReturn": 0.03231
+    },
+    {
+      "date": "2015-12-10",
+      "rate": 342.8,
+      "dailyReturn": 0.00128
+    },
+    {
+      "date": "2015-12-11",
+      "rate": 342.66,
+      "dailyReturn": -0.00041
+    },
+    {
+      "date": "2015-12-12",
+      "rate": 334.6,
+      "dailyReturn": -0.02352
+    },
+    {
+      "date": "2015-12-13",
+      "rate": 347.08,
+      "dailyReturn": 0.0373
+    },
+    {
+      "date": "2015-12-14",
+      "rate": 340.02,
+      "dailyReturn": -0.02035
+    },
+    {
+      "date": "2015-12-15",
+      "rate": 344.2,
+      "dailyReturn": 0.0123
+    },
+    {
+      "date": "2015-12-16",
+      "rate": 348.13,
+      "dailyReturn": 0.01143
+    },
+    {
+      "date": "2015-12-17",
+      "rate": 343.65,
+      "dailyReturn": -0.01286
+    },
+    {
+      "date": "2015-12-18",
+      "rate": 341.49,
+      "dailyReturn": -0.00627
+    },
+    {
+      "date": "2015-12-19",
+      "rate": 354.2,
+      "dailyReturn": 0.03722
+    },
+    {
+      "date": "2015-12-20",
+      "rate": 341.27,
+      "dailyReturn": -0.03651
+    },
+    {
+      "date": "2015-12-21",
+      "rate": 337.63,
+      "dailyReturn": -0.01065
+    },
+    {
+      "date": "2015-12-22",
+      "rate": 340.44,
+      "dailyReturn": 0.00832
+    },
+    {
+      "date": "2015-12-23",
+      "rate": 349.78,
+      "dailyReturn": 0.02745
+    },
+    {
+      "date": "2015-12-24",
+      "rate": 340.55,
+      "dailyReturn": -0.02639
+    },
+    {
+      "date": "2015-12-25",
+      "rate": 343.3,
+      "dailyReturn": 0.00809
+    },
+    {
+      "date": "2015-12-26",
+      "rate": 347.93,
+      "dailyReturn": 0.01349
+    },
+    {
+      "date": "2015-12-27",
+      "rate": 336.35,
+      "dailyReturn": -0.03327
+    },
+    {
+      "date": "2015-12-28",
+      "rate": 328.13,
+      "dailyReturn": -0.02442
+    },
+    {
+      "date": "2015-12-29",
+      "rate": 341.94,
+      "dailyReturn": 0.04208
+    },
+    {
+      "date": "2015-12-30",
+      "rate": 341.5,
+      "dailyReturn": -0.00129
+    },
+    {
+      "date": "2015-12-31",
+      "rate": 335.83,
+      "dailyReturn": -0.01659
+    },
+    {
+      "date": "2016-01-01",
+      "rate": 342.96,
+      "dailyReturn": 0.02124
+    },
+    {
+      "date": "2016-01-16",
+      "rate": 342.07,
+      "dailyReturn": -0.00261
+    },
+    {
+      "date": "2016-01-31",
+      "rate": 336.62,
+      "dailyReturn": -0.01594
+    },
+    {
+      "date": "2016-02-15",
+      "rate": 341.76,
+      "dailyReturn": 0.01528
+    },
+    {
+      "date": "2016-03-01",
+      "rate": 339.33,
+      "dailyReturn": -0.0071
+    },
+    {
+      "date": "2016-03-17",
+      "rate": 334.96,
+      "dailyReturn": -0.01289
+    },
+    {
+      "date": "2016-04-01",
+      "rate": 341.54,
+      "dailyReturn": 0.01964
+    },
+    {
+      "date": "2016-04-16",
+      "rate": 339.85,
+      "dailyReturn": -0.00496
+    },
+    {
+      "date": "2016-05-01",
+      "rate": 337.47,
+      "dailyReturn": -0.00701
+    },
+    {
+      "date": "2016-05-16",
+      "rate": 341.78,
+      "dailyReturn": 0.01277
+    },
+    {
+      "date": "2016-06-01",
+      "rate": 340.83,
+      "dailyReturn": -0.00278
+    },
+    {
+      "date": "2016-06-22",
+      "rate": 338.32,
+      "dailyReturn": -0.00736
+    },
+    {
+      "date": "2016-07-13",
+      "rate": 339.28,
+      "dailyReturn": 0.00283
+    },
+    {
+      "date": "2016-08-04",
+      "rate": 339.61,
+      "dailyReturn": 0.00099
+    },
+    {
+      "date": "2016-08-25",
+      "rate": 336.0,
+      "dailyReturn": -0.01063
+    },
+    {
+      "date": "2016-09-16",
+      "rate": 337.14,
+      "dailyReturn": 0.0034
+    },
+    {
+      "date": "2016-10-07",
+      "rate": 335.8,
+      "dailyReturn": -0.00396
+    },
+    {
+      "date": "2016-10-28",
+      "rate": 338.9,
+      "dailyReturn": 0.00922
+    },
+    {
+      "date": "2016-11-19",
+      "rate": 331.29,
+      "dailyReturn": -0.02247
+    },
+    {
+      "date": "2016-12-10",
+      "rate": 334.86,
+      "dailyReturn": 0.01078
+    },
+    {
+      "date": "2017-01-01",
+      "rate": 332.69,
+      "dailyReturn": -0.00647
+    },
+    {
+      "date": "2017-03-15",
+      "rate": 332.7,
+      "dailyReturn": 3e-05
+    },
+    {
+      "date": "2017-05-27",
+      "rate": 334.5,
+      "dailyReturn": 0.0054
+    },
+    {
+      "date": "2017-08-08",
+      "rate": 332.39,
+      "dailyReturn": -0.0063
+    },
+    {
+      "date": "2017-10-20",
+      "rate": 334.43,
+      "dailyReturn": 0.00615
+    },
+    {
+      "date": "2018-01-01",
+      "rate": 331.56,
+      "dailyReturn": -0.00858
+    },
+    {
+      "date": "2018-01-31",
+      "rate": 334.55,
+      "dailyReturn": 0.00902
+    },
+    {
+      "date": "2018-03-02",
+      "rate": 335.9,
+      "dailyReturn": 0.00405
+    },
+    {
+      "date": "2018-04-01",
+      "rate": 337.9,
+      "dailyReturn": 0.00595
+    },
+    {
+      "date": "2018-05-01",
+      "rate": 340.86,
+      "dailyReturn": 0.00877
+    },
+    {
+      "date": "2018-06-01",
+      "rate": 342.71,
+      "dailyReturn": 0.00543
+    },
+    {
+      "date": "2018-07-13",
+      "rate": 349.81,
+      "dailyReturn": 0.02072
+    },
+    {
+      "date": "2018-08-25",
+      "rate": 353.95,
+      "dailyReturn": 0.01184
+    },
+    {
+      "date": "2018-10-07",
+      "rate": 364.98,
+      "dailyReturn": 0.03116
+    },
+    {
+      "date": "2018-11-19",
+      "rate": 369.21,
+      "dailyReturn": 0.0116
+    },
+    {
+      "date": "2019-01-01",
+      "rate": 377.97,
+      "dailyReturn": 0.02372
+    },
+    {
+      "date": "2019-03-15",
+      "rate": 375.66,
+      "dailyReturn": -0.00611
+    },
+    {
+      "date": "2019-05-27",
+      "rate": 377.93,
+      "dailyReturn": 0.00605
+    },
+    {
+      "date": "2019-08-08",
+      "rate": 381.99,
+      "dailyReturn": 0.01075
+    },
+    {
+      "date": "2019-10-20",
+      "rate": 378.21,
+      "dailyReturn": -0.00989
+    },
+    {
+      "date": "2020-01-01",
+      "rate": 377.16,
+      "dailyReturn": -0.00278
+    },
+    {
+      "date": "2020-01-10",
+      "rate": 384.65,
+      "dailyReturn": 0.01985
+    },
+    {
+      "date": "2020-01-19",
+      "rate": 392.32,
+      "dailyReturn": 0.01995
+    },
+    {
+      "date": "2020-01-28",
+      "rate": 398.48,
+      "dailyReturn": 0.01569
+    },
+    {
+      "date": "2020-02-06",
+      "rate": 405.4,
+      "dailyReturn": 0.01736
+    },
+    {
+      "date": "2020-02-15",
+      "rate": 407.98,
+      "dailyReturn": 0.00635
+    },
+    {
+      "date": "2020-02-24",
+      "rate": 410.88,
+      "dailyReturn": 0.00711
+    },
+    {
+      "date": "2020-03-04",
+      "rate": 418.99,
+      "dailyReturn": 0.01973
+    },
+    {
+      "date": "2020-03-13",
+      "rate": 428.24,
+      "dailyReturn": 0.02207
+    },
+    {
+      "date": "2020-03-22",
+      "rate": 432.3,
+      "dailyReturn": 0.00949
+    },
+    {
+      "date": "2020-04-01",
+      "rate": 419.9,
+      "dailyReturn": -0.02869
+    },
+    {
+      "date": "2020-04-13",
+      "rate": 435.89,
+      "dailyReturn": 0.03809
+    },
+    {
+      "date": "2020-04-25",
+      "rate": 447.58,
+      "dailyReturn": 0.02681
+    },
+    {
+      "date": "2020-05-07",
+      "rate": 453.08,
+      "dailyReturn": 0.0123
+    },
+    {
+      "date": "2020-05-19",
+      "rate": 438.67,
+      "dailyReturn": -0.0318
+    },
+    {
+      "date": "2020-06-01",
+      "rate": 435.68,
+      "dailyReturn": -0.00682
+    },
+    {
+      "date": "2020-06-13",
+      "rate": 421.48,
+      "dailyReturn": -0.03259
+    },
+    {
+      "date": "2020-06-25",
+      "rate": 424.12,
+      "dailyReturn": 0.00627
+    },
+    {
+      "date": "2020-07-07",
+      "rate": 431.0,
+      "dailyReturn": 0.01623
+    },
+    {
+      "date": "2020-07-19",
+      "rate": 434.13,
+      "dailyReturn": 0.00725
+    },
+    {
+      "date": "2020-08-01",
+      "rate": 433.98,
+      "dailyReturn": -0.00035
+    },
+    {
+      "date": "2020-08-13",
+      "rate": 424.1,
+      "dailyReturn": -0.02276
+    },
+    {
+      "date": "2020-08-25",
+      "rate": 417.55,
+      "dailyReturn": -0.01544
+    },
+    {
+      "date": "2020-09-06",
+      "rate": 419.96,
+      "dailyReturn": 0.00578
+    },
+    {
+      "date": "2020-09-18",
+      "rate": 415.95,
+      "dailyReturn": -0.00956
+    },
+    {
+      "date": "2020-10-01",
+      "rate": 430.47,
+      "dailyReturn": 0.03491
+    },
+    {
+      "date": "2020-10-13",
+      "rate": 404.58,
+      "dailyReturn": -0.06014
+    },
+    {
+      "date": "2020-10-25",
+      "rate": 420.58,
+      "dailyReturn": 0.03954
+    },
+    {
+      "date": "2020-11-06",
+      "rate": 426.4,
+      "dailyReturn": 0.01384
+    },
+    {
+      "date": "2020-11-18",
+      "rate": 434.64,
+      "dailyReturn": 0.01932
+    },
+    {
+      "date": "2020-12-01",
+      "rate": 421.15,
+      "dailyReturn": -0.03104
+    },
+    {
+      "date": "2020-12-04",
+      "rate": 423.11,
+      "dailyReturn": 0.00465
+    },
+    {
+      "date": "2020-12-07",
+      "rate": 420.16,
+      "dailyReturn": -0.00697
+    },
+    {
+      "date": "2020-12-10",
+      "rate": 419.43,
+      "dailyReturn": -0.00173
+    },
+    {
+      "date": "2020-12-13",
+      "rate": 419.58,
+      "dailyReturn": 0.00036
+    },
+    {
+      "date": "2020-12-16",
+      "rate": 424.22,
+      "dailyReturn": 0.01105
+    },
+    {
+      "date": "2020-12-19",
+      "rate": 423.09,
+      "dailyReturn": -0.00266
+    },
+    {
+      "date": "2020-12-22",
+      "rate": 422.03,
+      "dailyReturn": -0.00251
+    },
+    {
+      "date": "2020-12-25",
+      "rate": 428.01,
+      "dailyReturn": 0.01417
+    },
+    {
+      "date": "2020-12-28",
+      "rate": 420.93,
+      "dailyReturn": -0.01654
+    },
+    {
+      "date": "2021-01-01",
+      "rate": 421.78,
+      "dailyReturn": 0.00203
+    },
+    {
+      "date": "2021-03-08",
+      "rate": 423.59,
+      "dailyReturn": 0.00429
+    },
+    {
+      "date": "2021-05-14",
+      "rate": 425.12,
+      "dailyReturn": 0.0036
+    },
+    {
+      "date": "2021-07-20",
+      "rate": 430.57,
+      "dailyReturn": 0.01282
+    },
+    {
+      "date": "2021-09-25",
+      "rate": 431.74,
+      "dailyReturn": 0.00272
+    },
+    {
+      "date": "2021-12-01",
+      "rate": 430.19,
+      "dailyReturn": -0.0036
+    },
+    {
+      "date": "2021-12-17",
+      "rate": 431.08,
+      "dailyReturn": 0.00207
+    },
+    {
+      "date": "2022-01-03",
+      "rate": 431.75,
+      "dailyReturn": 0.00156
+    },
+    {
+      "date": "2022-01-20",
+      "rate": 431.81,
+      "dailyReturn": 0.00014
+    },
+    {
+      "date": "2022-02-06",
+      "rate": 428.66,
+      "dailyReturn": -0.0073
+    },
+    {
+      "date": "2022-02-23",
+      "rate": 400.9,
+      "dailyReturn": -0.06475
+    },
+    {
+      "date": "2022-02-24",
+      "rate": 410.36,
+      "dailyReturn": 0.02359
+    },
+    {
+      "date": "2022-02-25",
+      "rate": 439.56,
+      "dailyReturn": 0.07116
+    },
+    {
+      "date": "2022-02-26",
+      "rate": 444.37,
+      "dailyReturn": 0.01094
+    },
+    {
+      "date": "2022-02-27",
+      "rate": 455.67,
+      "dailyReturn": 0.02543
+    },
+    {
+      "date": "2022-02-28",
+      "rate": 445.72,
+      "dailyReturn": -0.02185
+    },
+    {
+      "date": "2022-03-01",
+      "rate": 444.55,
+      "dailyReturn": -0.00262
+    },
+    {
+      "date": "2022-03-02",
+      "rate": 438.42,
+      "dailyReturn": -0.01378
+    },
+    {
+      "date": "2022-03-03",
+      "rate": 476.66,
+      "dailyReturn": 0.08723
+    },
+    {
+      "date": "2022-03-04",
+      "rate": 482.55,
+      "dailyReturn": 0.01235
+    },
+    {
+      "date": "2022-03-05",
+      "rate": 496.87,
+      "dailyReturn": 0.02968
+    },
+    {
+      "date": "2022-03-06",
+      "rate": 499.32,
+      "dailyReturn": 0.00493
+    },
+    {
+      "date": "2022-03-07",
+      "rate": 490.18,
+      "dailyReturn": -0.01831
+    },
+    {
+      "date": "2022-03-08",
+      "rate": 518.42,
+      "dailyReturn": 0.05761
+    },
+    {
+      "date": "2022-03-09",
+      "rate": 501.44,
+      "dailyReturn": -0.03275
+    },
+    {
+      "date": "2022-03-10",
+      "rate": 498.66,
+      "dailyReturn": -0.00554
+    },
+    {
+      "date": "2022-03-11",
+      "rate": 508.65,
+      "dailyReturn": 0.02003
+    },
+    {
+      "date": "2022-03-15",
+      "rate": 505.47,
+      "dailyReturn": -0.00626
+    },
+    {
+      "date": "2022-03-19",
+      "rate": 486.86,
+      "dailyReturn": -0.03682
+    },
+    {
+      "date": "2022-03-23",
+      "rate": 507.93,
+      "dailyReturn": 0.04328
+    },
+    {
+      "date": "2022-03-27",
+      "rate": 506.32,
+      "dailyReturn": -0.00317
+    },
+    {
+      "date": "2022-03-31",
+      "rate": 497.62,
+      "dailyReturn": -0.01719
+    },
+    {
+      "date": "2022-04-04",
+      "rate": 491.58,
+      "dailyReturn": -0.01214
+    },
+    {
+      "date": "2022-04-08",
+      "rate": 499.84,
+      "dailyReturn": 0.0168
+    },
+    {
+      "date": "2022-04-12",
+      "rate": 510.55,
+      "dailyReturn": 0.02142
+    },
+    {
+      "date": "2022-04-16",
+      "rate": 491.43,
+      "dailyReturn": -0.03746
+    },
+    {
+      "date": "2022-04-21",
+      "rate": 483.54,
+      "dailyReturn": -0.01605
+    },
+    {
+      "date": "2022-04-25",
+      "rate": 480.2,
+      "dailyReturn": -0.0069
+    },
+    {
+      "date": "2022-04-29",
+      "rate": 482.73,
+      "dailyReturn": 0.00526
+    },
+    {
+      "date": "2022-05-03",
+      "rate": 468.69,
+      "dailyReturn": -0.02909
+    },
+    {
+      "date": "2022-05-07",
+      "rate": 477.1,
+      "dailyReturn": 0.01795
+    },
+    {
+      "date": "2022-05-11",
+      "rate": 476.33,
+      "dailyReturn": -0.00161
+    },
+    {
+      "date": "2022-05-15",
+      "rate": 490.66,
+      "dailyReturn": 0.03008
+    },
+    {
+      "date": "2022-05-19",
+      "rate": 479.53,
+      "dailyReturn": -0.02268
+    },
+    {
+      "date": "2022-05-23",
+      "rate": 477.78,
+      "dailyReturn": -0.00365
+    },
+    {
+      "date": "2022-05-27",
+      "rate": 458.91,
+      "dailyReturn": -0.03949
+    },
+    {
+      "date": "2022-06-01",
+      "rate": 464.55,
+      "dailyReturn": 0.01229
+    },
+    {
+      "date": "2022-06-19",
+      "rate": 460.26,
+      "dailyReturn": -0.00923
+    },
+    {
+      "date": "2022-07-07",
+      "rate": 463.52,
+      "dailyReturn": 0.00709
+    },
+    {
+      "date": "2022-07-25",
+      "rate": 463.67,
+      "dailyReturn": 0.00032
+    },
+    {
+      "date": "2022-08-13",
+      "rate": 460.83,
+      "dailyReturn": -0.00613
+    },
+    {
+      "date": "2022-08-31",
+      "rate": 467.12,
+      "dailyReturn": 0.01366
+    },
+    {
+      "date": "2022-09-18",
+      "rate": 463.71,
+      "dailyReturn": -0.0073
+    },
+    {
+      "date": "2022-10-07",
+      "rate": 457.9,
+      "dailyReturn": -0.01253
+    },
+    {
+      "date": "2022-10-25",
+      "rate": 463.48,
+      "dailyReturn": 0.01218
+    },
+    {
+      "date": "2022-11-12",
+      "rate": 461.16,
+      "dailyReturn": -0.00501
+    },
+    {
+      "date": "2022-12-01",
+      "rate": 462.0,
+      "dailyReturn": 0.00183
+    },
+    {
+      "date": "2022-12-07",
+      "rate": 462.65,
+      "dailyReturn": 0.0014
+    },
+    {
+      "date": "2022-12-13",
+      "rate": 462.54,
+      "dailyReturn": -0.00023
+    },
+    {
+      "date": "2022-12-19",
+      "rate": 459.17,
+      "dailyReturn": -0.00728
+    },
+    {
+      "date": "2022-12-25",
+      "rate": 460.39,
+      "dailyReturn": 0.00267
+    },
+    {
+      "date": "2023-01-01",
+      "rate": 463.07,
+      "dailyReturn": 0.00582
+    },
+    {
+      "date": "2023-03-15",
+      "rate": 463.4,
+      "dailyReturn": 0.00072
+    },
+    {
+      "date": "2023-05-27",
+      "rate": 463.83,
+      "dailyReturn": 0.00093
+    },
+    {
+      "date": "2023-08-08",
+      "rate": 463.29,
+      "dailyReturn": -0.00116
+    },
+    {
+      "date": "2023-10-20",
+      "rate": 457.56,
+      "dailyReturn": -0.01237
+    },
+    {
+      "date": "2024-01-01",
+      "rate": 461.06,
+      "dailyReturn": 0.00765
+    },
+    {
+      "date": "2024-01-31",
+      "rate": 459.34,
+      "dailyReturn": -0.00372
+    },
+    {
+      "date": "2024-03-01",
+      "rate": 466.25,
+      "dailyReturn": 0.01503
+    },
+    {
+      "date": "2024-04-01",
+      "rate": 466.35,
+      "dailyReturn": 0.00022
+    },
+    {
+      "date": "2024-05-01",
+      "rate": 466.4,
+      "dailyReturn": 0.0001
+    },
+    {
+      "date": "2024-06-01",
+      "rate": 472.83,
+      "dailyReturn": 0.01379
+    },
+    {
+      "date": "2024-07-13",
+      "rate": 474.51,
+      "dailyReturn": 0.00356
+    },
+    {
+      "date": "2024-08-25",
+      "rate": 474.49,
+      "dailyReturn": -4e-05
+    },
+    {
+      "date": "2024-10-07",
+      "rate": 481.22,
+      "dailyReturn": 0.01419
+    },
+    {
+      "date": "2024-11-19",
+      "rate": 483.34,
+      "dailyReturn": 0.0044
+    },
+    {
+      "date": "2025-01-01",
+      "rate": 488.16,
+      "dailyReturn": 0.00998
+    },
+    {
+      "date": "2025-01-31",
+      "rate": 491.71,
+      "dailyReturn": 0.00728
+    },
+    {
+      "date": "2025-03-02",
+      "rate": 498.85,
+      "dailyReturn": 0.01451
+    },
+    {
+      "date": "2025-04-01",
+      "rate": 499.06,
+      "dailyReturn": 0.00042
+    },
+    {
+      "date": "2025-05-01",
+      "rate": 506.08,
+      "dailyReturn": 0.01407
+    },
+    {
+      "date": "2025-06-01",
+      "rate": 512.78,
+      "dailyReturn": 0.01323
+    },
+    {
+      "date": "2025-07-13",
+      "rate": 508.73,
+      "dailyReturn": -0.00789
+    },
+    {
+      "date": "2025-08-25",
+      "rate": 510.32,
+      "dailyReturn": 0.00313
+    },
+    {
+      "date": "2025-10-07",
+      "rate": 510.31,
+      "dailyReturn": -2e-05
+    },
+    {
+      "date": "2025-11-19",
+      "rate": 508.94,
+      "dailyReturn": -0.00268
+    },
+    {
+      "date": "2026-01-01",
+      "rate": 510.99,
+      "dailyReturn": 0.00403
+    },
+    {
+      "date": "2026-01-24",
+      "rate": 508.55,
+      "dailyReturn": -0.00478
+    },
+    {
+      "date": "2026-02-16",
+      "rate": 505.37,
+      "dailyReturn": -0.00626
+    },
+    {
+      "date": "2026-03-12",
+      "rate": 507.87,
+      "dailyReturn": 0.00495
+    },
+    {
+      "date": "2026-04-04",
+      "rate": 504.8,
+      "dailyReturn": -0.00605
+    },
+    {
+      "date": "2026-04-28",
+      "rate": 502.0,
+      "dailyReturn": -0.00555
+    }
+  ],
+  "shockEvents": [
+    {
+      "id": "2014-02-11",
+      "date": "2014-02-11",
+      "label_ru": "11 февраля 2014 — первая девальвация",
+      "label_en": "11 Feb 2014 — first devaluation",
+      "rate_before": 155.0,
+      "rate_after": 185.0
+    },
+    {
+      "id": "2015-08-20",
+      "date": "2015-08-20",
+      "label_ru": "20 августа 2015 — переход к свободному плаванию",
+      "label_en": "20 Aug 2015 — free float",
+      "rate_before": 188.0,
+      "rate_after": 252.0
+    },
+    {
+      "id": "2022-03-11",
+      "date": "2022-03-11",
+      "label_ru": "февраль–март 2022 — внешний шок",
+      "label_en": "Feb–Mar 2022 — external shock",
+      "rate_before": 430.0,
+      "rate_after": 514.0
+    }
+  ],
+  "calmPeriod": {
+    "label": "2018-2019",
+    "sigma": 0.01376
+  },
+  "totalPoints": 348,
+  "note": "Анкерные точки KZT/USD за 2010-2026 + интерполяция с переменной волатильностью. Не реальный исторический ряд НБ РК — приближение, достаточное для нарратива и расчётов historical VaR/CVaR в /lab/frm-var v1.5. Реальный ряд можно подменить позже без изменения структуры файла."
+}
