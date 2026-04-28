@@ -1,0 +1,123 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/700.css';
+import '../../styles/global.css';
+---
+
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>FRM · Value at Risk · darmen.best</title>
+    <meta name="description" content="Интерактив по VaR и CVaR через Монте-Карло. /lab-дверь с darmen.best." />
+    <meta name="robots" content="noindex" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer is:inline></script>
+  </head>
+  <body class="bg-white font-sans">
+    <main class="max-w-[800px] mx-auto px-6 py-16 text-[#1F2937]">
+
+      <a href="/" class="text-sm text-gray-500 hover:underline">← darmen.best</a>
+
+      <h1 class="text-4xl font-bold mt-8 mb-2">FRM · Value at Risk</h1>
+      <p class="text-sm text-gray-500 mb-12">Интерактив через Монте-Карло</p>
+
+      <p class="text-base leading-relaxed mb-6">
+        VaR(α) — порог убытка, который не превысят с вероятностью α.
+        CVaR — средний убыток в случаях, когда порог пробит.
+        VaR отвечает на вопрос «как плохо может быть в нормальный плохой день»;
+        CVaR — «как плохо в очень плохой».
+      </p>
+
+      <p class="text-base leading-relaxed mb-12">
+        Различие важное: VaR молчит про форму хвоста, CVaR говорит про среднее за хвостом.
+        Третий слой — распределение, на котором мы считаем. Нормальное недооценивает хвост:
+        у реальных рынков скачки случаются чаще, чем разрешает гауссиана.
+        Внизу — Монте-Карло, в котором это видно руками.
+      </p>
+
+      <section class="border border-gray-200 rounded-lg p-6 mb-12 bg-white">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
+          <div>
+            <label for="sigma-slider" class="text-sm text-gray-600 block mb-2">
+              Дневная волатильность σ:
+              <span id="sigma-value" class="font-mono text-[#1F2937]">1.50%</span>
+            </label>
+            <input id="sigma-slider" type="range" min="50" max="500" value="150" class="w-full" />
+            <p class="text-xs text-gray-400 mt-1">0.50% — 5.00%</p>
+          </div>
+
+          <div>
+            <label class="text-sm text-gray-600 block mb-2">Горизонт T (дней)</label>
+            <div class="flex gap-2 text-sm" id="t-group">
+              <button data-t="1"  class="t-btn px-3 py-1 border rounded">1</button>
+              <button data-t="5"  class="t-btn px-3 py-1 border rounded">5</button>
+              <button data-t="10" class="t-btn px-3 py-1 border rounded bg-[#1F2937] text-white">10</button>
+              <button data-t="20" class="t-btn px-3 py-1 border rounded">20</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm text-gray-600 block mb-2">Уровень доверия α</label>
+            <div class="flex gap-2 text-sm" id="alpha-group">
+              <button data-alpha="0.95"  class="alpha-btn px-3 py-1 border rounded">95%</button>
+              <button data-alpha="0.99"  class="alpha-btn px-3 py-1 border rounded bg-[#1F2937] text-white">99%</button>
+              <button data-alpha="0.995" class="alpha-btn px-3 py-1 border rounded">99.5%</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm text-gray-600 block mb-2">Распределение innovations</label>
+            <div class="flex gap-2 text-sm" id="dist-group">
+              <button data-dist="normal" class="dist-btn px-3 py-1 border rounded bg-[#1F2937] text-white">Normal</button>
+              <button data-dist="t"      class="dist-btn px-3 py-1 border rounded">Student-t (df=4)</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <p class="text-xs text-gray-500 mb-2">100 траекторий цены (из 10&thinsp;000 симулированных)</p>
+            <canvas id="paths-chart"></canvas>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 mb-2">Распределение P&amp;L на горизонте T</p>
+            <canvas id="hist-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-200">
+          <div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">VaR</p>
+            <p id="var-value" class="text-2xl font-mono">—</p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">CVaR</p>
+            <p id="cvar-value" class="text-2xl font-mono">—</p>
+          </div>
+        </div>
+        <p id="commentary" class="text-sm text-gray-500 mt-4">При позиции $10M.</p>
+
+      </section>
+
+      <h2 class="text-xl font-bold mt-12 mb-4">Зачем это в карточке FRM</h2>
+      <p class="text-base leading-relaxed mb-12">
+        В регулируемых средах риск-сценарий не может ограничиваться средним.
+        Эту же логику закладываем в AI-сценарии Qazyna AI — что будет в 99-м перцентиле,
+        не «в среднем». Архитектурно это значит, что распределение и метрика — отдельный слой,
+        не настройка. Меняешь предположение о хвосте — VaR пересчитывается;
+        решение об уровне капитала меняется на ту же величину.
+      </p>
+
+      <a href="/" class="text-sm text-gray-500 hover:underline">← darmen.best</a>
+
+    </main>
+
+    <script src="/scripts/frm-var.js" defer is:inline></script>
+  </body>
+</html>
