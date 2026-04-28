@@ -16,54 +16,117 @@ import '../../styles/global.css';
     <meta name="robots" content="noindex" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer is:inline></script>
   </head>
-  <body class="bg-white font-sans">
-    <main class="max-w-[800px] mx-auto px-6 py-16 text-[#1F2937]">
+  <body class="font-sans bg-white text-[#1F2937]">
+    <main class="max-w-[900px] mx-auto px-6 py-16">
 
       <a href="/" class="text-sm text-gray-500 hover:underline">← darmen.best</a>
 
       <h1 class="text-4xl font-bold mt-8 mb-2">FRM · Value at Risk</h1>
-      <p class="text-sm text-gray-500 mb-12">Интерактив через Монте-Карло</p>
+      <p class="text-sm text-gray-500 mb-12">Курсовой риск тенгового портфеля — KZT/USD 2010–2026</p>
 
-      <p class="text-base leading-relaxed mb-6">
-        VaR(α) — порог убытка, который не превысят с вероятностью α.
-        CVaR — средний убыток в случаях, когда порог пробит.
-        VaR отвечает на вопрос «как плохо может быть в нормальный плохой день»;
-        CVaR — «как плохо в очень плохой».
-      </p>
+      <!-- ============================================================ -->
+      <!-- СЕКЦИЯ 1 — СТАТУС-КВО                                         -->
+      <!-- ============================================================ -->
+      <section class="mb-20" id="status-quo">
 
-      <p class="text-base leading-relaxed mb-12">
-        Различие важное: VaR молчит про форму хвоста, CVaR говорит про среднее за хвостом.
-        Третий слой — распределение, на котором мы считаем. Нормальное недооценивает хвост:
-        у реальных рынков скачки случаются чаще, чем разрешает гауссиана.
-        Внизу — Монте-Карло, в котором это видно руками.
-      </p>
+        <h2 class="text-2xl font-bold mb-6">Капитал и спокойная картина</h2>
 
-      <section class="border border-gray-200 rounded-lg p-6 mb-12 bg-white">
+        <div class="border border-gray-200 rounded-lg p-6 mb-8 bg-white">
+          <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Размер позиции</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="flex flex-wrap gap-2 text-sm mb-4">
+            <button data-cap="1000000000" class="cap-btn px-3 py-1 border rounded bg-[#1F2937] text-white">1 млрд ₸</button>
+            <button data-cap="usd-10m" class="cap-btn px-3 py-1 border rounded">$10M</button>
+            <button data-cap="300000000000" class="cap-btn px-3 py-1 border rounded">~Trading book БВУ (≈300 млрд ₸)</button>
+            <button data-cap="custom" class="cap-btn px-3 py-1 border rounded">Свой размер</button>
+          </div>
+
+          <input id="cap-custom" type="number" placeholder="Свой размер в тенге" class="hidden w-full max-w-xs px-3 py-2 border rounded text-sm font-mono mb-4" />
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">В тенге</p>
+              <p id="cap-kzt" class="text-2xl font-mono">1 000 000 000 ₸</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">В долларах <span id="usd-rate-label" class="text-gray-400">(по 502 ₸/$)</span></p>
+              <p id="cap-usd" class="text-2xl font-mono">$1 992 032</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <p class="text-xs text-gray-500 mb-2">Распределение дневных доходностей KZT/USD — спокойный период (2018–2019)</p>
+          <canvas id="status-chart"></canvas>
+        </div>
+
+        <p id="status-summary" class="text-sm text-gray-600 mt-4">
+          Дневная волатильность 2018–2019: ~1.4%. VaR(99%, 1 день) на нормальном распределении: <span class="font-mono">—</span> ₸. CVaR(99%): <span class="font-mono">—</span> ₸.
+        </p>
+
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- СЕКЦИЯ 2 — ИСТОРИЧЕСКИЕ ШОКИ                                  -->
+      <!-- ============================================================ -->
+      <section class="mb-20" id="historical-shocks">
+
+        <h2 class="text-2xl font-bold mb-2">Исторические шоки</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          Курс KZT/USD прошёл через три структурных слома. Кликни на пресет — увидишь, во что превратится твой капитал в долларах в каждом случае.
+        </p>
+
+        <div class="flex flex-wrap gap-2 text-sm mb-6" id="shock-buttons">
+          <button data-shock="calm" class="shock-btn px-3 py-1 border rounded bg-[#1F2937] text-white">Спокойный 2018–2019</button>
+          <button data-shock="2014-02-11" class="shock-btn px-3 py-1 border rounded">11 фев 2014</button>
+          <button data-shock="2015-08-20" class="shock-btn px-3 py-1 border rounded">20 авг 2015</button>
+          <button data-shock="2022-03-11" class="shock-btn px-3 py-1 border rounded">фев–март 2022</button>
+        </div>
+
+        <div class="mb-2">
+          <p class="text-xs text-gray-500 mb-2">Распределение доходностей вокруг события (60 дней до и после)</p>
+          <canvas id="shock-chart"></canvas>
+        </div>
+
+        <div id="shock-context" class="text-sm text-gray-700 mt-4 leading-relaxed border-l-2 border-gray-200 pl-4">
+          Выберите пресет.
+        </div>
+
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- СЕКЦИЯ 3 — ЛАБОРАТОРИЯ                                        -->
+      <!-- ============================================================ -->
+      <section class="mb-20" id="lab">
+
+        <h2 class="text-2xl font-bold mb-2">Лаборатория</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          Накладываем параметрическую плотность <em>(Normal или Student-t)</em> на реальную гистограмму всех дневных доходностей KZT/USD 2010–2026. Видно, насколько модель «обнимает» реальный хвост или промахивается.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 border border-gray-200 rounded-lg p-6 bg-white">
 
           <div>
             <label for="sigma-slider" class="text-sm text-gray-600 block mb-2">
-              Дневная волатильность σ:
-              <span id="sigma-value" class="font-mono text-[#1F2937]">1.50%</span>
+              Дневная σ модели: <span id="sigma-value" class="font-mono text-[#1F2937]">1.40%</span>
             </label>
-            <input id="sigma-slider" type="range" min="50" max="500" value="150" class="w-full" />
+            <input id="sigma-slider" type="range" min="50" max="500" value="140" class="w-full" />
             <p class="text-xs text-gray-400 mt-1">0.50% — 5.00%</p>
           </div>
 
           <div>
             <label class="text-sm text-gray-600 block mb-2">Горизонт T (дней)</label>
-            <div class="flex gap-2 text-sm" id="t-group">
-              <button data-t="1"  class="t-btn px-3 py-1 border rounded">1</button>
+            <div class="flex gap-2 text-sm">
+              <button data-t="1"  class="t-btn px-3 py-1 border rounded bg-[#1F2937] text-white">1</button>
               <button data-t="5"  class="t-btn px-3 py-1 border rounded">5</button>
-              <button data-t="10" class="t-btn px-3 py-1 border rounded bg-[#1F2937] text-white">10</button>
+              <button data-t="10" class="t-btn px-3 py-1 border rounded">10</button>
               <button data-t="20" class="t-btn px-3 py-1 border rounded">20</button>
             </div>
           </div>
 
           <div>
             <label class="text-sm text-gray-600 block mb-2">Уровень доверия α</label>
-            <div class="flex gap-2 text-sm" id="alpha-group">
+            <div class="flex gap-2 text-sm">
               <button data-alpha="0.95"  class="alpha-btn px-3 py-1 border rounded">95%</button>
               <button data-alpha="0.99"  class="alpha-btn px-3 py-1 border rounded bg-[#1F2937] text-white">99%</button>
               <button data-alpha="0.995" class="alpha-btn px-3 py-1 border rounded">99.5%</button>
@@ -71,50 +134,84 @@ import '../../styles/global.css';
           </div>
 
           <div>
-            <label class="text-sm text-gray-600 block mb-2">Распределение innovations</label>
-            <div class="flex gap-2 text-sm" id="dist-group">
+            <label class="text-sm text-gray-600 block mb-2">Распределение модели</label>
+            <div class="flex gap-2 text-sm">
               <button data-dist="normal" class="dist-btn px-3 py-1 border rounded bg-[#1F2937] text-white">Normal</button>
               <button data-dist="t"      class="dist-btn px-3 py-1 border rounded">Student-t (df=4)</button>
             </div>
           </div>
-
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="mb-6">
+          <p class="text-xs text-gray-500 mb-2">Реальная гистограмма доходностей KZT/USD vs параметрическая плотность модели</p>
+          <canvas id="lab-chart"></canvas>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-200">
           <div>
-            <p class="text-xs text-gray-500 mb-2">100 траекторий цены (из 10&thinsp;000 симулированных)</p>
-            <canvas id="paths-chart"></canvas>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Historical (на реальном ряду)</p>
+            <p class="text-sm">VaR: <span id="hist-var" class="font-mono text-lg">—</span></p>
+            <p class="text-sm">CVaR: <span id="hist-cvar" class="font-mono text-lg">—</span></p>
           </div>
           <div>
-            <p class="text-xs text-gray-500 mb-2">Распределение P&amp;L на горизонте T</p>
-            <canvas id="hist-chart"></canvas>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Parametric (по σ модели)</p>
+            <p class="text-sm">VaR: <span id="param-var" class="font-mono text-lg">—</span></p>
+            <p class="text-sm">CVaR: <span id="param-cvar" class="font-mono text-lg">—</span></p>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-200">
-          <div>
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">VaR</p>
-            <p id="var-value" class="text-2xl font-mono">—</p>
-          </div>
-          <div>
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">CVaR</p>
-            <p id="cvar-value" class="text-2xl font-mono">—</p>
-          </div>
+        <p id="lab-commentary" class="text-sm text-gray-500 mt-4"></p>
+
+        <div class="mt-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Свой шок</p>
+          <label class="text-sm text-gray-600 block mb-2">
+            Что если KZT/USD сдвинется за день на: <span id="custom-shock-value" class="font-mono text-[#1F2937]">+10%</span>
+          </label>
+          <input id="custom-shock" type="range" min="-50" max="50" value="10" class="w-full" />
+          <p id="custom-shock-summary" class="text-sm text-gray-700 mt-3"></p>
         </div>
-        <p id="commentary" class="text-sm text-gray-500 mt-4">При позиции $10M.</p>
 
       </section>
 
-      <h2 class="text-xl font-bold mt-12 mb-4">Зачем это в карточке FRM</h2>
-      <p class="text-base leading-relaxed mb-12">
-        В регулируемых средах риск-сценарий не может ограничиваться средним.
-        Эту же логику закладываем в AI-сценарии Qazyna AI — что будет в 99-м перцентиле,
-        не «в среднем». Архитектурно это значит, что распределение и метрика — отдельный слой,
-        не настройка. Меняешь предположение о хвосте — VaR пересчитывается;
-        решение об уровне капитала меняется на ту же величину.
-      </p>
+      <!-- ============================================================ -->
+      <!-- СЕКЦИЯ 4 — МОНТЕ-КАРЛО                                        -->
+      <!-- ============================================================ -->
+      <section class="mb-20" id="monte-carlo">
 
-      <a href="/" class="text-sm text-gray-500 hover:underline">← darmen.best</a>
+        <h2 class="text-2xl font-bold mb-2">Монте-Карло</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          10 000 будущих траекторий портфеля при выбранных параметрах модели. Те, что пробили VaR-границу — окрашены красным. Средний убыток в этих красных — это и есть CVaR. Это число, на котором банк должен держать буферный капитал.
+        </p>
+
+        <button id="mc-run" class="px-6 py-2 border border-[#1F2937] rounded text-sm font-medium hover:bg-[#1F2937] hover:text-white transition-colors mb-6">
+          Запустить 10 000 симуляций
+        </button>
+
+        <div class="mb-2">
+          <canvas id="mc-chart"></canvas>
+        </div>
+
+        <p id="mc-summary" class="text-sm text-gray-500 mt-4">
+          Нажмите кнопку, чтобы запустить.
+        </p>
+
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- ЗАКРЫТИЕ — мост в продукт + версионирование                   -->
+      <!-- ============================================================ -->
+      <section class="mb-20">
+        <h2 class="text-xl font-bold mt-12 mb-4">Зачем это в карточке FRM</h2>
+        <p class="text-base leading-relaxed mb-6">
+          В регулируемых средах риск-сценарий не может ограничиваться средним. Эту же логику закладываем в AI-сценарии Qazyna AI — что будет в 99-м перцентиле, не «в среднем». Архитектурно это значит, что распределение и метрика — отдельный слой, не настройка. Меняешь предположение о хвосте — VaR пересчитывается; решение об уровне капитала меняется на ту же величину.
+        </p>
+
+        <p class="text-xs text-gray-400 mt-12">
+          Версия 1.5 — апр 2026. <a href="https://github.com/djoltai/darmen-best/commit/adfc91e" class="hover:underline">Версия 1 (28 апр)</a> · код на <a href="https://github.com/djoltai/darmen-best" class="hover:underline">GitHub</a>.
+        </p>
+
+        <a href="/" class="text-sm text-gray-500 hover:underline mt-8 block">← darmen.best</a>
+      </section>
 
     </main>
 
