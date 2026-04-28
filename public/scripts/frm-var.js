@@ -181,7 +181,8 @@
     if (shockId === 'calm') {
       returns = calmReturns();
       label = '2018–2019 (спокойный период)';
-      beforeRate = 350; afterRate = 350;
+      // Калм = нет шока. USD-карточка показывает сегодняшний курс, не исторический калм-курс ~350.
+      beforeRate = RATE_TODAY; afterRate = RATE_TODAY;
       eventLabel = 'Спокойный период. Курс держится в коридоре. Дневная волатильность ~1.4%.';
     } else {
       const ev = data.shockEvents.find(e => e.id === shockId);
