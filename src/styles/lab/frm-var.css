@@ -1,0 +1,481 @@
+/* FRM-VaR v2 — editorial scrollytelling.
+   Kursk-pattern: minimal layout, generous whitespace, palette by act. */
+
+/* ============================================================
+   1. Page baseline + typography
+   ============================================================ */
+
+.frm-var-page {
+  --mode-bg: #07434b;
+  --mode-text: #ffffff;
+  --mode-text-muted: rgba(255, 255, 255, 0.55);
+  --mode-line: rgba(255, 255, 255, 0.85);
+  --mode-line-muted: rgba(255, 255, 255, 0.18);
+  --mode-coral: #d97062;
+
+  background: var(--mode-bg);
+  color: var(--mode-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  transition:
+    background-color 1500ms cubic-bezier(0.65, 0, 0.35, 1),
+    color 1500ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.frm-var-page.mode-cream {
+  --mode-bg: #faf3dd;
+  --mode-text: #323232;
+  --mode-text-muted: rgba(50, 50, 50, 0.55);
+  --mode-line: rgba(50, 50, 50, 0.85);
+  --mode-line-muted: rgba(50, 50, 50, 0.18);
+}
+
+.frm-var-page.mode-dark {
+  --mode-bg: #1a1a1a;
+  --mode-text: #faf3dd;
+  --mode-text-muted: rgba(250, 243, 221, 0.55);
+  --mode-line: rgba(250, 243, 221, 0.85);
+  --mode-line-muted: rgba(250, 243, 221, 0.18);
+}
+
+.frm-var-page.mode-cut {
+  transition: none;
+}
+
+.frm-var-page h1 {
+  font-size: clamp(64px, 8vw, 110px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.frm-var-page h2 {
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0 0 16px;
+}
+
+.frm-var-page p {
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 540px;
+  margin: 0 auto;
+  color: var(--mode-text);
+}
+
+.frm-var-page .caption {
+  font-size: 13px;
+  color: var(--mode-text-muted);
+}
+
+.frm-var-page .number-callout {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.frm-var-page a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--mode-line-muted);
+  transition: border-color 200ms;
+}
+
+.frm-var-page a:hover {
+  border-bottom-color: var(--mode-line);
+}
+
+/* ============================================================
+   2. Screen container
+   ============================================================ */
+
+.frm-var-page .screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 24px;
+  position: relative;
+  text-align: center;
+}
+
+.frm-var-page .screen > * + * {
+  margin-top: 32px;
+}
+
+.frm-var-page .screen__viz {
+  width: 100%;
+  max-width: 700px;
+}
+
+.frm-var-page .screen__viz--stacked {
+  position: relative;
+  aspect-ratio: 7 / 3;
+}
+
+.frm-var-page .screen__viz--stacked > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 800ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.frm-var-page .screen__viz--stacked > svg.is-active {
+  opacity: 1;
+}
+
+.frm-var-page .hero-date {
+  font-size: clamp(64px, 9vw, 110px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+}
+
+.frm-var-page .number-hero {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+}
+
+.frm-var-page .screen.is-active .number-hero {
+  opacity: 1;
+}
+
+.frm-var-page svg .axis,
+.frm-var-page svg .grid {
+  stroke: var(--mode-line-muted);
+  stroke-width: 1;
+  fill: none;
+}
+
+.frm-var-page svg .price-line {
+  stroke: var(--mode-line);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.frm-var-page svg .bell {
+  stroke: var(--mode-line);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.frm-var-page svg .bar {
+  fill: var(--mode-line);
+}
+
+.frm-var-page svg .var-line {
+  stroke: var(--mode-line);
+  stroke-width: 1;
+  fill: none;
+}
+
+.frm-var-page svg .coral {
+  stroke: var(--mode-coral);
+  fill: var(--mode-coral);
+}
+
+.frm-var-page svg .coral-tail {
+  fill: var(--mode-coral);
+  fill-opacity: 0.15;
+}
+
+.frm-var-page svg text {
+  fill: var(--mode-text);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.frm-var-page svg text.muted {
+  fill: var(--mode-text-muted);
+}
+
+/* ============================================================
+   3. Lab section (screens 32-34)
+   ============================================================ */
+
+.frm-var-page .lab {
+  align-items: stretch;
+}
+
+.frm-var-page .lab__inner {
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: left;
+}
+
+.frm-var-page .lab__bell {
+  width: 100%;
+  aspect-ratio: 7 / 4;
+  margin: 0 auto 24px;
+}
+
+.frm-var-page .lab__numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 0 0 40px;
+  text-align: center;
+}
+
+.frm-var-page .lab__numbers .num-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mode-text-muted);
+  margin-bottom: 6px;
+}
+
+.frm-var-page .lab__numbers .num-value {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  transition: opacity 200ms;
+}
+
+.frm-var-page .lab__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.frm-var-page .control {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  align-items: baseline;
+}
+
+.frm-var-page .control__title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.frm-var-page .control__tech {
+  font-size: 12px;
+  color: var(--mode-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.frm-var-page .control__sub {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--mode-text-muted);
+  margin-bottom: 8px;
+}
+
+.frm-var-page .control__input {
+  grid-column: 1 / -1;
+}
+
+.frm-var-page input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.frm-var-page input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--mode-line-muted);
+}
+.frm-var-page input[type="range"]::-moz-range-track {
+  height: 1px;
+  background: var(--mode-line-muted);
+}
+.frm-var-page input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  background: var(--mode-text);
+  border-radius: 50%;
+  margin-top: -7px;
+  border: none;
+}
+.frm-var-page input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  background: var(--mode-text);
+  border-radius: 50%;
+  border: none;
+}
+
+.frm-var-page .btn-group {
+  display: flex;
+}
+.frm-var-page .btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--mode-line-muted);
+  border-right: none;
+  color: var(--mode-text);
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms;
+}
+.frm-var-page .btn:last-child {
+  border-right: 1px solid var(--mode-line-muted);
+}
+.frm-var-page .btn:hover {
+  border-color: var(--mode-line);
+}
+.frm-var-page .btn.is-active {
+  background: var(--mode-text);
+  color: var(--mode-bg);
+  border-color: var(--mode-text);
+}
+.frm-var-page .btn.is-active + .btn {
+  border-left-color: var(--mode-text);
+}
+
+.frm-var-page .scenarios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.frm-var-page .scenario-btn {
+  background: transparent;
+  border: 1px solid var(--mode-line-muted);
+  color: var(--mode-text);
+  font: inherit;
+  text-align: left;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: border-color 200ms;
+}
+.frm-var-page .scenario-btn:hover {
+  border-color: var(--mode-line);
+}
+.frm-var-page .scenario-btn.is-active {
+  border-color: var(--mode-coral);
+}
+.frm-var-page .scenario-btn__title {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.frm-var-page .scenario-btn__sub {
+  display: block;
+  font-size: 13px;
+  color: var(--mode-text-muted);
+}
+
+.frm-var-page .scenario-callout {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--mode-text-muted);
+  text-align: center;
+  min-height: 1.5em;
+}
+
+.frm-var-page .reset-btn {
+  margin-top: 16px;
+  background: transparent;
+  border: none;
+  color: var(--mode-text-muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.frm-var-page .mc-canvas-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--mode-line-muted);
+  position: relative;
+}
+
+.frm-var-page .mc-launch {
+  display: block;
+  margin: 24px auto 0;
+  background: transparent;
+  border: 1px solid var(--mode-text);
+  color: var(--mode-text);
+  font: inherit;
+  font-size: 14px;
+  padding: 12px 28px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 200ms, color 200ms;
+}
+.frm-var-page .mc-launch:hover {
+  background: var(--mode-text);
+  color: var(--mode-bg);
+}
+
+.frm-var-page .mc-result {
+  margin: 24px auto 0;
+  font-size: 15px;
+  text-align: center;
+  max-width: 540px;
+  min-height: 1.5em;
+}
+
+/* ============================================================
+   4. Coda + footer
+   ============================================================ */
+
+.frm-var-page .back-link {
+  margin-top: 48px;
+  font-size: 14px;
+}
+
+.frm-var-page .version-link {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--mode-text-muted);
+}
+
+/* ============================================================
+   5. Mobile + reduced motion
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .frm-var-page .screen {
+    padding: 48px 20px;
+    min-height: 90vh;
+  }
+  .frm-var-page p {
+    font-size: 15px;
+  }
+  .frm-var-page .scenarios {
+    grid-template-columns: 1fr;
+  }
+  .frm-var-page .lab__numbers {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .frm-var-page .hero-date {
+    font-size: clamp(48px, 12vw, 80px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frm-var-page,
+  .frm-var-page * {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
