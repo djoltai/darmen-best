@@ -14,7 +14,7 @@ import '../../styles/lab/frm-var.css';
     <title>FRM · Value at Risk · darmen.best</title>
     <meta name="description" content="Лаб FRM. Сторилэндинг про VaR на трёх казахстанских девальвациях." />
     <meta name="robots" content="noindex" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" is:inline></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer is:inline></script>
   </head>
   <body class="frm-var-page">
     <main>
@@ -191,7 +191,7 @@ import '../../styles/lab/frm-var.css';
       <!-- ========== LAB (32-34) ========== -->
       <section class="screen lab" data-act="lab-base" data-mode="cream" data-screen="32">
         <div class="lab__inner">
-          <canvas class="lab__bell" id="lab-bell"></canvas>
+          <div class="lab__bell"><canvas id="lab-bell"></canvas></div>
 
           <div class="lab__numbers">
             <div>

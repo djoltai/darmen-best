@@ -109,12 +109,19 @@
 
 .frm-var-page .screen__viz {
   width: 100%;
-  max-width: 700px;
+  max-width: 920px;
 }
 
 .frm-var-page .screen__viz--stacked {
   position: relative;
   aspect-ratio: 7 / 3;
+}
+
+/* Make sure inline SVGs fill their container */
+.frm-var-page .screen__viz > svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .frm-var-page .screen__viz--stacked > svg {
@@ -211,16 +218,25 @@
 }
 
 .frm-var-page .lab__inner {
-  max-width: 700px;
+  max-width: 920px;
   margin: 0 auto;
   width: 100%;
   text-align: left;
 }
 
+/* Wrapper for Chart.js canvas — Chart.js overrides inline canvas styles
+   on every responsive resize, so we wrap and absolute-position the canvas. */
 .frm-var-page .lab__bell {
   width: 100%;
   aspect-ratio: 7 / 4;
   margin: 0 auto 24px;
+  position: relative;
+}
+.frm-var-page .lab__bell canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .frm-var-page .lab__numbers {
@@ -405,6 +421,12 @@
   aspect-ratio: 16 / 9;
   border: 1px solid var(--mode-line-muted);
   position: relative;
+}
+.frm-var-page .mc-canvas-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .frm-var-page .mc-launch {

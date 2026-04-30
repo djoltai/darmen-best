@@ -28,6 +28,28 @@ export function historicalVarEs(losses: number[], alpha: number): VarEs {
   return { var: v, es: e };
 }
 
+// t(4) quantile + ES are deterministic functions of alpha — compute once per
+// alpha and cache. Without caching, each slider tick triggered a 50k sort
+// (~30ms). Cache lets sigma slider update at native rate.
+const tMultiplierCache = new Map<number, { var: number; es: number }>();
+
+function tMultipliers(alpha: number): { var: number; es: number } {
+  const cached = tMultiplierCache.get(alpha);
+  if (cached) return cached;
+  const N = 50_000;
+  const sample = new Float64Array(N);
+  for (let i = 0; i < N; i++) sample[i] = randt4_std();
+  const sorted = Array.from(sample).sort((a, b) => a - b);
+  const tailIdx = Math.floor((1 - alpha) * N);
+  const v = -sorted[tailIdx];
+  let sum = 0;
+  for (let i = 0; i <= tailIdx; i++) sum += sorted[i];
+  const e = -sum / (tailIdx + 1);
+  const m = { var: v, es: e };
+  tMultiplierCache.set(alpha, m);
+  return m;
+}
+
 export function parametricVarEs(
   sigma: number,
   T: number,
@@ -42,16 +64,8 @@ export function parametricVarEs(
     const e = sigma * sqrtT * phi / (1 - alpha);
     return { var: v, es: e };
   }
-  const N = 50_000;
-  const sample = new Float64Array(N);
-  for (let i = 0; i < N; i++) sample[i] = randt4_std() * sigma * sqrtT;
-  const sorted = Array.from(sample).sort((a, b) => a - b);
-  const tailIdx = Math.floor((1 - alpha) * N);
-  const v = -sorted[tailIdx];
-  let sum = 0;
-  for (let i = 0; i <= tailIdx; i++) sum += sorted[i];
-  const e = -sum / (tailIdx + 1);
-  return { var: v, es: e };
+  const m = tMultipliers(alpha);
+  return { var: m.var * sigma * sqrtT, es: m.es * sigma * sqrtT };
 }
 
 export function histogram(values: number[], bins: number): HistogramBins {

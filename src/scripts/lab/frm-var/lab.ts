@@ -81,13 +81,13 @@ interface ScenarioOverlay {
   outlierX?: number;
 }
 
-function renderBell(canvas: HTMLCanvasElement, overlay?: ScenarioOverlay) {
-  const { points, xMin, xMax, peakY } = buildBell(state.sigma, state.dist);
-  const { var: varX, es: esX } = parametricVarEs(state.sigma, 1, state.alpha, state.dist);
-
-  const xViewMax = Math.max(xMax, (overlay?.outlierX ?? 0) + 0.01);
-  const xViewMin = xMin;
-
+function buildBellDatasets(
+  points: { x: number; y: number }[],
+  varX: number,
+  esX: number,
+  peakY: number,
+  overlay?: ScenarioOverlay
+): any[] {
   const datasets: any[] = [
     {
       label: 'tail',
@@ -161,26 +161,48 @@ function renderBell(canvas: HTMLCanvasElement, overlay?: ScenarioOverlay) {
     });
   }
 
-  if (bellChart) bellChart.destroy();
-  bellChart = new Chart(canvas.getContext('2d'), {
-    type: 'line',
-    data: { datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 200, easing: 'easeOutCubic' },
-      parsing: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { enabled: false },
+  return datasets;
+}
+
+function renderBell(canvas: HTMLCanvasElement, overlay?: ScenarioOverlay) {
+  const { points, xMin, xMax, peakY } = buildBell(state.sigma, state.dist);
+  const { var: varX, es: esX } = parametricVarEs(state.sigma, 1, state.alpha, state.dist);
+
+  const xViewMax = Math.max(xMax, (overlay?.outlierX ?? 0) + 0.01);
+  const xViewMin = xMin;
+
+  const datasets = buildBellDatasets(points, varX, esX, peakY, overlay);
+
+  if (!bellChart) {
+    bellChart = new Chart(canvas.getContext('2d'), {
+      type: 'line',
+      data: { datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 200, easing: 'easeOutCubic' },
+        parsing: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false },
+        },
+        scales: {
+          x: { type: 'linear', min: xViewMin, max: xViewMax, display: false },
+          y: { display: false, min: 0, max: peakY * 1.1 },
+        },
+        elements: { line: { tension: 0.4 }, point: { radius: 0 } },
       },
-      scales: {
-        x: { type: 'linear', min: xViewMin, max: xViewMax, display: false },
-        y: { display: false, min: 0, max: peakY * 1.1 },
-      },
-      elements: { line: { tension: 0.4 }, point: { radius: 0 } },
-    },
-  });
+    });
+  } else {
+    // Update in place — destroying/recreating chart on every slider input
+    // caused massive lag. With 'none' update mode and no animation, slider
+    // feels native.
+    bellChart.data.datasets = datasets;
+    bellChart.options.scales.x.min = xViewMin;
+    bellChart.options.scales.x.max = xViewMax;
+    bellChart.options.scales.y.max = peakY * 1.1;
+    bellChart.update('none');
+  }
 
   updateNumbers(varX, esX);
 }
@@ -330,13 +352,11 @@ function runMc(canvas: HTMLCanvasElement) {
 function bindBaseControls(canvas: HTMLCanvasElement) {
   const sigmaSlider = document.getElementById('lab-sigma') as HTMLInputElement | null;
   const sigmaLabel = document.getElementById('lab-sigma-value');
-  let timer: number | undefined;
   if (sigmaSlider) {
     sigmaSlider.addEventListener('input', () => {
       state.sigma = parseInt(sigmaSlider.value, 10) / 10000;
       if (sigmaLabel) sigmaLabel.textContent = (state.sigma * 100).toFixed(2) + '%';
-      if (timer !== undefined) clearTimeout(timer);
-      timer = window.setTimeout(() => renderBell(canvas), 60);
+      renderBell(canvas);
     });
   }
 
