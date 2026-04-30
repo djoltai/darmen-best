@@ -1,9 +1,9 @@
 ---
 import '@fontsource/inter/400.css';
-import '@fontsource/inter/700.css';
-import '../../styles/global.css';
+import '@fontsource/inter/500.css';
+import '../../styles/lab/frm-var.css';
 ---
-
+<!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
@@ -12,209 +12,304 @@ import '../../styles/global.css';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>FRM · Value at Risk · darmen.best</title>
-    <meta name="description" content="Интерактив по VaR и CVaR через Монте-Карло. /lab-дверь с darmen.best." />
+    <meta name="description" content="Лаб FRM. Сторилэндинг про VaR на трёх казахстанских девальвациях." />
     <meta name="robots" content="noindex" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer is:inline></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" is:inline></script>
   </head>
-  <body class="font-sans bg-white text-[#1F2937]">
-    <main class="max-w-[900px] mx-auto px-6 py-16">
+  <body class="frm-var-page">
+    <main>
 
-      <a href="/" class="text-sm text-gray-500 hover:underline">← darmen.best</a>
+      <!-- ========== OPENING (1-3) ========== -->
+      <section class="screen" data-act="opening" data-mode="default" data-screen="1">
+        <div class="screen__viz" id="viz-1"></div>
+        <p class="caption">Курс тенге к доллару, 2018–2019.</p>
+      </section>
 
-      <h1 class="text-4xl font-bold mt-8 mb-2">FRM · Value at Risk</h1>
-      <p class="text-sm text-gray-500 mb-12">Курсовой риск тенгового портфеля — KZT/USD 2010–2026</p>
+      <section class="screen" data-act="opening" data-mode="default" data-screen="2">
+        <div class="screen__viz" id="viz-2"></div>
+        <p class="caption">А вот тот же курс за 16 лет.</p>
+      </section>
 
-      <!-- ============================================================ -->
-      <!-- СЕКЦИЯ 1 — СТАТУС-КВО                                         -->
-      <!-- ============================================================ -->
-      <section class="mb-20" id="status-quo">
+      <section class="screen" data-act="opening" data-mode="default" data-screen="3">
+        <div class="screen__viz" id="viz-3"></div>
+        <p>Три ступеньки. Каждая — за день или несколько дней. Каждая больше, чем математическая модель риска допускала. Это разбор того, что она видела — и чего не увидела.</p>
+      </section>
 
-        <h2 class="text-2xl font-bold mb-6">Капитал и спокойная картина</h2>
+      <!-- ========== ACT 1 — CALM (4-7) ========== -->
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="4">
+        <div class="screen__viz" id="viz-4"></div>
+        <p>Прежде чем разобрать скачки — задержимся на спокойном отрезке. Что происходит здесь изо дня в день, когда ничего не происходит?</p>
+      </section>
 
-        <div class="border border-gray-200 rounded-lg p-6 mb-8 bg-white">
-          <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Размер позиции</p>
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="5">
+        <div class="screen__viz" id="viz-5"></div>
+        <p>Курс колеблется каждый день — почти всегда меньше, чем на полтора процента. За два спокойных года таких колебаний набирается около пятисот.</p>
+      </section>
 
-          <div class="flex flex-wrap gap-2 text-sm mb-4">
-            <button data-cap="1000000000" class="cap-btn px-3 py-1 border rounded bg-[#1F2937] text-white">1 млрд ₸</button>
-            <button data-cap="usd-10m" class="cap-btn px-3 py-1 border rounded">$10M</button>
-            <button data-cap="300000000000" class="cap-btn px-3 py-1 border rounded">~Trading book БВУ (≈300 млрд ₸)</button>
-            <button data-cap="custom" class="cap-btn px-3 py-1 border rounded">Свой размер</button>
-          </div>
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="6">
+        <div class="screen__viz" id="viz-6"></div>
+        <p>Сложите эти колебания вместе — и проявится форма.</p>
+      </section>
 
-          <input id="cap-custom" type="number" placeholder="Свой размер в тенге" class="hidden w-full max-w-xs px-3 py-2 border rounded text-sm font-mono mb-4" />
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="7">
+        <div class="screen__viz" id="viz-7"></div>
+        <p>У этой формы есть имя — нормальное распределение. Или просто колокол. Большинство дней сидит в центре, у самой вершины. Чем сильнее колебание — тем реже.</p>
+      </section>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+      <!-- ========== ACT 2 — VaR (8-11) ========== -->
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="8">
+        <div class="screen__viz" id="viz-8"></div>
+        <p>Колокол показывает, какие колебания бывают часто, а какие — редко. По центру — обычные дни, по краям — редкие. Чтобы что-то решать, нужна черта между «обычно» и «уже нет». Где её провести?</p>
+      </section>
+
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="9">
+        <div class="screen__viz" id="viz-9"></div>
+        <p>Скажем, проводим её так: слева — 99 обычных дней из ста, справа — один. Самый плохой.</p>
+      </section>
+
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="10">
+        <div class="screen__viz" id="viz-10"></div>
+        <div class="number-hero number-callout">3.3%</div>
+        <p>На колоколе 2018–2019 эта черта проходит примерно на 3.3%. Что это значит на практике? В 99 днях из 100 курс не сдвинется сильнее, чем на эти 3.3%.</p>
+        <p class="caption">Технически: 3.3% ≈ 2.33 × σ. Здесь σ ≈ 1.4% — типичный размер дневного колебания на этом отрезке. В лаборатории σ — ползунок.</p>
+      </section>
+
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="11">
+        <div class="screen__viz" id="viz-11"></div>
+        <p style="font-size:24px;font-weight:500;">Эта черта называется Value at Risk.</p>
+        <p style="font-size:18px;">Или короче — VaR.</p>
+        <p>На VaR опирается банк, когда решает, сколько капитала держать в запасе. Запас на тот один день из ста.</p>
+      </section>
+
+      <!-- ========== ACT 3 — 11 Feb 2014 (12-17) ========== -->
+      <section class="screen" data-act="act-3" data-mode="dark" data-cut="true" data-screen="12">
+        <div class="screen__viz" id="viz-12"></div>
+        <p>Это работает — пока «плохой день» из расчёта похож на реальный. В Казахстане иногда бывает иначе.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="13">
+        <h1 class="hero-date number-callout">11 февраля 2014</h1>
+        <div class="screen__viz" id="viz-13-mini"></div>
+        <p>Накануне курс был 155 тенге за доллар. На следующий день — 185. За сутки — почти 16%.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="14">
+        <div class="screen__viz" id="viz-14"></div>
+        <p>Накануне VaR говорил: в 99 днях из 100 курс не сдвинется сильнее, чем на 3.3%. Реальность дала 16%.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="15">
+        <div class="screen__viz" id="viz-15"></div>
+        <p>По нормальному распределению такое не должно было случиться вообще. Реже одного раза за всё время существования Вселенной.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="16">
+        <div class="screen__viz" id="viz-16"></div>
+        <p>Это не «плохой день, бывает». Это день, которого на колоколе не было.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="17">
+        <div class="screen__viz" id="viz-17"></div>
+        <p>После 2014 банки изменили подход. VaR стали считать не на двух спокойных годах, а на длинной истории — той, где уже есть шоки. И добавили к нему стресс-тест: «А что будет, если 2014 повторится?»</p>
+      </section>
+
+      <!-- ========== ACT 4 — 20 Aug 2015 (18-23) ========== -->
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="18">
+        <div class="screen__viz" id="viz-18"></div>
+        <p>Стресс-тест отвечал на вопрос: «А что если 2014 повторится?». Через полтора года 2014 не повторился. Случилось другое.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="19">
+        <h1 class="hero-date number-callout">20 августа 2015</h1>
+        <p>Нацбанк отпускает тенге.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="20">
+        <div class="screen__viz" id="viz-20"></div>
+        <p>Накануне курс был около 197. К концу недели — 252. За несколько дней — рост на 28%.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="21">
+        <div class="screen__viz" id="viz-21"></div>
+        <p>Тут была другая проблема. 2014 был плохим днём в обычном режиме. 2015 — это смена самого режима.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="22">
+        <div class="screen__viz" id="viz-22"></div>
+        <p>До 2015 курс жил в узком коридоре, который держал Нацбанк. После 20 августа — на открытом рынке. Это два разных рынка. Колокол, который описывал первый, второй уже не описывает.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="23">
+        <div class="screen__viz" id="viz-23"></div>
+        <p>После 2015 банки добавили в инструментарий ещё одну идею. Курс не всегда живёт в одном режиме. Иногда он переключается. Для каждого режима — свой колокол.</p>
+      </section>
+
+      <!-- ========== ACT 5 — Feb–Mar 2022 (24-29) ========== -->
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="24">
+        <div class="screen__viz" id="viz-24"></div>
+        <p>Это работало бы. Если бы каждый шок был внутренним. Но третий пришёл снаружи.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="25">
+        <h1 class="hero-date number-callout">Февраль 2022</h1>
+        <p>Региональная нестабильность, санкционный шок. За три недели курс — с 430 до 514. Около 20%.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="26">
+        <div class="screen__viz" id="viz-26"></div>
+        <p>Тут было новое. Тенге двинулся не сам по себе. Вместе с ним пошли вниз акции, нефть, рубль. Один шок шевельнул всё.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="27">
+        <div class="screen__viz" id="viz-27"></div>
+        <p>В обычные дни связи между активами слабые: тенге может стоять, а акции — двигаться. В большой стресс эти связи схлопываются. Всё начинает падать вместе. Тот, кто думал, что разнёс риски — обнаруживает, что они слились в одну кучу.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="28">
+        <div class="screen__viz" id="viz-28"></div>
+        <p>После 2022 банки добавили ещё один слой. VaR на одном активе — это узкий взгляд. Нужно смотреть на портфель целиком — как разные риски двигаются вместе в стрессе.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="29">
+        <div class="screen__viz" id="viz-29"></div>
+        <p>VaR — это граница: 99 из 100 — не дальше неё.</p>
+        <p>ES спрашивает другое: если день оказался по ту сторону черты, какая там средняя потеря? Не сама граница — среднее за ней.</p>
+        <p>Этот инструмент называется Expected Shortfall — или ES. С 2019 года международные регуляторы сделали его обязательным вместо VaR.</p>
+      </section>
+
+      <!-- ========== BRIDGE (30-31) ========== -->
+      <section class="screen" data-act="bridge" data-mode="cream" data-screen="30">
+        <div class="screen__viz" id="viz-30"></div>
+        <p>Это была долгая прогулка. Двенадцать лет, три шока. Каждый шок добавил в инструментарий новую идею.</p>
+      </section>
+
+      <section class="screen" data-act="bridge" data-mode="cream" data-screen="31">
+        <div class="screen__viz" id="viz-31"></div>
+        <p>Дальше — лаборатория. Все инструменты, которые мы прошли — в одном месте. Теперь крутите вы.</p>
+      </section>
+
+      <!-- ========== LAB (32-34) ========== -->
+      <section class="screen lab" data-act="lab-base" data-mode="cream" data-screen="32">
+        <div class="lab__inner">
+          <canvas class="lab__bell" id="lab-bell"></canvas>
+
+          <div class="lab__numbers">
             <div>
-              <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">В тенге</p>
-              <p id="cap-kzt" class="text-2xl font-mono">1 000 000 000 ₸</p>
+              <div class="num-label">VaR</div>
+              <div class="num-value number-callout" id="lab-var-value">3.3%</div>
             </div>
             <div>
-              <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">В долларах <span id="usd-rate-label" class="text-gray-400">(по 502 ₸/$)</span></p>
-              <p id="cap-usd" class="text-2xl font-mono">$1 992 032</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-2">
-          <p class="text-xs text-gray-500 mb-2">Распределение дневных доходностей KZT/USD — спокойный период (2018–2019)</p>
-          <canvas id="status-chart"></canvas>
-        </div>
-
-        <p id="status-summary" class="text-sm text-gray-600 mt-4">
-          Дневная волатильность 2018–2019: ~1.4%. VaR(99%, 1 день) на нормальном распределении: <span class="font-mono">—</span> ₸. CVaR(99%): <span class="font-mono">—</span> ₸.
-        </p>
-
-      </section>
-
-      <!-- ============================================================ -->
-      <!-- СЕКЦИЯ 2 — ИСТОРИЧЕСКИЕ ШОКИ                                  -->
-      <!-- ============================================================ -->
-      <section class="mb-20" id="historical-shocks">
-
-        <h2 class="text-2xl font-bold mb-2">Исторические шоки</h2>
-        <p class="text-sm text-gray-600 mb-6">
-          Курс KZT/USD прошёл через три структурных слома. Кликни на пресет — увидишь, во что превратится твой капитал в долларах в каждом случае.
-        </p>
-
-        <div class="flex flex-wrap gap-2 text-sm mb-6" id="shock-buttons">
-          <button data-shock="calm" class="shock-btn px-3 py-1 border rounded bg-[#1F2937] text-white">Спокойный 2018–2019</button>
-          <button data-shock="2014-02-11" class="shock-btn px-3 py-1 border rounded">11 фев 2014</button>
-          <button data-shock="2015-08-20" class="shock-btn px-3 py-1 border rounded">20 авг 2015</button>
-          <button data-shock="2022-03-11" class="shock-btn px-3 py-1 border rounded">фев–март 2022</button>
-        </div>
-
-        <div class="mb-2">
-          <p class="text-xs text-gray-500 mb-2">Распределение доходностей вокруг события (60 дней до и после)</p>
-          <canvas id="shock-chart"></canvas>
-        </div>
-
-        <div id="shock-context" class="text-sm text-gray-700 mt-4 leading-relaxed border-l-2 border-gray-200 pl-4">
-          Выберите пресет.
-        </div>
-
-      </section>
-
-      <!-- ============================================================ -->
-      <!-- СЕКЦИЯ 3 — ЛАБОРАТОРИЯ                                        -->
-      <!-- ============================================================ -->
-      <section class="mb-20" id="lab">
-
-        <h2 class="text-2xl font-bold mb-2">Лаборатория</h2>
-        <p class="text-sm text-gray-600 mb-6">
-          Накладываем параметрическую плотность <em>(Normal или Student-t)</em> на реальную гистограмму всех дневных доходностей KZT/USD 2010–2026. Видно, насколько модель «обнимает» реальный хвост или промахивается.
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 border border-gray-200 rounded-lg p-6 bg-white">
-
-          <div>
-            <label for="sigma-slider" class="text-sm text-gray-600 block mb-2">
-              Дневная σ модели: <span id="sigma-value" class="font-mono text-[#1F2937]">1.40%</span>
-            </label>
-            <input id="sigma-slider" type="range" min="50" max="500" value="140" class="w-full" />
-            <p class="text-xs text-gray-400 mt-1">0.50% — 5.00%</p>
-          </div>
-
-          <div>
-            <label class="text-sm text-gray-600 block mb-2">Горизонт T (дней)</label>
-            <div class="flex gap-2 text-sm">
-              <button data-t="1"  class="t-btn px-3 py-1 border rounded bg-[#1F2937] text-white">1</button>
-              <button data-t="5"  class="t-btn px-3 py-1 border rounded">5</button>
-              <button data-t="10" class="t-btn px-3 py-1 border rounded">10</button>
-              <button data-t="20" class="t-btn px-3 py-1 border rounded">20</button>
+              <div class="num-label">ES</div>
+              <div class="num-value number-callout" id="lab-es-value">3.7%</div>
             </div>
           </div>
 
-          <div>
-            <label class="text-sm text-gray-600 block mb-2">Уровень доверия α</label>
-            <div class="flex gap-2 text-sm">
-              <button data-alpha="0.95"  class="alpha-btn px-3 py-1 border rounded">95%</button>
-              <button data-alpha="0.99"  class="alpha-btn px-3 py-1 border rounded bg-[#1F2937] text-white">99%</button>
-              <button data-alpha="0.995" class="alpha-btn px-3 py-1 border rounded">99.5%</button>
+          <div class="lab__controls">
+            <div class="control">
+              <span class="control__title">Размер обычного колебания</span>
+              <span class="control__tech">σ <span id="lab-sigma-value">1.40%</span></span>
+              <span class="control__sub">Насколько сильно курс шевелится в спокойный день</span>
+              <div class="control__input">
+                <input type="range" id="lab-sigma" min="50" max="500" value="140" step="1" />
+              </div>
+            </div>
+
+            <div class="control">
+              <span class="control__title">Допущение о форме</span>
+              <span class="control__tech">Normal / Student-t</span>
+              <span class="control__sub">Жирный хвост — редкие события случаются чаще</span>
+              <div class="control__input btn-group">
+                <button class="btn lab-dist is-active" data-dist="normal">Колокол</button>
+                <button class="btn lab-dist" data-dist="t">Колокол с жирным хвостом</button>
+              </div>
+            </div>
+
+            <div class="control">
+              <span class="control__title">Где провести черту</span>
+              <span class="control__tech">95% / 99% / 99.5%</span>
+              <span class="control__sub">Стандарт — 1 плохой день из 100</span>
+              <div class="control__input btn-group">
+                <button class="btn lab-alpha" data-alpha="0.95">Помягче</button>
+                <button class="btn lab-alpha is-active" data-alpha="0.99">Стандарт</button>
+                <button class="btn lab-alpha" data-alpha="0.995">Жёстко</button>
+              </div>
             </div>
           </div>
-
-          <div>
-            <label class="text-sm text-gray-600 block mb-2">Распределение модели</label>
-            <div class="flex gap-2 text-sm">
-              <button data-dist="normal" class="dist-btn px-3 py-1 border rounded bg-[#1F2937] text-white">Normal</button>
-              <button data-dist="t"      class="dist-btn px-3 py-1 border rounded">Student-t (df=4)</button>
-            </div>
-          </div>
         </div>
-
-        <div class="mb-6">
-          <p class="text-xs text-gray-500 mb-2">Реальная гистограмма доходностей KZT/USD vs параметрическая плотность модели</p>
-          <canvas id="lab-chart"></canvas>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-200">
-          <div>
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Historical (на реальном ряду)</p>
-            <p class="text-sm">VaR: <span id="hist-var" class="font-mono text-lg">—</span></p>
-            <p class="text-sm">CVaR: <span id="hist-cvar" class="font-mono text-lg">—</span></p>
-          </div>
-          <div>
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Parametric (по σ модели)</p>
-            <p class="text-sm">VaR: <span id="param-var" class="font-mono text-lg">—</span></p>
-            <p class="text-sm">CVaR: <span id="param-cvar" class="font-mono text-lg">—</span></p>
-          </div>
-        </div>
-
-        <p id="lab-commentary" class="text-sm text-gray-500 mt-4"></p>
-
-        <div class="mt-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
-          <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Свой шок</p>
-          <label class="text-sm text-gray-600 block mb-2">
-            Что если KZT/USD сдвинется за день на: <span id="custom-shock-value" class="font-mono text-[#1F2937]">+10%</span>
-          </label>
-          <input id="custom-shock" type="range" min="-50" max="50" value="10" class="w-full" />
-          <p id="custom-shock-summary" class="text-sm text-gray-700 mt-3"></p>
-        </div>
-
       </section>
 
-      <!-- ============================================================ -->
-      <!-- СЕКЦИЯ 4 — МОНТЕ-КАРЛО                                        -->
-      <!-- ============================================================ -->
-      <section class="mb-20" id="monte-carlo">
+      <section class="screen lab" data-act="lab-historical" data-mode="cream" data-screen="33">
+        <div class="lab__inner">
+          <h2>А что было на самом деле</h2>
+          <p style="margin:0 0 24px;">Каждый эпизод перестраивает колокол под реальные данные. Можно увидеть, что говорила модель — и что произошло.</p>
 
-        <h2 class="text-2xl font-bold mb-2">Монте-Карло</h2>
-        <p class="text-sm text-gray-600 mb-6">
-          10 000 будущих траекторий портфеля при выбранных параметрах модели. Те, что пробили VaR-границу — окрашены красным. Средний убыток в этих красных — это и есть CVaR. Это число, на котором банк должен держать буферный капитал.
-        </p>
+          <div class="scenarios">
+            <button class="scenario-btn" data-scenario="calm">
+              <span class="scenario-btn__title">Спокойный 2018–2019</span>
+              <span class="scenario-btn__sub">вернуться к базе</span>
+            </button>
+            <button class="scenario-btn" data-scenario="2014-02-11">
+              <span class="scenario-btn__title">11 фев 2014</span>
+              <span class="scenario-btn__sub">первая девальвация</span>
+            </button>
+            <button class="scenario-btn" data-scenario="2015-08-20">
+              <span class="scenario-btn__title">20 авг 2015</span>
+              <span class="scenario-btn__sub">свободное плавание</span>
+            </button>
+            <button class="scenario-btn" data-scenario="2022-03-11">
+              <span class="scenario-btn__title">Фев–март 2022</span>
+              <span class="scenario-btn__sub">внешний шок</span>
+            </button>
+          </div>
 
-        <button id="mc-run" class="px-6 py-2 border border-[#1F2937] rounded text-sm font-medium hover:bg-[#1F2937] hover:text-white transition-colors mb-6">
-          Запустить 10 000 симуляций
-        </button>
-
-        <div class="mb-2">
-          <canvas id="mc-chart"></canvas>
+          <p class="scenario-callout" id="scenario-callout"></p>
+          <button class="reset-btn" id="scenario-reset">Сбросить</button>
         </div>
-
-        <p id="mc-summary" class="text-sm text-gray-500 mt-4">
-          Нажмите кнопку, чтобы запустить.
-        </p>
-
       </section>
 
-      <!-- ============================================================ -->
-      <!-- ЗАКРЫТИЕ — мост в продукт + версионирование                   -->
-      <!-- ============================================================ -->
-      <section class="mb-20">
-        <h2 class="text-xl font-bold mt-12 mb-4">Зачем это в карточке FRM</h2>
-        <p class="text-base leading-relaxed mb-6">
-          В регулируемых средах риск-сценарий не может ограничиваться средним. Эту же логику закладываем в AI-сценарии Qazyna AI — что будет в 99-м перцентиле, не «в среднем». Архитектурно это значит, что распределение и метрика — отдельный слой, не настройка. Меняешь предположение о хвосте — VaR пересчитывается; решение об уровне капитала меняется на ту же величину.
-        </p>
+      <section class="screen lab" data-act="lab-mc" data-mode="cream" data-screen="34">
+        <div class="lab__inner">
+          <h2>10 000 будущих</h2>
+          <p style="margin:0 0 24px;">Карта возможных завтрашних курсов. Не предсказание — карта вариантов.</p>
 
-        <p class="text-xs text-gray-400 mt-12">
-          Версия 1.5 — апр 2026. <a href="https://github.com/djoltai/darmen-best/commit/adfc91e" class="hover:underline">Версия 1 (28 апр)</a> · код на <a href="https://github.com/djoltai/darmen-best" class="hover:underline">GitHub</a>.
-        </p>
+          <div class="mc-canvas-wrap">
+            <canvas id="mc-canvas"></canvas>
+          </div>
+          <button class="mc-launch" id="mc-launch">Запустить 10 000 будущих</button>
 
-        <a href="/" class="text-sm text-gray-500 hover:underline mt-8 block">← darmen.best</a>
+          <p class="mc-result" id="mc-result"></p>
+        </div>
+      </section>
+
+      <!-- ========== CODA (35-37) ========== -->
+      <section class="screen" data-act="coda" data-mode="default" data-screen="35">
+        <p>Колокол. Черта. Шок. Ещё одна идея в инструментарий. И снова. И ещё раз. Так выглядит работа риск-менеджера в регулируемой среде.</p>
+      </section>
+
+      <section class="screen" data-act="coda" data-mode="default" data-screen="36">
+        <p>Этому учат на FRM. Я его сдал — и эта страница про то, что мне в нём показалось красивым: за каждым допущением — вопрос «а что если оно неверно».</p>
+      </section>
+
+      <section class="screen" data-act="coda" data-mode="default" data-screen="37">
+        <p>Это первая внутренняя дверь лаба. Если что-то было интересно, но не всё понятно — это тоже разновидность нормы.</p>
+        <p class="back-link"><a href="/">← darmen.best</a></p>
+        <p class="version-link">
+          <a href="https://github.com/djoltai/darmen-best/commit/adfc91e">Версия 1</a>,
+          <a href="https://github.com/djoltai/darmen-best/commits/main/src/pages/lab/frm-var.astro">v1.5</a>
+          — на GitHub
+        </p>
       </section>
 
     </main>
 
-    <script src="/scripts/frm-var.js" defer is:inline></script>
+    <script>
+      import { initScroll } from '../../scripts/lab/frm-var/scroll';
+      import { initScreens } from '../../scripts/lab/frm-var/screens';
+      import { initLab } from '../../scripts/lab/frm-var/lab';
+
+      initScroll();
+      initScreens();
+      initLab();
+    </script>
   </body>
 </html>
