@@ -1,7 +1,7 @@
 ---
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
-import '../../styles/lab/frm-var.css';
+import '../../styles/lab/frm-vol-drag.css';
 ---
 <!DOCTYPE html>
 <html lang="ru">
@@ -11,305 +11,284 @@ import '../../styles/lab/frm-var.css';
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <title>FRM · Value at Risk · darmen.best</title>
-    <meta name="description" content="Лаб FRM. Сторилэндинг про VaR на трёх казахстанских девальвациях." />
+    <title>FRM · Volatility Drag · darmen.best</title>
+    <meta name="description" content="Лаб FRM. Volatility Drag через игру в монетку и долю Kelly." />
     <meta name="robots" content="noindex" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer is:inline></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   </head>
-  <body class="frm-var-page">
+  <body class="frm-vol-drag-page">
     <main>
 
-      <!-- ========== OPENING (1-3) ========== -->
-      <section class="screen" data-act="opening" data-mode="default" data-screen="1">
-        <div class="screen__viz" id="viz-1"></div>
-        <p class="caption">Курс тенге к доллару, 2018–2019.</p>
-      </section>
+      <!-- ================== ЭКРАН 1 — ОПЕНЕР ================== -->
+      <section class="screen screen--opener" data-screen="1">
+        <p class="tag tag--wide">в предыдущей серии</p>
 
-      <section class="screen" data-act="opening" data-mode="default" data-screen="2">
-        <div class="screen__viz" id="viz-2"></div>
-        <p class="caption">А вот тот же курс за 16 лет.</p>
-      </section>
+        <div>
+          <h1 class="opener-hero">Положительное матожидание. Сто бросков. Ноль на руках.</h1>
 
-      <section class="screen" data-act="opening" data-mode="default" data-screen="3">
-        <div class="screen__viz" id="viz-3"></div>
-        <p>Три ступеньки. Каждая — за день или несколько дней. Каждая больше, чем математическая модель риска допускала. Это разбор того, что она видела — и чего не увидела.</p>
-      </section>
+          <div class="ev-formula" role="img" aria-label="EV = 0.5 × +50% + 0.5 × −40% = +5%">
+            <span class="lbl col-empty"></span>
+            <span class="lbl">P(орёл)</span>
+            <span class="lbl col-empty"></span>
+            <span class="lbl lbl--win">выигрыш</span>
+            <span class="lbl col-empty"></span>
+            <span class="lbl">P(решка)</span>
+            <span class="lbl col-empty"></span>
+            <span class="lbl lbl--lose">проигрыш</span>
+            <span class="lbl col-empty"></span>
 
-      <!-- ========== ACT 1 — CALM (4-7) ========== -->
-      <section class="screen" data-act="act-1" data-mode="default" data-screen="4">
-        <div class="screen__viz" id="viz-4"></div>
-        <p>Прежде чем разобрать скачки — задержимся на спокойном отрезке. Что происходит здесь изо дня в день, когда ничего не происходит?</p>
-      </section>
-
-      <section class="screen" data-act="act-1" data-mode="default" data-screen="5">
-        <div class="screen__viz" id="viz-5"></div>
-        <p>Курс колеблется каждый день — почти всегда меньше, чем на полтора процента. За два спокойных года таких колебаний набирается около пятисот.</p>
-      </section>
-
-      <section class="screen" data-act="act-1" data-mode="default" data-screen="6">
-        <div class="screen__viz" id="viz-6"></div>
-        <p>Сложите эти колебания вместе — и проявится форма.</p>
-      </section>
-
-      <section class="screen" data-act="act-1" data-mode="default" data-screen="7">
-        <div class="screen__viz" id="viz-7"></div>
-        <p>У этой формы есть имя — нормальное распределение. Или просто колокол. Большинство дней сидит в центре, у самой вершины. Чем сильнее колебание — тем реже.</p>
-      </section>
-
-      <!-- ========== ACT 2 — VaR (8-11) ========== -->
-      <section class="screen" data-act="act-2" data-mode="cream" data-screen="8">
-        <div class="screen__viz" id="viz-8"></div>
-        <p>Колокол показывает, какие колебания бывают часто, а какие — редко. По центру — обычные дни, по краям — редкие. Чтобы что-то решать, нужна черта между «обычно» и «уже нет». Где её провести?</p>
-      </section>
-
-      <section class="screen" data-act="act-2" data-mode="cream" data-screen="9">
-        <div class="screen__viz" id="viz-9"></div>
-        <p>Скажем, проводим её так: слева — 99 обычных дней из ста, справа — один. Самый плохой.</p>
-      </section>
-
-      <section class="screen" data-act="act-2" data-mode="cream" data-screen="10">
-        <div class="screen__viz" id="viz-10"></div>
-        <div class="number-hero number-callout">3.3%</div>
-        <p>На колоколе 2018–2019 эта черта проходит примерно на 3.3%. Что это значит на практике? В 99 днях из 100 курс не сдвинется сильнее, чем на эти 3.3%.</p>
-        <p class="caption">Технически: 3.3% ≈ 2.33 × σ. Здесь σ ≈ 1.4% — типичный размер дневного колебания на этом отрезке. В лаборатории σ — ползунок.</p>
-      </section>
-
-      <section class="screen" data-act="act-2" data-mode="cream" data-screen="11">
-        <div class="screen__viz" id="viz-11"></div>
-        <p style="font-size:24px;font-weight:500;">Эта черта называется Value at Risk.</p>
-        <p style="font-size:18px;">Или короче — VaR.</p>
-        <p>На VaR опирается банк, когда решает, сколько капитала держать в запасе. Запас на тот один день из ста.</p>
-      </section>
-
-      <!-- ========== ACT 3 — 11 Feb 2014 (12-17) ========== -->
-      <section class="screen" data-act="act-3" data-mode="dark" data-cut="true" data-screen="12">
-        <div class="screen__viz" id="viz-12"></div>
-        <p>Это работает — пока «плохой день» из расчёта похож на реальный. В Казахстане иногда бывает иначе.</p>
-      </section>
-
-      <section class="screen" data-act="act-3" data-mode="dark" data-screen="13">
-        <h1 class="hero-date number-callout">11 февраля 2014</h1>
-        <div class="screen__viz" id="viz-13-mini"></div>
-        <p>Накануне курс был 155 тенге за доллар. На следующий день — 185. За сутки — почти 16%.</p>
-      </section>
-
-      <section class="screen" data-act="act-3" data-mode="dark" data-screen="14">
-        <div class="screen__viz" id="viz-14"></div>
-        <p>Накануне VaR говорил: в 99 днях из 100 курс не сдвинется сильнее, чем на 3.3%. Реальность дала 16%.</p>
-      </section>
-
-      <section class="screen" data-act="act-3" data-mode="dark" data-screen="15">
-        <div class="screen__viz" id="viz-15"></div>
-        <p>По нормальному распределению такое не должно было случиться вообще. Реже одного раза за всё время существования Вселенной.</p>
-      </section>
-
-      <section class="screen" data-act="act-3" data-mode="dark" data-screen="16">
-        <div class="screen__viz" id="viz-16"></div>
-        <p>Это не «плохой день, бывает». Это день, которого на колоколе не было.</p>
-      </section>
-
-      <section class="screen" data-act="act-3" data-mode="dark" data-screen="17">
-        <div class="screen__viz" id="viz-17"></div>
-        <p>После 2014 банки изменили подход. VaR стали считать не на двух спокойных годах, а на длинной истории — той, где уже есть шоки. И добавили к нему стресс-тест: «А что будет, если 2014 повторится?»</p>
-      </section>
-
-      <!-- ========== ACT 4 — 20 Aug 2015 (18-23) ========== -->
-      <section class="screen" data-act="act-4" data-mode="dark" data-screen="18">
-        <div class="screen__viz" id="viz-18"></div>
-        <p>Стресс-тест отвечал на вопрос: «А что если 2014 повторится?». Через полтора года 2014 не повторился. Случилось другое.</p>
-      </section>
-
-      <section class="screen" data-act="act-4" data-mode="dark" data-screen="19">
-        <h1 class="hero-date number-callout">20 августа 2015</h1>
-        <p>Нацбанк отпускает тенге.</p>
-      </section>
-
-      <section class="screen" data-act="act-4" data-mode="dark" data-screen="20">
-        <div class="screen__viz" id="viz-20"></div>
-        <p>Накануне курс был около 197. К концу недели — 252. За несколько дней — рост на 28%.</p>
-      </section>
-
-      <section class="screen" data-act="act-4" data-mode="dark" data-screen="21">
-        <div class="screen__viz" id="viz-21"></div>
-        <p>Тут была другая проблема. 2014 был плохим днём в обычном режиме. 2015 — это смена самого режима.</p>
-      </section>
-
-      <section class="screen" data-act="act-4" data-mode="dark" data-screen="22">
-        <div class="screen__viz" id="viz-22"></div>
-        <p>До 2015 курс жил в узком коридоре, который держал Нацбанк. После 20 августа — на открытом рынке. Это два разных рынка. Колокол, который описывал первый, второй уже не описывает.</p>
-      </section>
-
-      <section class="screen" data-act="act-4" data-mode="dark" data-screen="23">
-        <div class="screen__viz" id="viz-23"></div>
-        <p>После 2015 банки добавили в инструментарий ещё одну идею. Курс не всегда живёт в одном режиме. Иногда он переключается. Для каждого режима — свой колокол.</p>
-      </section>
-
-      <!-- ========== ACT 5 — Feb–Mar 2022 (24-29) ========== -->
-      <section class="screen" data-act="act-5" data-mode="dark" data-screen="24">
-        <div class="screen__viz" id="viz-24"></div>
-        <p>Это работало бы. Если бы каждый шок был внутренним. Но третий пришёл снаружи.</p>
-      </section>
-
-      <section class="screen" data-act="act-5" data-mode="dark" data-screen="25">
-        <h1 class="hero-date number-callout">Февраль 2022</h1>
-        <p>Региональная нестабильность, санкционный шок. За три недели курс — с 430 до 514. Около 20%.</p>
-      </section>
-
-      <section class="screen" data-act="act-5" data-mode="dark" data-screen="26">
-        <div class="screen__viz" id="viz-26"></div>
-        <p>Тут было новое. Тенге двинулся не сам по себе. Вместе с ним пошли вниз акции, нефть, рубль. Один шок шевельнул всё.</p>
-      </section>
-
-      <section class="screen" data-act="act-5" data-mode="dark" data-screen="27">
-        <div class="screen__viz" id="viz-27"></div>
-        <p>В обычные дни связи между активами слабые: тенге может стоять, а акции — двигаться. В большой стресс эти связи схлопываются. Всё начинает падать вместе. Тот, кто думал, что разнёс риски — обнаруживает, что они слились в одну кучу.</p>
-      </section>
-
-      <section class="screen" data-act="act-5" data-mode="dark" data-screen="28">
-        <div class="screen__viz" id="viz-28"></div>
-        <p>После 2022 банки добавили ещё один слой. VaR на одном активе — это узкий взгляд. Нужно смотреть на портфель целиком — как разные риски двигаются вместе в стрессе.</p>
-      </section>
-
-      <section class="screen" data-act="act-5" data-mode="dark" data-screen="29">
-        <div class="screen__viz" id="viz-29"></div>
-        <p>VaR — это граница: 99 из 100 — не дальше неё.</p>
-        <p>ES спрашивает другое: если день оказался по ту сторону черты, какая там средняя потеря? Не сама граница — среднее за ней.</p>
-        <p>Этот инструмент называется Expected Shortfall — или ES. С 2019 года международные регуляторы сделали его обязательным вместо VaR.</p>
-      </section>
-
-      <!-- ========== BRIDGE (30-31) ========== -->
-      <section class="screen" data-act="bridge" data-mode="cream" data-screen="30">
-        <div class="screen__viz" id="viz-30"></div>
-        <p>Это была долгая прогулка. Двенадцать лет, три шока. Каждый шок добавил в инструментарий новую идею.</p>
-      </section>
-
-      <section class="screen" data-act="bridge" data-mode="cream" data-screen="31">
-        <div class="screen__viz" id="viz-31"></div>
-        <p>Дальше — лаборатория. Все инструменты, которые мы прошли — в одном месте. Теперь крутите вы.</p>
-      </section>
-
-      <!-- ========== LAB (32-34) ========== -->
-      <section class="screen lab" data-act="lab-base" data-mode="cream" data-screen="32">
-        <div class="lab__inner">
-          <div class="lab__bell"><canvas id="lab-bell"></canvas></div>
-
-          <div class="lab__numbers">
-            <div>
-              <div class="num-label">VaR</div>
-              <div class="num-value number-callout" id="lab-var-value">3.3%</div>
-            </div>
-            <div>
-              <div class="num-label">ES</div>
-              <div class="num-value number-callout" id="lab-es-value">3.7%</div>
-            </div>
+            <span>EV =</span>
+            <span class="num-half">0.5</span>
+            <span class="op">×</span>
+            <span class="num-win">(+50%)</span>
+            <span class="op">+</span>
+            <span class="num-half">0.5</span>
+            <span class="op">×</span>
+            <span class="num-lose">(−40%)</span>
+            <span class="num-total">= +5%</span>
           </div>
 
-          <div class="lab__controls">
-            <div class="control">
-              <span class="control__title">Размер обычного колебания</span>
-              <span class="control__tech">σ <span id="lab-sigma-value">1.40%</span></span>
-              <span class="control__sub">Насколько сильно курс шевелится в спокойный день</span>
-              <div class="control__input">
-                <input type="range" id="lab-sigma" min="50" max="500" value="140" step="1" />
-              </div>
-            </div>
+          <p class="opener-bridge">Та же монетка, только к интуиции добавим математику.</p>
+        </div>
 
-            <div class="control">
-              <span class="control__title">Допущение о форме</span>
-              <span class="control__tech">Normal / Student-t</span>
-              <span class="control__sub">Жирный хвост — редкие события случаются чаще</span>
-              <div class="control__input btn-group">
-                <button class="btn lab-dist is-active" data-dist="normal">Колокол</button>
-                <button class="btn lab-dist" data-dist="t">Колокол с жирным хвостом</button>
-              </div>
-            </div>
+        <p class="bridge-down">↓ интерактив ниже</p>
+      </section>
 
-            <div class="control">
-              <span class="control__title">Где провести черту</span>
-              <span class="control__tech">95% / 99% / 99.5%</span>
-              <span class="control__sub">Стандарт — 1 плохой день из 100</span>
-              <div class="control__input btn-group">
-                <button class="btn lab-alpha" data-alpha="0.95">Помягче</button>
-                <button class="btn lab-alpha is-active" data-alpha="0.99">Стандарт</button>
-                <button class="btn lab-alpha" data-alpha="0.995">Жёстко</button>
-              </div>
-            </div>
+      <!-- ================== ЭКРАН 2 — СИМУЛЯТОР «ВСЁ-В-КАЖДОМ-РАУНДЕ» ================== -->
+      <section class="screen screen--all-in" data-screen="2">
+        <h2 class="hero">Сыграй сам.</h2>
+        <p class="sub-info">Старт — $1. Сто бросков. Орёл — ×1.5, решка — ×0.6.</p>
+
+        <div class="metric-row">
+          <span>попытка · #<span id="attempt-num-2">0</span></span>
+          <span>итог: <span class="final-cap" id="final-cap-2">—</span></span>
+        </div>
+
+        <div class="charts-grid--all-in">
+          <div class="canvas-wrap canvas-wrap--traj-all-in">
+            <canvas id="traj-canvas-2" width="380" height="280"></canvas>
+          </div>
+          <div class="canvas-wrap canvas-wrap--hist-all-in">
+            <canvas id="hist-canvas-2" width="220" height="280"></canvas>
           </div>
         </div>
-      </section>
 
-      <section class="screen lab" data-act="lab-historical" data-mode="cream" data-screen="33">
-        <div class="lab__inner">
-          <h2>А что было на самом деле</h2>
-          <p style="margin:0 0 24px;">Каждый эпизод перестраивает колокол под реальные данные. Можно увидеть, что говорила модель — и что произошло.</p>
+        <div class="play-row">
+          <button type="button" class="v3-btn-primary" id="play-btn-2">бросить 100 раз</button>
+          <div class="coin-feedback">
+            <div class="coin-circle" id="coin-circle-2">—</div>
+            <div class="coin-sub" id="coin-sub-2"></div>
+          </div>
+        </div>
 
-          <div class="scenarios">
-            <button class="scenario-btn" data-scenario="calm">
-              <span class="scenario-btn__title">Спокойный 2018–2019</span>
-              <span class="scenario-btn__sub">вернуться к базе</span>
-            </button>
-            <button class="scenario-btn" data-scenario="2014-02-11">
-              <span class="scenario-btn__title">11 фев 2014</span>
-              <span class="scenario-btn__sub">первая девальвация</span>
-            </button>
-            <button class="scenario-btn" data-scenario="2015-08-20">
-              <span class="scenario-btn__title">20 авг 2015</span>
-              <span class="scenario-btn__sub">свободное плавание</span>
-            </button>
-            <button class="scenario-btn" data-scenario="2022-03-11">
-              <span class="scenario-btn__title">Фев–март 2022</span>
-              <span class="scenario-btn__sub">внешний шок</span>
-            </button>
+        <p class="scenario-text">Это и есть Сценарий Б из поста: один человек, 100 бросков подряд. Иногда везёт. Чаще — нет.</p>
+        <p class="pivot-line">Заметь разницу между средним и медианой.</p>
+
+        <div class="asymmetry-block">
+          <h2>Распределение асимметричное.</h2>
+          <p>Большая часть сценариев — слева, у нуля. Но в правом хвосте редкие сценарии с большим количеством орлов улетают далеко вверх. Например: один из тысячи людей получает 65 орлов из 100 — его капитал ~<span class="accent-num">$4 800</span>. Один из 25 тысяч людей получает 70 орлов — ~<span class="accent-num">$456 000</span>. Эти редкие большие выигрыши и тянут среднее.</p>
+
+          <div class="canvas-wrap canvas-wrap--density">
+            <canvas id="density-canvas" width="540" height="120"></canvas>
           </div>
 
-          <p class="scenario-callout" id="scenario-callout"></p>
-          <button class="reset-btn" id="scenario-reset">Сбросить</button>
+          <p>Поэтому медиана <span class="accent-num">$0.005</span>, а среднее <span class="accent-num">$131</span>. Расстояние — пять порядков. Это и есть <span class="accent-term">Volatility Drag</span>.</p>
         </div>
-      </section>
 
-      <section class="screen lab" data-act="lab-mc" data-mode="cream" data-screen="34">
-        <div class="lab__inner">
-          <h2>10 000 будущих</h2>
-          <p style="margin:0 0 24px;">Карта возможных завтрашних курсов. Не предсказание — карта вариантов.</p>
+        <details class="shtorka">
+          <summary>↓ для тех, кто не боится духоты</summary>
+          <div class="shtorka-body">
+            <p class="opener-quote">«Проветри комнату, всяк сюда входящий — будет душно.»</p>
 
-          <div class="mc-canvas-wrap">
-            <canvas id="mc-canvas"></canvas>
+            <div class="section">
+              <p class="section-title">1. Постановка.</p>
+              <p>Финальный капитал — произведение независимых случайных множителей: <span class="formula">X_T = ∏_{'{'}t=1{'}'}^T R_t</span>, где <span class="formula">R_t ∈ {'{'}1.5, 0.6{'}'}</span> — Бернулли-множители. Логарифм линеаризует: <span class="formula formula-accent">ln X_T = Σ ln R_t</span>.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">2. Параметры.</p>
+              <p>Через моменты Бернулли:</p>
+              <div class="formula-block">μ  = E[ln R] = ½ ln(1.5) + ½ ln(0.6) = −0.0527
+σ² = Var[ln R] = E[(ln R)²] − μ² ≈ 0.2099</div>
+            </div>
+
+            <div class="section">
+              <p class="section-title">3. Сходимость.</p>
+              <p>По центральной предельной теореме (i.i.d. слагаемые с конечной дисперсией):</p>
+              <div class="formula-block formula-accent">ln X_T ⟶ N(μT, σ²T)</div>
+              <p>Значит <span class="formula">X_T ~ LogNormal(μT, σ²T)</span> с PDF</p>
+              <div class="formula-block">f(x) = 1 / (xσ√(2πT)) · exp(−(ln x − μT)² / (2σ²T))</div>
+            </div>
+
+            <div class="section">
+              <p class="section-title">4. Median ≠ Mean.</p>
+              <p>Из свойств лог-нормального:</p>
+              <div class="formula-block"><span class="formula-accent">Median(X_T) = exp(μT)               ≈ $0.005</span>
+<span class="formula-accent">Mean(X_T)   = exp((μ + σ²/2)·T)     ≈ $131</span></div>
+              <p>Сдвиг <span class="formula">σ²/2</span> в показателе и есть Volatility Drag.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">5. Связь с Itô.</p>
+              <p>В пределе непрерывного времени игра — геометрическое броуновское движение: <span class="formula">dX_t / X_t = α dt + σ dW_t</span>. Применяя лемму Itô к <span class="formula">f(X) = ln X</span>, получаем дрейф <span class="formula formula-accent">d(ln X) = (α − σ²/2) dt + σ dW</span>. Та же поправка <span class="formula">−σ²/2</span> — convexity adjustment в Black-Scholes, drift correction в Black-76, и в Heston-моделях.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">6. Эргодичность.</p>
+              <p>GBM не эргодичен в исходной шкале X: ансамблевое среднее <span class="formula">E[X_T]</span> и временное среднее <span class="formula">⟨X_t⟩_t</span> расходятся. В шкале <span class="formula">ln X</span> процесс становится аддитивным, и эргодическая теорема Биркгофа возвращается:</p>
+              <div class="formula-block formula-accent">⟨ln X_t⟩_t → μ почти наверное.</div>
+            </div>
+
+            <p class="footer-note">Глубже — Ole Peters (non-ergodicity, Ergodicity Economics), Nassim Taleb (Skin in the Game §15: Probability of Ruin), John Kelly (1956, A New Interpretation of Information Rate).</p>
           </div>
-          <button class="mc-launch" id="mc-launch">Запустить 10 000 будущих</button>
+        </details>
 
-          <p class="mc-result" id="mc-result"></p>
+        <p class="bridge-down">↓ дальше — что меняется, если ставить часть</p>
+      </section>
+
+      <!-- ================== ЭКРАН 3 — СЛАЙДЕР ================== -->
+      <section class="screen screen--slider" data-screen="3">
+        <h2 class="hero">А если ставить не весь капитал каждый бросок?</h2>
+        <p class="sub-info">Двинь слайдер — посмотри, как меняются медиана и среднее, если каждый бросок рисковать только частью.</p>
+
+        <div class="charts-grid--slider">
+          <div>
+            <p class="chart-legend"><span class="seg">- - -  среднее</span><span class="seg">———  медиана</span></p>
+            <div class="canvas-wrap canvas-wrap--traj-slider">
+              <canvas id="traj-canvas-3" width="320" height="220"></canvas>
+            </div>
+            <p class="chart-caption">капитал за 100 бросков</p>
+          </div>
+          <div>
+            <p class="chart-legend">&nbsp;</p>
+            <div class="canvas-wrap canvas-wrap--curve-slider">
+              <canvas id="curve-canvas-3" width="320" height="220"></canvas>
+            </div>
+            <p class="chart-caption">геом. доходность за бросок · g(f)</p>
+          </div>
         </div>
+
+        <div class="slider-row">
+          <span class="slider-tag">доля капитала · f</span>
+          <span class="slider-input">
+            <input type="range" class="v3-slider" id="f-slider" min="0" max="100" value="25" step="1" aria-label="Доля капитала в каждом броске" />
+          </span>
+          <span class="slider-value" id="f-value">25%</span>
+        </div>
+
+        <div class="presets">
+          <button type="button" class="preset v3-preset" data-f="0">не играть · 0%</button>
+          <button type="button" class="preset v3-preset" data-f="10">осторожно · 10%</button>
+          <button type="button" class="preset v3-preset is-active" data-f="25">Kelly · 25%</button>
+          <button type="button" class="preset v3-preset" data-f="50">граница · 50%</button>
+          <button type="button" class="preset v3-preset" data-f="100">ва-банк · 100%</button>
+        </div>
+
+        <div class="metrics-pair">
+          <div class="metric">
+            <div class="label">среднее через 100 бросков</div>
+            <div class="value" id="mean-value">$3.46</div>
+          </div>
+          <div class="metric">
+            <div class="label">медиана через 100 бросков</div>
+            <div class="value" id="median-value">$1.86</div>
+          </div>
+        </div>
+
+        <div class="kelly-block">
+          <h2>У кривой g(f) справа есть пик. И он на 25%.</h2>
+
+          <p><strong>Двигай влево</strong> — становишься осторожнее. Медиана опускается с $1.86 к $1: при <span class="mono">f = 0</span> ты вообще не играешь, капитал не двигается, остаёшься на старте.</p>
+
+          <p><strong>Двигай вправо</strong> — становишься жаднее. Медиана падает к нулю, среднее улетает в небо. Это значит: типичный исход — разорение, а ты надеешься быть тем редким счастливчиком из правого хвоста.</p>
+
+          <p class="pull-quote">Ровно посередине — на <span class="mono">f* = 25%</span> — медиана максимальна. Это и есть доля Kelly.</p>
+
+          <p>При Kelly та же монетка превращается из обречённой игры в растущую. Через 100 бросков типичный путь — $1.86. Не разорение, а почти удвоение. И это <em>медиана</em> — то, что случится с тобой, не с воображаемой толпой в параллельных вселенных.</p>
+
+          <p>Найдена эта формула в 1956 году Джоном Келли в Bell Labs — для шумных каналов связи. Через несколько лет её применили в покере, в блэкджеке, и в управлении капиталом. Сегодня она лежит в основе портфельной теории.</p>
+        </div>
+
+        <details class="shtorka">
+          <summary>↓ ты мой любитель духоты, добро пожаловать обратно</summary>
+          <div class="shtorka-body">
+            <div class="section">
+              <p class="section-title">1. Постановка.</p>
+              <p>Пусть на каждом раунде ставим долю <span class="formula">f ∈ [0,1]</span> от капитала. Раунд даёт <span class="formula">+b</span> с вероятностью <span class="formula">p</span> и <span class="formula">−a</span> с вероятностью <span class="formula">q = 1−p</span>. У нас <span class="formula">b = 0.5, a = 0.4, p = q = 0.5</span>.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">2. Цель.</p>
+              <p>Максимизируем геометрический рост капитала, то есть ожидаемый логарифм одного раунда:</p>
+              <div class="formula-block formula-accent">g(f) = p · ln(1 + bf) + q · ln(1 − af)</div>
+              <p>Логарифм здесь не случаен: произведение раундов превращается в сумму log-доходностей, и максимизация суммы — это максимизация типичного итога (медианы), не среднего.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">3. Производная.</p>
+              <div class="formula-block">g′(f) = pb/(1+bf) − qa/(1−af) = 0</div>
+              <p>Решение:</p>
+              <div class="formula-block formula-accent">f* = (pb − qa) / (ab)</div>
+            </div>
+
+            <div class="section">
+              <p class="section-title">4. Для нашей монетки.</p>
+              <div class="formula-block"><span class="formula-accent">f* = (0.5·0.5 − 0.5·0.4) / (0.5·0.4) = 0.05 / 0.2 = 0.25</span></div>
+              <p>Подставляем: <span class="formula">g(0.25) = 0.5·ln(1.125) + 0.5·ln(0.9) ≈ +0.62%</span> за бросок.</p>
+              <p>Через 100 бросков типичный итог: <span class="formula formula-accent">exp(0.62% × 100) ≈ $1.86</span>.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">5. Kelly-Shannon.</p>
+              <p>В оригинальной статье 1956 года Kelly показал глубокую связь между оптимальным размером ставки и теорией информации Shannon: максимум геометрического роста капитала математически эквивалентен максимизации информационной пропускной способности игрока. Это и есть Kelly-Shannon equivalence — мост между теорией информации и финансами. Конкретная формула зависит от структуры игры (edge в вероятностях vs в payoffs); для общей теории — оригинальная статья Kelly.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">6. Что Kelly не делает.</p>
+              <p>Kelly не максимизирует ожидаемый капитал <span class="formula">E[X_T]</span> — для этого нужно ставить ва-банк. Kelly максимизирует типичный исход — медиану. Это решение для тех, кто играет одну реальную жизнь, а не для среднего по параллельным вселенным.</p>
+            </div>
+
+            <div class="section">
+              <p class="section-title">7. Полу-Kelly.</p>
+              <p>На практике инвесторы часто используют <span class="formula">f*/2</span> (half-Kelly). Аргумент: оценка вероятностей <span class="formula">p</span> в реальной жизни всегда с шумом, а функция <span class="formula">g(f)</span> асимметрична — превышение <span class="formula">f*</span> наказывается сильнее, чем недоставка. Поэтому осторожнее.</p>
+            </div>
+
+            <p class="footer-note">Глубже — Kelly (1956), Edward Thorp (Beat the Dealer, A Man for All Markets), William Poundstone (Fortune's Formula).</p>
+          </div>
+        </details>
+
+        <p class="bridge-down">↓ дальше — финал</p>
       </section>
 
-      <!-- ========== CODA (35-37) ========== -->
-      <section class="screen" data-act="coda" data-mode="default" data-screen="35">
-        <p>Колокол. Черта. Шок. Ещё одна идея в инструментарий. И снова. И ещё раз. Так выглядит работа риск-менеджера в регулируемой среде.</p>
-      </section>
+      <!-- ================== ЭКРАН 4 — ФИНАЛ ================== -->
+      <section class="screen screen--finale" data-screen="4">
+        <p class="sub-line">та же монетка. те же шансы.<br />просто подключил оба полушария.</p>
 
-      <section class="screen" data-act="coda" data-mode="default" data-screen="36">
-        <p>Этому учат на FRM. Я его сдал — и эта страница про то, что мне в нём показалось красивым: за каждым допущением — вопрос «а что если оно неверно».</p>
-      </section>
+        <h1 class="finale-hero">Финансовый риск-менеджмент — это не про запрет рисковать, это про правильную дозу<span class="finale-coin"><svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="золотая монета"><circle cx="18" cy="18" r="15.5" fill="#c9a443" stroke="#7e6322" stroke-width="0.8"></circle><circle cx="18" cy="18" r="12.5" fill="none" stroke="#7e6322" stroke-width="0.5" opacity="0.55"></circle><path d="M 18 10 L 19.85 15.7 L 25.85 15.7 L 21 19.2 L 22.85 24.9 L 18 21.4 L 13.15 24.9 L 15 19.2 L 10.15 15.7 L 16.15 15.7 Z" fill="#5a4516"></path></svg></span></h1>
 
-      <section class="screen" data-act="coda" data-mode="default" data-screen="37">
-        <p>Это первая внутренняя дверь лаба. Если что-то было интересно, но не всё понятно — это тоже разновидность нормы.</p>
-        <p class="back-link"><a href="/">← darmen.best</a></p>
-        <p class="version-link">
-          <a href="https://github.com/djoltai/darmen-best/commit/adfc91e">Версия 1</a>,
-          <a href="https://github.com/djoltai/darmen-best/commits/main/src/pages/lab/frm-var.astro">v1.5</a>
-          — на GitHub
-        </p>
+        <div class="finale-coda">
+          <p class="tag">опорные авторы и тексты</p>
+          <div class="links">
+            <!-- TODO: подставить URL поста-анонса при деплое (post-vol-drag-anchor) -->
+            <a href="#" data-post-anchor>пост-анонс ↗</a>
+            <a href="https://en.wikipedia.org/wiki/Kelly_criterion" target="_blank" rel="noopener noreferrer">Kelly · 1956 ↗</a>
+            <a href="https://www.goodreads.com/book/show/36064445-skin-in-the-game" target="_blank" rel="noopener noreferrer">Taleb · Skin in the Game ↗</a>
+            <a href="https://ergodicityeconomics.com" target="_blank" rel="noopener noreferrer">Peters · Ergodicity Economics ↗</a>
+          </div>
+
+          <div class="finale-nav">
+            <a href="/lab/frm-var-v2">архив v2 — три девальвации</a>
+            <a href="/">← darmen.best</a>
+          </div>
+        </div>
       </section>
 
     </main>
 
     <script>
-      import { initScroll } from '../../scripts/lab/frm-var/scroll';
-      import { initScreens } from '../../scripts/lab/frm-var/screens';
-      import { initLab } from '../../scripts/lab/frm-var/lab';
-
-      initScroll();
-      initScreens();
-      initLab();
+      import '../../scripts/lab/frm-vol-drag/main';
     </script>
   </body>
 </html>
