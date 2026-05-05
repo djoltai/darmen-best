@@ -1,0 +1,318 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '../../styles/lab/frm-var-v2.css';
+---
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>FRM · VaR · архив v2 · darmen.best</title>
+    <meta name="description" content="Архив v2 — сторилэндинг про VaR на трёх казахстанских девальвациях. Действующая страница на /lab/frm-var." />
+    <meta name="robots" content="noindex" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer is:inline></script>
+  </head>
+  <body class="frm-var-page">
+    <div class="v2-archive-banner">
+      <p>Это <strong>архив v2</strong>: сторилэндинг про три девальвации тенге. Действующая страница — на <a href="/lab/frm-var">/lab/frm-var</a>.</p>
+    </div>
+    <main>
+
+      <!-- ========== OPENING (1-3) ========== -->
+      <section class="screen" data-act="opening" data-mode="default" data-screen="1">
+        <div class="screen__viz" id="viz-1"></div>
+        <p class="caption">Курс тенге к доллару, 2018–2019.</p>
+      </section>
+
+      <section class="screen" data-act="opening" data-mode="default" data-screen="2">
+        <div class="screen__viz" id="viz-2"></div>
+        <p class="caption">А вот тот же курс за 16 лет.</p>
+      </section>
+
+      <section class="screen" data-act="opening" data-mode="default" data-screen="3">
+        <div class="screen__viz" id="viz-3"></div>
+        <p>Три ступеньки. Каждая — за день или несколько дней. Каждая больше, чем математическая модель риска допускала. Это разбор того, что она видела — и чего не увидела.</p>
+      </section>
+
+      <!-- ========== ACT 1 — CALM (4-7) ========== -->
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="4">
+        <div class="screen__viz" id="viz-4"></div>
+        <p>Прежде чем разобрать скачки — задержимся на спокойном отрезке. Что происходит здесь изо дня в день, когда ничего не происходит?</p>
+      </section>
+
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="5">
+        <div class="screen__viz" id="viz-5"></div>
+        <p>Курс колеблется каждый день — почти всегда меньше, чем на полтора процента. За два спокойных года таких колебаний набирается около пятисот.</p>
+      </section>
+
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="6">
+        <div class="screen__viz" id="viz-6"></div>
+        <p>Сложите эти колебания вместе — и проявится форма.</p>
+      </section>
+
+      <section class="screen" data-act="act-1" data-mode="default" data-screen="7">
+        <div class="screen__viz" id="viz-7"></div>
+        <p>У этой формы есть имя — нормальное распределение. Или просто колокол. Большинство дней сидит в центре, у самой вершины. Чем сильнее колебание — тем реже.</p>
+      </section>
+
+      <!-- ========== ACT 2 — VaR (8-11) ========== -->
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="8">
+        <div class="screen__viz" id="viz-8"></div>
+        <p>Колокол показывает, какие колебания бывают часто, а какие — редко. По центру — обычные дни, по краям — редкие. Чтобы что-то решать, нужна черта между «обычно» и «уже нет». Где её провести?</p>
+      </section>
+
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="9">
+        <div class="screen__viz" id="viz-9"></div>
+        <p>Скажем, проводим её так: слева — 99 обычных дней из ста, справа — один. Самый плохой.</p>
+      </section>
+
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="10">
+        <div class="screen__viz" id="viz-10"></div>
+        <div class="number-hero number-callout">3.3%</div>
+        <p>На колоколе 2018–2019 эта черта проходит примерно на 3.3%. Что это значит на практике? В 99 днях из 100 курс не сдвинется сильнее, чем на эти 3.3%.</p>
+        <p class="caption">Технически: 3.3% ≈ 2.33 × σ. Здесь σ ≈ 1.4% — типичный размер дневного колебания на этом отрезке. В лаборатории σ — ползунок.</p>
+      </section>
+
+      <section class="screen" data-act="act-2" data-mode="cream" data-screen="11">
+        <div class="screen__viz" id="viz-11"></div>
+        <p style="font-size:24px;font-weight:500;">Эта черта называется Value at Risk.</p>
+        <p style="font-size:18px;">Или короче — VaR.</p>
+        <p>На VaR опирается банк, когда решает, сколько капитала держать в запасе. Запас на тот один день из ста.</p>
+      </section>
+
+      <!-- ========== ACT 3 — 11 Feb 2014 (12-17) ========== -->
+      <section class="screen" data-act="act-3" data-mode="dark" data-cut="true" data-screen="12">
+        <div class="screen__viz" id="viz-12"></div>
+        <p>Это работает — пока «плохой день» из расчёта похож на реальный. В Казахстане иногда бывает иначе.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="13">
+        <h1 class="hero-date number-callout">11 февраля 2014</h1>
+        <div class="screen__viz" id="viz-13-mini"></div>
+        <p>Накануне курс был 155 тенге за доллар. На следующий день — 185. За сутки — почти 16%.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="14">
+        <div class="screen__viz" id="viz-14"></div>
+        <p>Накануне VaR говорил: в 99 днях из 100 курс не сдвинется сильнее, чем на 3.3%. Реальность дала 16%.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="15">
+        <div class="screen__viz" id="viz-15"></div>
+        <p>По нормальному распределению такое не должно было случиться вообще. Реже одного раза за всё время существования Вселенной.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="16">
+        <div class="screen__viz" id="viz-16"></div>
+        <p>Это не «плохой день, бывает». Это день, которого на колоколе не было.</p>
+      </section>
+
+      <section class="screen" data-act="act-3" data-mode="dark" data-screen="17">
+        <div class="screen__viz" id="viz-17"></div>
+        <p>После 2014 банки изменили подход. VaR стали считать не на двух спокойных годах, а на длинной истории — той, где уже есть шоки. И добавили к нему стресс-тест: «А что будет, если 2014 повторится?»</p>
+      </section>
+
+      <!-- ========== ACT 4 — 20 Aug 2015 (18-23) ========== -->
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="18">
+        <div class="screen__viz" id="viz-18"></div>
+        <p>Стресс-тест отвечал на вопрос: «А что если 2014 повторится?». Через полтора года 2014 не повторился. Случилось другое.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="19">
+        <h1 class="hero-date number-callout">20 августа 2015</h1>
+        <p>Нацбанк отпускает тенге.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="20">
+        <div class="screen__viz" id="viz-20"></div>
+        <p>Накануне курс был около 197. К концу недели — 252. За несколько дней — рост на 28%.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="21">
+        <div class="screen__viz" id="viz-21"></div>
+        <p>Тут была другая проблема. 2014 был плохим днём в обычном режиме. 2015 — это смена самого режима.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="22">
+        <div class="screen__viz" id="viz-22"></div>
+        <p>До 2015 курс жил в узком коридоре, который держал Нацбанк. После 20 августа — на открытом рынке. Это два разных рынка. Колокол, который описывал первый, второй уже не описывает.</p>
+      </section>
+
+      <section class="screen" data-act="act-4" data-mode="dark" data-screen="23">
+        <div class="screen__viz" id="viz-23"></div>
+        <p>После 2015 банки добавили в инструментарий ещё одну идею. Курс не всегда живёт в одном режиме. Иногда он переключается. Для каждого режима — свой колокол.</p>
+      </section>
+
+      <!-- ========== ACT 5 — Feb–Mar 2022 (24-29) ========== -->
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="24">
+        <div class="screen__viz" id="viz-24"></div>
+        <p>Это работало бы. Если бы каждый шок был внутренним. Но третий пришёл снаружи.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="25">
+        <h1 class="hero-date number-callout">Февраль 2022</h1>
+        <p>Региональная нестабильность, санкционный шок. За три недели курс — с 430 до 514. Около 20%.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="26">
+        <div class="screen__viz" id="viz-26"></div>
+        <p>Тут было новое. Тенге двинулся не сам по себе. Вместе с ним пошли вниз акции, нефть, рубль. Один шок шевельнул всё.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="27">
+        <div class="screen__viz" id="viz-27"></div>
+        <p>В обычные дни связи между активами слабые: тенге может стоять, а акции — двигаться. В большой стресс эти связи схлопываются. Всё начинает падать вместе. Тот, кто думал, что разнёс риски — обнаруживает, что они слились в одну кучу.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="28">
+        <div class="screen__viz" id="viz-28"></div>
+        <p>После 2022 банки добавили ещё один слой. VaR на одном активе — это узкий взгляд. Нужно смотреть на портфель целиком — как разные риски двигаются вместе в стрессе.</p>
+      </section>
+
+      <section class="screen" data-act="act-5" data-mode="dark" data-screen="29">
+        <div class="screen__viz" id="viz-29"></div>
+        <p>VaR — это граница: 99 из 100 — не дальше неё.</p>
+        <p>ES спрашивает другое: если день оказался по ту сторону черты, какая там средняя потеря? Не сама граница — среднее за ней.</p>
+        <p>Этот инструмент называется Expected Shortfall — или ES. С 2019 года международные регуляторы сделали его обязательным вместо VaR.</p>
+      </section>
+
+      <!-- ========== BRIDGE (30-31) ========== -->
+      <section class="screen" data-act="bridge" data-mode="cream" data-screen="30">
+        <div class="screen__viz" id="viz-30"></div>
+        <p>Это была долгая прогулка. Двенадцать лет, три шока. Каждый шок добавил в инструментарий новую идею.</p>
+      </section>
+
+      <section class="screen" data-act="bridge" data-mode="cream" data-screen="31">
+        <div class="screen__viz" id="viz-31"></div>
+        <p>Дальше — лаборатория. Все инструменты, которые мы прошли — в одном месте. Теперь крутите вы.</p>
+      </section>
+
+      <!-- ========== LAB (32-34) ========== -->
+      <section class="screen lab" data-act="lab-base" data-mode="cream" data-screen="32">
+        <div class="lab__inner">
+          <div class="lab__bell"><canvas id="lab-bell"></canvas></div>
+
+          <div class="lab__numbers">
+            <div>
+              <div class="num-label">VaR</div>
+              <div class="num-value number-callout" id="lab-var-value">3.3%</div>
+            </div>
+            <div>
+              <div class="num-label">ES</div>
+              <div class="num-value number-callout" id="lab-es-value">3.7%</div>
+            </div>
+          </div>
+
+          <div class="lab__controls">
+            <div class="control">
+              <span class="control__title">Размер обычного колебания</span>
+              <span class="control__tech">σ <span id="lab-sigma-value">1.40%</span></span>
+              <span class="control__sub">Насколько сильно курс шевелится в спокойный день</span>
+              <div class="control__input">
+                <input type="range" id="lab-sigma" min="50" max="500" value="140" step="1" />
+              </div>
+            </div>
+
+            <div class="control">
+              <span class="control__title">Допущение о форме</span>
+              <span class="control__tech">Normal / Student-t</span>
+              <span class="control__sub">Жирный хвост — редкие события случаются чаще</span>
+              <div class="control__input btn-group">
+                <button class="btn lab-dist is-active" data-dist="normal">Колокол</button>
+                <button class="btn lab-dist" data-dist="t">Колокол с жирным хвостом</button>
+              </div>
+            </div>
+
+            <div class="control">
+              <span class="control__title">Где провести черту</span>
+              <span class="control__tech">95% / 99% / 99.5%</span>
+              <span class="control__sub">Стандарт — 1 плохой день из 100</span>
+              <div class="control__input btn-group">
+                <button class="btn lab-alpha" data-alpha="0.95">Помягче</button>
+                <button class="btn lab-alpha is-active" data-alpha="0.99">Стандарт</button>
+                <button class="btn lab-alpha" data-alpha="0.995">Жёстко</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen lab" data-act="lab-historical" data-mode="cream" data-screen="33">
+        <div class="lab__inner">
+          <h2>А что было на самом деле</h2>
+          <p style="margin:0 0 24px;">Каждый эпизод перестраивает колокол под реальные данные. Можно увидеть, что говорила модель — и что произошло.</p>
+
+          <div class="scenarios">
+            <button class="scenario-btn" data-scenario="calm">
+              <span class="scenario-btn__title">Спокойный 2018–2019</span>
+              <span class="scenario-btn__sub">вернуться к базе</span>
+            </button>
+            <button class="scenario-btn" data-scenario="2014-02-11">
+              <span class="scenario-btn__title">11 фев 2014</span>
+              <span class="scenario-btn__sub">первая девальвация</span>
+            </button>
+            <button class="scenario-btn" data-scenario="2015-08-20">
+              <span class="scenario-btn__title">20 авг 2015</span>
+              <span class="scenario-btn__sub">свободное плавание</span>
+            </button>
+            <button class="scenario-btn" data-scenario="2022-03-11">
+              <span class="scenario-btn__title">Фев–март 2022</span>
+              <span class="scenario-btn__sub">внешний шок</span>
+            </button>
+          </div>
+
+          <p class="scenario-callout" id="scenario-callout"></p>
+          <button class="reset-btn" id="scenario-reset">Сбросить</button>
+        </div>
+      </section>
+
+      <section class="screen lab" data-act="lab-mc" data-mode="cream" data-screen="34">
+        <div class="lab__inner">
+          <h2>10 000 будущих</h2>
+          <p style="margin:0 0 24px;">Карта возможных завтрашних курсов. Не предсказание — карта вариантов.</p>
+
+          <div class="mc-canvas-wrap">
+            <canvas id="mc-canvas"></canvas>
+          </div>
+          <button class="mc-launch" id="mc-launch">Запустить 10 000 будущих</button>
+
+          <p class="mc-result" id="mc-result"></p>
+        </div>
+      </section>
+
+      <!-- ========== CODA (35-37) ========== -->
+      <section class="screen" data-act="coda" data-mode="default" data-screen="35">
+        <p>Колокол. Черта. Шок. Ещё одна идея в инструментарий. И снова. И ещё раз. Так выглядит работа риск-менеджера в регулируемой среде.</p>
+      </section>
+
+      <section class="screen" data-act="coda" data-mode="default" data-screen="36">
+        <p>Этому учат на FRM. Я его сдал — и эта страница про то, что мне в нём показалось красивым: за каждым допущением — вопрос «а что если оно неверно».</p>
+      </section>
+
+      <section class="screen" data-act="coda" data-mode="default" data-screen="37">
+        <p>Это первая внутренняя дверь лаба. Если что-то было интересно, но не всё понятно — это тоже разновидность нормы.</p>
+        <p class="back-link"><a href="/">← darmen.best</a></p>
+        <p class="version-link">
+          <a href="https://github.com/djoltai/darmen-best/commit/adfc91e">Версия 1</a>,
+          <a href="https://github.com/djoltai/darmen-best/commits/main/src/pages/lab/frm-var.astro">v1.5</a>
+          — на GitHub
+        </p>
+      </section>
+
+    </main>
+
+    <script>
+      import { initScroll } from '../../scripts/lab/frm-var-v2/scroll';
+      import { initScreens } from '../../scripts/lab/frm-var-v2/screens';
+      import { initLab } from '../../scripts/lab/frm-var-v2/lab';
+
+      initScroll();
+      initScreens();
+      initLab();
+    </script>
+  </body>
+</html>
