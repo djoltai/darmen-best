@@ -1,0 +1,754 @@
+/* FRM · Volatility Drag · v3
+   4 screens + 2 shtorky. Cream bg, graphite text, teal accent,
+   coral only in risk moments, gold only in the finale coin. */
+
+/* ============================================================
+   1. Palette + page baseline
+   ============================================================ */
+
+:root {
+  --v3-bg: #faf3dd;
+  --v3-text-primary: #1a1a1a;
+  --v3-text-muted: rgba(26, 26, 26, 0.55);
+  --v3-text-subtle: rgba(26, 26, 26, 0.45);
+
+  --v3-teal: #07434b;
+  --v3-teal-soft: rgba(7, 67, 75, 0.10);
+  --v3-teal-hover: #0a565f;
+  --v3-teal-active: #053238;
+
+  --v3-coral: #d97062;
+  --v3-coral-soft: rgba(217, 112, 98, 0.10);
+
+  --v3-gold: #c9a443;
+  --v3-gold-rim: #7e6322;
+  --v3-gold-symbol: #5a4516;
+
+  --v3-border-subtle: rgba(26, 26, 26, 0.15);
+  --v3-border-faint: rgba(26, 26, 26, 0.06);
+}
+
+.frm-vol-drag-page {
+  background: var(--v3-bg);
+  color: var(--v3-text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11", "tnum";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+/* ============================================================
+   2. Typography
+   ============================================================ */
+
+.frm-vol-drag-page h1 {
+  font-size: clamp(28px, 5.5vw, 46px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.frm-vol-drag-page h2 {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.frm-vol-drag-page h3 {
+  font-size: 17px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.frm-vol-drag-page p {
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.frm-vol-drag-page p + p {
+  margin-top: 14px;
+}
+
+.frm-vol-drag-page .tag {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--v3-text-subtle);
+  text-transform: lowercase;
+}
+
+.frm-vol-drag-page .tag--wide {
+  letter-spacing: 0.24em;
+  color: var(--v3-text-muted);
+}
+
+.frm-vol-drag-page .caption {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--v3-text-muted);
+}
+
+.frm-vol-drag-page .mono,
+.frm-vol-drag-page .number-callout {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.frm-vol-drag-page a {
+  color: var(--v3-teal);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--v3-border-subtle);
+  transition: border-color 200ms, color 200ms;
+}
+.frm-vol-drag-page a:hover {
+  color: var(--v3-teal-hover);
+  border-bottom-color: var(--v3-teal);
+}
+
+.frm-vol-drag-page strong { font-weight: 500; }
+
+.frm-vol-drag-page em {
+  font-style: italic;
+  color: var(--v3-text-primary);
+}
+
+/* ============================================================
+   3. Screen container
+   ============================================================ */
+
+.frm-vol-drag-page .screen {
+  min-height: 580px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.frm-vol-drag-page .screen--opener,
+.frm-vol-drag-page .screen--finale {
+  padding: 60px 48px;
+  justify-content: space-between;
+  min-height: 600px;
+}
+
+.frm-vol-drag-page .screen--finale {
+  padding-top: 80px;
+}
+
+.frm-vol-drag-page .screen + .screen {
+  border-top: 0.5px solid var(--v3-border-faint);
+}
+
+.frm-vol-drag-page .bridge-down {
+  margin-top: 48px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--v3-text-subtle);
+  text-align: center;
+}
+
+/* ============================================================
+   4. Screen 1 — opener
+   ============================================================ */
+
+.frm-vol-drag-page .opener-hero {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.frm-vol-drag-page .ev-formula {
+  margin: 56px auto 0;
+  display: grid;
+  grid-template-columns: repeat(9, auto);
+  align-items: end;
+  justify-content: center;
+  column-gap: 10px;
+  row-gap: 8px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(15px, 1.7vw, 19px);
+}
+
+.frm-vol-drag-page .ev-formula .lbl {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  font-family: 'Inter', system-ui, sans-serif;
+  text-transform: lowercase;
+  color: var(--v3-text-muted);
+  text-align: center;
+  font-weight: 400;
+}
+
+.frm-vol-drag-page .ev-formula .lbl--win  { color: rgba(7, 67, 75, 0.7); }
+.frm-vol-drag-page .ev-formula .lbl--lose { color: rgba(217, 112, 98, 0.85); }
+
+.frm-vol-drag-page .ev-formula .op,
+.frm-vol-drag-page .ev-formula .num-half {
+  color: var(--v3-text-muted);
+}
+.frm-vol-drag-page .ev-formula .num-half { color: var(--v3-text-primary); }
+
+.frm-vol-drag-page .ev-formula .num-win  { color: var(--v3-teal); }
+.frm-vol-drag-page .ev-formula .num-lose { color: var(--v3-coral); }
+.frm-vol-drag-page .ev-formula .num-total { color: var(--v3-text-primary); }
+
+.frm-vol-drag-page .ev-formula .col-empty { visibility: hidden; }
+
+.frm-vol-drag-page .opener-bridge {
+  text-align: center;
+  max-width: 520px;
+  margin: 56px auto 0;
+  color: var(--v3-text-muted);
+}
+
+/* ============================================================
+   5. Screen 2 — all-in simulator
+   ============================================================ */
+
+.frm-vol-drag-page .screen--all-in .hero {
+  font-size: clamp(28px, 4.5vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.frm-vol-drag-page .sub-info {
+  font-size: 15px;
+  color: var(--v3-text-muted);
+  max-width: 520px;
+  margin-bottom: 32px;
+}
+
+.frm-vol-drag-page .metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--v3-text-muted);
+}
+
+.frm-vol-drag-page .metric-row .final-cap {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: var(--v3-text-primary);
+  transition: color 120ms;
+}
+.frm-vol-drag-page .metric-row .final-cap.is-win  { color: var(--v3-teal); }
+.frm-vol-drag-page .metric-row .final-cap.is-lose { color: var(--v3-coral); }
+
+.frm-vol-drag-page .charts-grid--all-in {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: stretch;
+}
+
+.frm-vol-drag-page .charts-grid--slider {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.frm-vol-drag-page .canvas-wrap {
+  position: relative;
+  width: 100%;
+}
+.frm-vol-drag-page .canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.frm-vol-drag-page .canvas-wrap--traj-all-in    { aspect-ratio: 380 / 280; }
+.frm-vol-drag-page .canvas-wrap--hist-all-in    { aspect-ratio: 220 / 280; }
+.frm-vol-drag-page .canvas-wrap--traj-slider    { aspect-ratio: 320 / 220; }
+.frm-vol-drag-page .canvas-wrap--curve-slider   { aspect-ratio: 320 / 220; }
+.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 120; max-width: 620px; margin: 24px auto 0; }
+
+.frm-vol-drag-page .chart-caption {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--v3-text-muted);
+  text-align: center;
+  margin-top: 8px;
+  text-transform: lowercase;
+}
+.frm-vol-drag-page .chart-legend {
+  font-size: 11px;
+  color: var(--v3-text-muted);
+  text-align: center;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.frm-vol-drag-page .chart-legend .seg { margin: 0 10px; }
+
+.frm-vol-drag-page .play-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.frm-vol-drag-page .scenario-text {
+  font-size: 14px;
+  color: var(--v3-text-muted);
+  max-width: 540px;
+  margin-bottom: 16px;
+}
+
+.frm-vol-drag-page .pivot-line {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--v3-text-primary);
+  margin-bottom: 40px;
+}
+
+.frm-vol-drag-page .asymmetry-block { max-width: 620px; }
+.frm-vol-drag-page .asymmetry-block h2 { margin-bottom: 14px; }
+.frm-vol-drag-page .asymmetry-block .accent-num {
+  color: var(--v3-teal);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.frm-vol-drag-page .asymmetry-block .accent-term {
+  color: var(--v3-teal);
+  font-weight: 500;
+}
+
+/* ============================================================
+   6. Coin feedback widget (screen 2)
+   ============================================================ */
+
+.frm-vol-drag-page .coin-feedback {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.frm-vol-drag-page .coin-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  background: transparent;
+  border: 1px solid var(--v3-border-subtle);
+  color: var(--v3-text-muted);
+  transition: background 80ms, border-color 80ms, color 80ms;
+}
+.frm-vol-drag-page .coin-circle.is-heads {
+  background: var(--v3-teal-soft);
+  border-color: var(--v3-teal);
+  color: var(--v3-teal);
+}
+.frm-vol-drag-page .coin-circle.is-tails {
+  background: var(--v3-coral-soft);
+  border-color: var(--v3-coral);
+  color: var(--v3-coral);
+}
+
+.frm-vol-drag-page .coin-sub {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: var(--v3-text-subtle);
+  transition: color 80ms;
+}
+.frm-vol-drag-page .coin-sub.is-heads { color: var(--v3-teal); }
+.frm-vol-drag-page .coin-sub.is-tails { color: var(--v3-coral); }
+
+/* ============================================================
+   7. Screen 3 — slider + presets + metrics
+   ============================================================ */
+
+.frm-vol-drag-page .screen--slider .hero {
+  font-size: clamp(28px, 4.5vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  max-width: 580px;
+  margin-bottom: 16px;
+}
+
+.frm-vol-drag-page .slider-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.frm-vol-drag-page .slider-row .slider-tag {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--v3-text-muted);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.frm-vol-drag-page .slider-row .slider-input {
+  flex: 1 1 auto;
+}
+.frm-vol-drag-page .slider-row .slider-value {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--v3-teal);
+  min-width: 56px;
+  text-align: right;
+}
+
+.frm-vol-drag-page .presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 32px;
+  font-size: 13px;
+}
+.frm-vol-drag-page .preset {
+  background: transparent;
+  border: none;
+  color: var(--v3-text-muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 120ms, border-color 120ms;
+}
+.frm-vol-drag-page .preset:hover { color: var(--v3-text-primary); }
+.frm-vol-drag-page .preset.is-active {
+  color: var(--v3-teal);
+  font-weight: 500;
+  border-bottom-color: var(--v3-teal);
+}
+
+.frm-vol-drag-page .metrics-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+  max-width: 540px;
+}
+.frm-vol-drag-page .metrics-pair .metric .label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--v3-text-muted);
+  margin-bottom: 6px;
+  text-transform: lowercase;
+}
+.frm-vol-drag-page .metrics-pair .metric .value {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--v3-text-primary);
+}
+
+.frm-vol-drag-page .kelly-block { max-width: 620px; }
+.frm-vol-drag-page .kelly-block h2 { margin-bottom: 14px; }
+.frm-vol-drag-page .kelly-block .pull-quote {
+  border-left: 3px solid var(--v3-teal);
+  padding-left: 16px;
+  margin: 18px 0;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.frm-vol-drag-page .kelly-block .pull-quote code,
+.frm-vol-drag-page .kelly-block .pull-quote .mono {
+  font-size: 16px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ============================================================
+   8. Slider <input type=range> — design.md §8.1
+   ============================================================ */
+
+.frm-vol-drag-page input[type="range"].v3-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  height: 18px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.frm-vol-drag-page input[type="range"].v3-slider::-webkit-slider-runnable-track {
+  height: 2px;
+  background: rgba(26, 26, 26, 0.2);
+  border-radius: 2px;
+}
+.frm-vol-drag-page input[type="range"].v3-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  background: var(--v3-teal);
+  border: none;
+  border-radius: 50%;
+  margin-top: -7px;
+}
+.frm-vol-drag-page input[type="range"].v3-slider::-moz-range-track {
+  height: 2px;
+  background: rgba(26, 26, 26, 0.2);
+  border-radius: 2px;
+}
+.frm-vol-drag-page input[type="range"].v3-slider::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  background: var(--v3-teal);
+  border: none;
+  border-radius: 50%;
+}
+.frm-vol-drag-page input[type="range"].v3-slider:focus { outline: none; }
+
+/* ============================================================
+   9. Primary CTA — design.md §8.2
+   ============================================================ */
+
+.frm-vol-drag-page .v3-btn-primary {
+  background: var(--v3-teal);
+  color: var(--v3-bg);
+  border: none;
+  padding: 14px 28px;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background 120ms;
+}
+.frm-vol-drag-page .v3-btn-primary:hover  { background: var(--v3-teal-hover); }
+.frm-vol-drag-page .v3-btn-primary:active { background: var(--v3-teal-active); }
+.frm-vol-drag-page .v3-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* ============================================================
+   10. <details> shtorka — design.md §8.3
+   ============================================================ */
+
+.frm-vol-drag-page details.shtorka {
+  margin: 32px 0;
+  border-top: 0.5px solid var(--v3-border-subtle);
+  padding-top: 18px;
+}
+
+.frm-vol-drag-page details.shtorka summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--v3-text-muted);
+  letter-spacing: 0.04em;
+  user-select: none;
+  transition: color 150ms;
+}
+.frm-vol-drag-page details.shtorka summary::-webkit-details-marker { display: none; }
+.frm-vol-drag-page details.shtorka summary:hover { color: var(--v3-text-primary); }
+
+.frm-vol-drag-page details.shtorka[open] summary {
+  color: var(--v3-text-primary);
+  margin-bottom: 18px;
+}
+
+.frm-vol-drag-page details.shtorka .shtorka-body {
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 640px;
+  color: var(--v3-text-primary);
+}
+.frm-vol-drag-page details.shtorka .shtorka-body .opener-quote {
+  font-style: italic;
+  color: var(--v3-teal);
+  margin-bottom: 14px;
+}
+.frm-vol-drag-page details.shtorka .shtorka-body .section {
+  margin-bottom: 14px;
+}
+.frm-vol-drag-page details.shtorka .shtorka-body .section-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.frm-vol-drag-page details.shtorka .shtorka-body .formula,
+.frm-vol-drag-page details.shtorka .shtorka-body .mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+.frm-vol-drag-page details.shtorka .shtorka-body .formula-block {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 6px 0;
+  white-space: pre-wrap;
+}
+.frm-vol-drag-page details.shtorka .shtorka-body .formula-accent {
+  color: var(--v3-teal);
+  font-weight: 500;
+}
+.frm-vol-drag-page details.shtorka .shtorka-body .footer-note {
+  margin-top: 18px;
+  font-style: italic;
+  color: var(--v3-text-muted);
+  font-size: 13px;
+}
+
+/* ============================================================
+   11. Screen 4 — finale (sub-line, hero, coda, nav)
+   ============================================================ */
+
+.frm-vol-drag-page .screen--finale .sub-line {
+  font-size: 14px;
+  color: var(--v3-text-muted);
+  line-height: 1.65;
+  max-width: 540px;
+  margin: 0;
+}
+
+.frm-vol-drag-page .screen--finale .finale-hero {
+  font-size: clamp(28px, 5.5vw, 46px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  max-width: 720px;
+  margin: 32px 0 0;
+}
+
+.frm-vol-drag-page .finale-coin {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 0.18em;
+  vertical-align: -0.08em;
+}
+.frm-vol-drag-page .finale-coin svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.frm-vol-drag-page .finale-coda {
+  margin-top: 64px;
+  padding-top: 28px;
+  border-top: 0.5px solid var(--v3-border-subtle);
+}
+
+.frm-vol-drag-page .finale-coda .tag {
+  display: block;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.frm-vol-drag-page .finale-coda .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 22px;
+  font-size: 13px;
+  margin-bottom: 32px;
+}
+
+.frm-vol-drag-page .finale-coda .links a {
+  color: var(--v3-teal);
+  border-bottom: 0.5px solid var(--v3-border-subtle);
+}
+.frm-vol-drag-page .finale-coda .links a:hover {
+  border-bottom-color: var(--v3-teal);
+}
+
+.frm-vol-drag-page .finale-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12px;
+  color: var(--v3-text-muted);
+  margin-top: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.frm-vol-drag-page .finale-nav a {
+  color: var(--v3-text-muted);
+  border-bottom-color: transparent;
+}
+.frm-vol-drag-page .finale-nav a:hover {
+  color: var(--v3-text-primary);
+  border-bottom-color: var(--v3-border-subtle);
+}
+
+/* ============================================================
+   12. Mobile (< 768px)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .frm-vol-drag-page .screen {
+    padding: 36px 20px;
+    min-height: auto;
+  }
+  .frm-vol-drag-page .screen--opener,
+  .frm-vol-drag-page .screen--finale {
+    padding: 48px 20px;
+    min-height: 520px;
+  }
+
+  .frm-vol-drag-page .charts-grid--all-in,
+  .frm-vol-drag-page .charts-grid--slider {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .frm-vol-drag-page .canvas-wrap--hist-all-in { aspect-ratio: 380 / 220; }
+
+  .frm-vol-drag-page .metrics-pair {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .frm-vol-drag-page .metrics-pair .metric .value { font-size: 24px; }
+
+  .frm-vol-drag-page .ev-formula {
+    grid-template-columns: repeat(5, auto);
+    column-gap: 6px;
+    font-size: 14px;
+  }
+
+  .frm-vol-drag-page details.shtorka .shtorka-body { font-size: 13.5px; }
+}
+
+/* ============================================================
+   13. Reduced motion
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .frm-vol-drag-page,
+  .frm-vol-drag-page * {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
