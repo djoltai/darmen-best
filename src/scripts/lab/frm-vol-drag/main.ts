@@ -3,7 +3,8 @@
 // handles resize so HiDPI canvases stay sharp.
 
 import { N, flipCoin, multiplier, geomReturn, arithExpectedValue, fmtMoney } from './coin';
-import { precomputeAllInDist } from './dist';
+import type { Side } from './coin';
+import { precomputeAllInDist, precomputeSideSequences } from './dist';
 import type { PrecomputedDist } from './dist';
 import {
   drawTrajectoryAllIn,
@@ -23,6 +24,10 @@ function $<T extends HTMLElement>(id: string): T | null {
 
 function init() {
   const dist: PrecomputedDist = precomputeAllInDist();
+  // Pre-generate fixed coin-flip sequences for screen 3's background
+  // sample trajectories. Same sequences are reused across all f values
+  // — slider drag morphs the paths smoothly instead of reshuffling.
+  const bgSides: Side[][] = precomputeSideSequences(22);
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ===== Screen 2 — all-in simulator =====
@@ -156,7 +161,7 @@ function init() {
 
   function updateSlider(f: number) {
     currentF = f;
-    if (trajCanvas3)  drawTrajectorySlider(trajCanvas3, f);
+    if (trajCanvas3)  drawTrajectorySlider(trajCanvas3, f, bgSides);
     if (curveCanvas3) drawCurveSlider(curveCanvas3, f);
     if (fValueEl)     fValueEl.textContent = Math.round(f * 100) + '%';
 
@@ -204,7 +209,7 @@ function init() {
     resizeTimer = window.setTimeout(() => {
       renderAllIn(currentTraj);
       if (densityCanvas) drawDensitySchematic(densityCanvas);
-      if (trajCanvas3)  drawTrajectorySlider(trajCanvas3, currentF);
+      if (trajCanvas3)  drawTrajectorySlider(trajCanvas3, currentF, bgSides);
       if (curveCanvas3) drawCurveSlider(curveCanvas3, currentF);
     }, 120);
   });

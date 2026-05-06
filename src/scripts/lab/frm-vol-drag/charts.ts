@@ -4,7 +4,9 @@
 // for the asymmetry block (screen 2).
 
 import { N, geomReturn, arithExpectedValue, fmtAxisTick, fmtMoney } from './coin';
+import type { Side } from './coin';
 import type { PrecomputedDist } from './dist';
+import { trajFromSides } from './dist';
 
 // Palette literals — keep in sync with --v3-* CSS vars.
 const COL = {
@@ -274,7 +276,11 @@ export function drawHistogramAllIn(
 
 const TICKS_SLIDER = [3, 1, 0, -1, -3]; // log10 → $1k $10 $1 $0.1 $0.001
 
-export function drawTrajectorySlider(canvas: HTMLCanvasElement, f: number) {
+export function drawTrajectorySlider(
+  canvas: HTMLCanvasElement,
+  f: number,
+  bgSides: Side[][] = []
+) {
   const { ctx, w, h } = setupHiDPI(canvas);
   // padL matches drawTrajectoryAllIn so y-axis labels never clip on narrow widths.
   const padL = 52, padR = 12, padT = 14, padB = 22;
@@ -282,9 +288,11 @@ export function drawTrajectorySlider(canvas: HTMLCanvasElement, f: number) {
   const plotH = h - padT - padB;
   const yMin = -3, yMax = 3;
 
+  // Unclamped Y so bg trajectories that exceed the plot range clip cleanly
+  // at the canvas edge instead of "sticking" to the plot top/bottom.
   const yPx = (v: number) => {
     const lv = Math.log10(Math.max(v, 1e-10));
-    const norm = Math.min(1, Math.max(0, (lv - yMin) / (yMax - yMin)));
+    const norm = (lv - yMin) / (yMax - yMin);
     return padT + (1 - norm) * plotH;
   };
   const xPx = (t: number) => padL + (t / N) * plotW;
@@ -312,6 +320,31 @@ export function drawTrajectorySlider(canvas: HTMLCanvasElement, f: number) {
     ctx.moveTo(padL, y);
     ctx.lineTo(padL + plotW, y);
     ctx.stroke();
+  }
+
+  // Background sample trajectories at the current f. Drawn first so they
+  // sit behind the $1 ref line and the theoretical mean/median curves.
+  // Clipped to the plot rectangle so paths that go off-range don't bleed
+  // into the axis-tick column on the left.
+  if (bgSides.length > 0) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(padL, padT, plotW, plotH);
+    ctx.clip();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(7,67,75,0.13)';
+    ctx.lineCap = 'butt';
+    ctx.lineJoin = 'round';
+    for (const sides of bgSides) {
+      const traj = trajFromSides(sides, f);
+      ctx.beginPath();
+      for (let t = 0; t <= N; t++) {
+        const x = xPx(t), y = yPx(traj[t]);
+        if (t === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
   }
 
   // $1 reference dotted
