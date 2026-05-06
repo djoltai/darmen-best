@@ -56,7 +56,8 @@ export function drawTrajectoryAllIn(
   activeTraj: number[] | null
 ) {
   const { ctx, w, h } = setupHiDPI(canvas);
-  const padL = 44, padR = 12, padT = 12, padB = 22;
+  // padL bumped from 44 to 52 so "$0.0001" doesn't clip on narrow viewports.
+  const padL = 52, padR = 12, padT = 12, padB = 22;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
   const yMin = dist.yMin, yMax = dist.yMax;
@@ -249,7 +250,8 @@ const TICKS_SLIDER = [3, 1, 0, -1, -3]; // log10 → $1k $10 $1 $0.1 $0.001
 
 export function drawTrajectorySlider(canvas: HTMLCanvasElement, f: number) {
   const { ctx, w, h } = setupHiDPI(canvas);
-  const padL = 44, padR = 12, padT = 14, padB = 22;
+  // padL matches drawTrajectoryAllIn so y-axis labels never clip on narrow widths.
+  const padL = 52, padR = 12, padT = 14, padB = 22;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
   const yMin = -3, yMax = 3;
