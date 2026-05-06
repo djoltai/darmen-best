@@ -161,11 +161,16 @@ export function drawHistogramAllIn(
   lastFinal: number | null
 ) {
   const { ctx, w, h } = setupHiDPI(canvas);
-  // No Y-axis labels here — the trajectory chart above/beside owns the
-  // scale, this picture is the distribution view of the same scale.
-  // padL kept just enough for a thin spine; padR holds the median/mean
-  // text labels on the right.
-  const padL = 20, padR = 56, padT = 12, padB = 22;
+  // Mobile keeps the Y-axis labels: when the chart stacks under the
+  // trajectory chart on a phone, the labels make the histogram self-
+  // readable and the spine lines up with the trajectory's Y-axis above.
+  // Desktop drops the labels: the trajectory chart sits beside it and
+  // owns the scale, so labels here would be redundant — and dropping
+  // them frees ~32px of plot width for the bars.
+  const isMobile = typeof window !== 'undefined'
+    && window.matchMedia('(max-width: 768px)').matches;
+  const padL = isMobile ? 52 : 20;
+  const padR = 56, padT = 12, padB = 22;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
   const yMin = dist.yMin, yMax = dist.yMax;
@@ -179,7 +184,7 @@ export function drawHistogramAllIn(
   const binSpan = (yMax - yMin) / dist.histBins;
   const binPxH = plotH / dist.histBins;
 
-  // Y-axis spine — thin vertical reference at padL. No tick text labels.
+  // Y-axis spine — thin vertical reference at padL.
   ctx.strokeStyle = 'rgba(26,26,26,0.18)';
   ctx.lineWidth = 0.5;
   ctx.beginPath();
@@ -187,10 +192,18 @@ export function drawHistogramAllIn(
   ctx.lineTo(padL, padT + plotH);
   ctx.stroke();
 
-  // Faint horizontal gridlines at the same Y levels as the trajectory
-  // chart's ticks, no text — just structure for the eye to anchor on.
+  // Tick labels (mobile only) + faint gridlines (always).
+  if (isMobile) {
+    ctx.font = '10px Inter, system-ui, sans-serif';
+    ctx.fillStyle = COL.textFaint;
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+  }
   for (const lv of TICKS_ALL_IN) {
     const y = yPx(Math.pow(10, lv));
+    if (isMobile) {
+      ctx.fillText(fmtAxisTick(lv), padL - 6, y);
+    }
     ctx.strokeStyle = 'rgba(26,26,26,0.06)';
     ctx.lineWidth = 0.5;
     ctx.beginPath();
