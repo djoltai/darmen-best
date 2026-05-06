@@ -192,7 +192,12 @@ export function drawHistogramAllIn(
   ctx.textBaseline = 'middle';
   for (const lv of TICKS_ALL_IN) {
     const y = yPx(Math.pow(10, lv));
-    ctx.fillText(fmtAxisTick(lv), padL - 6, y);
+    // Win-zone labels ($10, $1k) suppressed — same Y scale as the
+    // trajectory chart above/beside, the reader infers from there.
+    // Loss-zone labels ($1, $0.01, $0.0001) kept for orientation.
+    if (lv <= 0) {
+      ctx.fillText(fmtAxisTick(lv), padL - 6, y);
+    }
     ctx.strokeStyle = 'rgba(26,26,26,0.06)';
     ctx.lineWidth = 0.5;
     ctx.beginPath();
