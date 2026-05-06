@@ -159,7 +159,9 @@ export function drawHistogramAllIn(
   lastFinal: number | null
 ) {
   const { ctx, w, h } = setupHiDPI(canvas);
-  const padL = 8, padR = 56, padT = 12, padB = 22;
+  // padL matches drawTrajectoryAllIn (52) so when the two charts stack on
+  // mobile their Y-axes line up vertically and read as one shared scale.
+  const padL = 52, padR = 56, padT = 12, padB = 22;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
   const yMin = dist.yMin, yMax = dist.yMax;
@@ -173,7 +175,31 @@ export function drawHistogramAllIn(
   const binSpan = (yMax - yMin) / dist.histBins;
   const binPxH = plotH / dist.histBins;
 
-  // bars (horizontal, left-to-right)
+  // Y-axis spine + tick labels — same TICKS_ALL_IN as the trajectory chart,
+  // so the histogram is self-readable when stacked under the trajectory.
+  ctx.strokeStyle = 'rgba(26,26,26,0.18)';
+  ctx.lineWidth = 0.5;
+  ctx.beginPath();
+  ctx.moveTo(padL, padT);
+  ctx.lineTo(padL, padT + plotH);
+  ctx.stroke();
+
+  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.fillStyle = COL.textFaint;
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  for (const lv of TICKS_ALL_IN) {
+    const y = yPx(Math.pow(10, lv));
+    ctx.fillText(fmtAxisTick(lv), padL - 6, y);
+    ctx.strokeStyle = 'rgba(26,26,26,0.06)';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(padL + plotW, y);
+    ctx.stroke();
+  }
+
+  // bars (horizontal, left-to-right from the spine)
   for (let i = 0; i < dist.histBins; i++) {
     const count = dist.histogramBins[i];
     if (count === 0) continue;
@@ -469,11 +495,14 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   // above each dot (curve is essentially flat there). No more collisions,
   // no more dashed connectors — alignment is achieved by being literally on
   // the same line.
-  const padL = 18, padR = 18, padT = 14, padB = 36;
+  // X clipped to -5..+6 instead of -7..+6: density at log10 < -5 is below
+  // 6% of the peak, so the leftmost two log units are dead horizontal space.
+  // Removing them lets the visible peak occupy more of the canvas width.
+  const padL = 18, padR = 18, padT = 10, padB = 28;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
 
-  const xMin = -7, xMax = 6;
+  const xMin = -5, xMax = 6;
   const mu = -2.29;
   const sigma = 1.99;
   const lvMean = 2.12;
