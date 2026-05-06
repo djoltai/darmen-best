@@ -284,7 +284,7 @@
 .frm-vol-drag-page .canvas-wrap--hist-all-in    { aspect-ratio: 220 / 280; }
 .frm-vol-drag-page .canvas-wrap--traj-slider    { aspect-ratio: 320 / 220; }
 .frm-vol-drag-page .canvas-wrap--curve-slider   { aspect-ratio: 320 / 220; }
-.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 170; max-width: 620px; margin: 24px auto 0; }
+.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 240; max-width: 620px; margin: 24px auto 0; }
 
 .frm-vol-drag-page .chart-caption {
   font-size: 11px;

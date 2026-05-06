@@ -463,21 +463,23 @@ export function drawCurveSlider(canvas: HTMLCanvasElement, fCurrent: number) {
 
 export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   const { ctx, w, h } = setupHiDPI(canvas);
-  // Layout: lucky-dots row sits well above the curve in the upper third;
-  // median/mean labels stay below the baseline. This keeps the two label
-  // groups on different rows so they never collide on narrow viewports.
-  const padL = 18, padR = 18, padT = 14, padB = 26;
+  // Number-line schematic: density curve fills upper area, baseline is the
+  // X axis, all four landmark dots sit ON the baseline. Labels for median /
+  // mean stack below the axis (name + value); lucky-point labels sit just
+  // above each dot (curve is essentially flat there). No more collisions,
+  // no more dashed connectors — alignment is achieved by being literally on
+  // the same line.
+  const padL = 18, padR = 18, padT = 14, padB = 36;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
 
-  // log10-X from -7 to +6, density on log10 X with μ=-2.29, σ=1.99
   const xMin = -7, xMax = 6;
   const mu = -2.29;
   const sigma = 1.99;
+  const lvMean = 2.12;
   const xPx = (lv: number) => padL + ((lv - xMin) / (xMax - xMin)) * plotW;
-  const baseY = padT + plotH * 0.82;
-  const curveH = plotH * 0.55;
-  const dotsY  = padT + plotH * 0.30;  // upper area, well above curve
+  const baseY  = padT + plotH * 0.86;
+  const curveH = (baseY - padT) - 6;
 
   // density curve sampled on log10 X
   const STEPS = 240;
@@ -501,15 +503,7 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   ctx.closePath();
   ctx.fill();
 
-  // baseline
-  ctx.strokeStyle = 'rgba(26,26,26,0.18)';
-  ctx.lineWidth = 0.5;
-  ctx.beginPath();
-  ctx.moveTo(padL, baseY);
-  ctx.lineTo(padL + plotW, baseY);
-  ctx.stroke();
-
-  // density curve
+  // density curve drawn before baseline so the line sits on top
   ctx.strokeStyle = COL.teal;
   ctx.lineWidth = 1.6;
   ctx.lineCap = 'round';
@@ -522,69 +516,61 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   }
   ctx.stroke();
 
-  // median marker — solid 1.3px at log10 = -2.29
+  // baseline (the X axis the dots sit on) — strong enough to read as an axis
+  ctx.strokeStyle = 'rgba(26,26,26,0.40)';
+  ctx.lineWidth = 0.8;
+  ctx.beginPath();
+  ctx.moveTo(padL, baseY);
+  ctx.lineTo(padL + plotW, baseY);
+  ctx.stroke();
+
+  // === DOTS — all four landmarks on the X axis ===
+  const dotR = 3.8;
+
+  // median: filled graphite (analogue of "solid line" in the histogram convention)
+  ctx.fillStyle = COL.text;
+  ctx.beginPath();
+  ctx.arc(xPx(mu), baseY, dotR, 0, Math.PI * 2);
+  ctx.fill();
+
+  // mean: outlined graphite (analogue of "dashed line" — same hue, less weight)
+  ctx.fillStyle = COL.bg;
   ctx.strokeStyle = COL.text;
-  ctx.lineWidth = 1.3;
+  ctx.lineWidth = 1.4;
   ctx.beginPath();
-  ctx.moveTo(xPx(mu), baseY);
-  ctx.lineTo(xPx(mu), baseY - curveH * 0.55);
+  ctx.arc(xPx(lvMean), baseY, dotR, 0, Math.PI * 2);
+  ctx.fill();
   ctx.stroke();
 
-  // mean marker — dashed 1px at log10 = +2.12
-  const lvMean = 2.12;
-  ctx.strokeStyle = COL.textMuted;
-  ctx.lineWidth = 1;
-  ctx.setLineDash([3, 3]);
-  ctx.beginPath();
-  ctx.moveTo(xPx(lvMean), baseY);
-  ctx.lineTo(xPx(lvMean), baseY - curveH * 0.45);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // lucky-dot markers at +3.68, +5.66 — both at dotsY
-  const luckies: { lv: number, big: string, sub: string }[] = [
-    { lv: 3.68, big: '$4.8k', sub: '1 из 1000' },
-    { lv: 5.66, big: '$456k', sub: '1 из 25k' },
+  // lucky points: filled teal — the rare wins carrying the right tail
+  const luckies: { lv: number, big: string }[] = [
+    { lv: 3.68, big: '$4.8k' },
+    { lv: 5.66, big: '$456k' },
   ];
-
-  // Faint dashed connector through the dots — addresses the "точки не на
-  // прямой" feedback by making horizontal alignment visually explicit.
-  ctx.strokeStyle = 'rgba(7,67,75,0.28)';
-  ctx.lineWidth = 0.5;
-  ctx.setLineDash([2, 3]);
-  ctx.beginPath();
-  ctx.moveTo(xPx(luckies[0].lv), dotsY);
-  ctx.lineTo(xPx(luckies[1].lv), dotsY);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
   ctx.fillStyle = COL.teal;
   for (const p of luckies) {
     ctx.beginPath();
-    ctx.arc(xPx(p.lv), dotsY, 3.5, 0, Math.PI * 2);
+    ctx.arc(xPx(p.lv), baseY, dotR, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  // Labels — different y-rows for each group so they never overlap:
-  //   above dots (top half):  "1 из 1000" (top), "$4.8k" (just above dot)
-  //   below baseline (bot):   "медиана"/"среднее" (top), "$0.005"/"$131" (under)
+  // === LABELS ===
   ctx.font = '10px Inter, system-ui, sans-serif';
 
-  // median + mean labels (below curve baseline)
+  // median + mean: stack below the X axis (name then value)
   ctx.fillStyle = COL.textMuted;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  ctx.fillText('медиана',  xPx(mu),     baseY + 5);
-  ctx.fillText('$0.005',   xPx(mu),     baseY + 17);
-  ctx.fillText('среднее',  xPx(lvMean), baseY + 5);
-  ctx.fillText('$131',     xPx(lvMean), baseY + 17);
+  ctx.fillText('медиана', xPx(mu),     baseY + 9);
+  ctx.fillText('$0.005',  xPx(mu),     baseY + 21);
+  ctx.fillText('среднее', xPx(lvMean), baseY + 9);
+  ctx.fillText('$131',    xPx(lvMean), baseY + 21);
 
-  // lucky labels (above dots, stacked: rarity on top, price just above dot)
+  // lucky labels: just price, sit just above each dot. Rarity ("1 из 1000",
+  // "1 из 25k") is in the surrounding paragraph, no need to repeat here.
   ctx.textBaseline = 'bottom';
+  ctx.fillStyle = COL.teal;
   for (const p of luckies) {
-    ctx.fillStyle = COL.teal;
-    ctx.fillText(p.big, xPx(p.lv), dotsY - 7);     // price right above dot
-    ctx.fillStyle = COL.textMuted;
-    ctx.fillText(p.sub, xPx(p.lv), dotsY - 19);    // rarity above price
+    ctx.fillText(p.big, xPx(p.lv), baseY - 9);
   }
 }
