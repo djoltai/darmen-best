@@ -17,6 +17,10 @@ import '../../styles/lab/frm-vol-drag.css';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- KaTeX for shtorka math typesetting. CSS in head, JS deferred + auto-render at end of body. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
   </head>
   <body class="frm-vol-drag-page">
     <main>
@@ -26,7 +30,11 @@ import '../../styles/lab/frm-vol-drag.css';
         <p class="tag tag--wide">в предыдущей серии</p>
 
         <div>
-          <h1 class="opener-hero">Положительное матожидание. Сто бросков. Ноль на руках.</h1>
+          <h1 class="opener-hero">
+            <span>Положительное матожидание.</span>
+            <span>Сто бросков.</span>
+            <span>Ноль на руках.</span>
+          </h1>
 
           <div class="ev-formula" role="img" aria-label="EV = 0.5 × +50% + 0.5 × −40% = +5%">
             <span class="lbl col-empty"></span>
@@ -53,7 +61,6 @@ import '../../styles/lab/frm-vol-drag.css';
           <p class="opener-bridge">Та же монетка, только к интуиции добавим математику.</p>
         </div>
 
-        <p class="bridge-down">↓ интерактив ниже</p>
       </section>
 
       <!-- ================== ЭКРАН 2 — СИМУЛЯТОР «ВСЁ-В-КАЖДОМ-РАУНДЕ» ================== -->
@@ -104,48 +111,44 @@ import '../../styles/lab/frm-vol-drag.css';
 
             <div class="section">
               <p class="section-title">1. Постановка.</p>
-              <p>Финальный капитал — произведение независимых случайных множителей: <span class="formula">X_T = ∏_{'{'}t=1{'}'}^T R_t</span>, где <span class="formula">R_t ∈ {'{'}1.5, 0.6{'}'}</span> — Бернулли-множители. Логарифм линеаризует: <span class="formula formula-accent">ln X_T = Σ ln R_t</span>.</p>
+              <p>Финальный капитал — произведение независимых случайных множителей: <span class="formula">\(X_T = \prod_&#123;t=1&#125;^T R_t\)</span>, где <span class="formula">\(R_t \in \&#123;1.5,\, 0.6\&#125;\)</span> — Бернулли-множители. Логарифм линеаризует: <span class="formula formula-accent">\(\ln X_T = \sum \ln R_t\)</span>.</p>
             </div>
 
             <div class="section">
               <p class="section-title">2. Параметры.</p>
               <p>Через моменты Бернулли:</p>
-              <div class="formula-block">μ  = E[ln R] = ½ ln(1.5) + ½ ln(0.6) = −0.0527
-σ² = Var[ln R] = E[(ln R)²] − μ² ≈ 0.2099</div>
+              <div class="formula-block">\[\begin&#123;aligned&#125; \mu &amp;= E[\ln R] = \tfrac&#123;1&#125;&#123;2&#125;\ln(1.5) + \tfrac&#123;1&#125;&#123;2&#125;\ln(0.6) = -0.0527 \\ \sigma^2 &amp;= \mathrm&#123;Var&#125;[\ln R] = E[(\ln R)^2] - \mu^2 \approx 0.2099 \end&#123;aligned&#125;\]</div>
             </div>
 
             <div class="section">
               <p class="section-title">3. Сходимость.</p>
               <p>По центральной предельной теореме (i.i.d. слагаемые с конечной дисперсией):</p>
-              <div class="formula-block formula-accent">ln X_T ⟶ N(μT, σ²T)</div>
-              <p>Значит <span class="formula">X_T ~ LogNormal(μT, σ²T)</span> с PDF</p>
-              <div class="formula-block">f(x) = 1 / (xσ√(2πT)) · exp(−(ln x − μT)² / (2σ²T))</div>
+              <div class="formula-block formula-accent">\[\ln X_T \longrightarrow \mathcal&#123;N&#125;(\mu T,\, \sigma^2 T)\]</div>
+              <p>Значит <span class="formula">\(X_T \sim \mathrm&#123;LogNormal&#125;(\mu T,\, \sigma^2 T)\)</span> с PDF</p>
+              <div class="formula-block">\[f(x) = \frac&#123;1&#125;&#123;x \sigma \sqrt&#123;2 \pi T&#125;&#125; \, \exp\!\left(-\frac&#123;(\ln x - \mu T)^2&#125;&#123;2 \sigma^2 T&#125;\right)\]</div>
             </div>
 
             <div class="section">
               <p class="section-title">4. Median ≠ Mean.</p>
               <p>Из свойств лог-нормального:</p>
-              <div class="formula-block"><span class="formula-accent">Median(X_T) = exp(μT)               ≈ $0.005</span>
-<span class="formula-accent">Mean(X_T)   = exp((μ + σ²/2)·T)     ≈ $131</span></div>
-              <p>Сдвиг <span class="formula">σ²/2</span> в показателе и есть Volatility Drag.</p>
+              <div class="formula-block">\[\begin&#123;aligned&#125; \mathrm&#123;Median&#125;(X_T) &amp;= e^&#123;\mu T&#125; \approx \$0.005 \\ \mathrm&#123;Mean&#125;(X_T) &amp;= e^&#123;(\mu + \sigma^2/2)\,T&#125; \approx \$131 \end&#123;aligned&#125;\]</div>
+              <p>Сдвиг <span class="formula">\(\sigma^2/2\)</span> в показателе и есть Volatility Drag.</p>
             </div>
 
             <div class="section">
               <p class="section-title">5. Связь с Itô.</p>
-              <p>В пределе непрерывного времени игра — геометрическое броуновское движение: <span class="formula">dX_t / X_t = α dt + σ dW_t</span>. Применяя лемму Itô к <span class="formula">f(X) = ln X</span>, получаем дрейф <span class="formula formula-accent">d(ln X) = (α − σ²/2) dt + σ dW</span>. Та же поправка <span class="formula">−σ²/2</span> — convexity adjustment в Black-Scholes, drift correction в Black-76, и в Heston-моделях.</p>
+              <p>В пределе непрерывного времени игра — геометрическое броуновское движение: <span class="formula">\(\frac&#123;dX_t&#125;&#123;X_t&#125; = \alpha\, dt + \sigma\, dW_t\)</span>. Применяя лемму Itô к <span class="formula">\(f(X) = \ln X\)</span>, получаем дрейф <span class="formula formula-accent">\(d(\ln X) = (\alpha - \tfrac&#123;\sigma^2&#125;&#123;2&#125;)\, dt + \sigma\, dW\)</span>. Та же поправка <span class="formula">\(-\sigma^2/2\)</span> — convexity adjustment в Black-Scholes, drift correction в Black-76, и в Heston-моделях.</p>
             </div>
 
             <div class="section">
               <p class="section-title">6. Эргодичность.</p>
-              <p>GBM не эргодичен в исходной шкале X: ансамблевое среднее <span class="formula">E[X_T]</span> и временное среднее <span class="formula">⟨X_t⟩_t</span> расходятся. В шкале <span class="formula">ln X</span> процесс становится аддитивным, и эргодическая теорема Биркгофа возвращается:</p>
-              <div class="formula-block formula-accent">⟨ln X_t⟩_t → μ почти наверное.</div>
+              <p>GBM не эргодичен в исходной шкале X: ансамблевое среднее <span class="formula">\(E[X_T]\)</span> и временное среднее <span class="formula">\(\langle X_t \rangle_t\)</span> расходятся. В шкале <span class="formula">\(\ln X\)</span> процесс становится аддитивным, и эргодическая теорема Биркгофа возвращается: <span class="formula formula-accent">\(\langle \ln X_t \rangle_t \to \mu\)</span> почти наверное.</p>
             </div>
 
             <p class="footer-note">Глубже — Ole Peters (non-ergodicity, Ergodicity Economics), Nassim Taleb (Skin in the Game §15: Probability of Ruin), John Kelly (1956, A New Interpretation of Information Rate).</p>
           </div>
         </details>
 
-        <p class="bridge-down">↓ дальше — что меняется, если ставить часть</p>
       </section>
 
       <!-- ================== ЭКРАН 3 — СЛАЙДЕР ================== -->
@@ -216,28 +219,28 @@ import '../../styles/lab/frm-vol-drag.css';
           <div class="shtorka-body">
             <div class="section">
               <p class="section-title">1. Постановка.</p>
-              <p>Пусть на каждом раунде ставим долю <span class="formula">f ∈ [0,1]</span> от капитала. Раунд даёт <span class="formula">+b</span> с вероятностью <span class="formula">p</span> и <span class="formula">−a</span> с вероятностью <span class="formula">q = 1−p</span>. У нас <span class="formula">b = 0.5, a = 0.4, p = q = 0.5</span>.</p>
+              <p>Пусть на каждом раунде ставим долю <span class="formula">\(f \in [0,1]\)</span> от капитала. Раунд даёт <span class="formula">\(+b\)</span> с вероятностью <span class="formula">\(p\)</span> и <span class="formula">\(-a\)</span> с вероятностью <span class="formula">\(q = 1-p\)</span>. У нас <span class="formula">\(b = 0.5,\ a = 0.4,\ p = q = 0.5\)</span>.</p>
             </div>
 
             <div class="section">
               <p class="section-title">2. Цель.</p>
               <p>Максимизируем геометрический рост капитала, то есть ожидаемый логарифм одного раунда:</p>
-              <div class="formula-block formula-accent">g(f) = p · ln(1 + bf) + q · ln(1 − af)</div>
+              <div class="formula-block formula-accent">\[g(f) = p\,\ln(1 + bf) + q\,\ln(1 - af)\]</div>
               <p>Логарифм здесь не случаен: произведение раундов превращается в сумму log-доходностей, и максимизация суммы — это максимизация типичного итога (медианы), не среднего.</p>
             </div>
 
             <div class="section">
               <p class="section-title">3. Производная.</p>
-              <div class="formula-block">g′(f) = pb/(1+bf) − qa/(1−af) = 0</div>
+              <div class="formula-block">\[g'(f) = \frac&#123;pb&#125;&#123;1 + bf&#125; - \frac&#123;qa&#125;&#123;1 - af&#125; = 0\]</div>
               <p>Решение:</p>
-              <div class="formula-block formula-accent">f* = (pb − qa) / (ab)</div>
+              <div class="formula-block formula-accent">\[f^* = \frac&#123;pb - qa&#125;&#123;ab&#125;\]</div>
             </div>
 
             <div class="section">
               <p class="section-title">4. Для нашей монетки.</p>
-              <div class="formula-block"><span class="formula-accent">f* = (0.5·0.5 − 0.5·0.4) / (0.5·0.4) = 0.05 / 0.2 = 0.25</span></div>
-              <p>Подставляем: <span class="formula">g(0.25) = 0.5·ln(1.125) + 0.5·ln(0.9) ≈ +0.62%</span> за бросок.</p>
-              <p>Через 100 бросков типичный итог: <span class="formula formula-accent">exp(0.62% × 100) ≈ $1.86</span>.</p>
+              <div class="formula-block formula-accent">\[f^* = \frac&#123;0.5 \cdot 0.5 - 0.5 \cdot 0.4&#125;&#123;0.5 \cdot 0.4&#125; = \frac&#123;0.05&#125;&#123;0.2&#125; = 0.25\]</div>
+              <p>Подставляем: <span class="formula">\(g(0.25) = 0.5\,\ln(1.125) + 0.5\,\ln(0.9) \approx +0.62\%\)</span> за бросок.</p>
+              <p>Через 100 бросков типичный итог: <span class="formula formula-accent">\(\exp(0.62\% \times 100) \approx \$1.86\)</span>.</p>
             </div>
 
             <div class="section">
@@ -247,19 +250,18 @@ import '../../styles/lab/frm-vol-drag.css';
 
             <div class="section">
               <p class="section-title">6. Что Kelly не делает.</p>
-              <p>Kelly не максимизирует ожидаемый капитал <span class="formula">E[X_T]</span> — для этого нужно ставить ва-банк. Kelly максимизирует типичный исход — медиану. Это решение для тех, кто играет одну реальную жизнь, а не для среднего по параллельным вселенным.</p>
+              <p>Kelly не максимизирует ожидаемый капитал <span class="formula">\(E[X_T]\)</span> — для этого нужно ставить ва-банк. Kelly максимизирует типичный исход — медиану. Это решение для тех, кто играет одну реальную жизнь, а не для среднего по параллельным вселенным.</p>
             </div>
 
             <div class="section">
               <p class="section-title">7. Полу-Kelly.</p>
-              <p>На практике инвесторы часто используют <span class="formula">f*/2</span> (half-Kelly). Аргумент: оценка вероятностей <span class="formula">p</span> в реальной жизни всегда с шумом, а функция <span class="formula">g(f)</span> асимметрична — превышение <span class="formula">f*</span> наказывается сильнее, чем недоставка. Поэтому осторожнее.</p>
+              <p>На практике инвесторы часто используют <span class="formula">\(f^*/2\)</span> (half-Kelly). Аргумент: оценка вероятностей <span class="formula">\(p\)</span> в реальной жизни всегда с шумом, а функция <span class="formula">\(g(f)\)</span> асимметрична — превышение <span class="formula">\(f^*\)</span> наказывается сильнее, чем недоставка. Поэтому осторожнее.</p>
             </div>
 
             <p class="footer-note">Глубже — Kelly (1956), Edward Thorp (Beat the Dealer, A Man for All Markets), William Poundstone (Fortune's Formula).</p>
           </div>
         </details>
 
-        <p class="bridge-down">↓ дальше — финал</p>
       </section>
 
       <!-- ================== ЭКРАН 4 — ФИНАЛ ================== -->
@@ -289,6 +291,31 @@ import '../../styles/lab/frm-vol-drag.css';
 
     <script>
       import '../../scripts/lab/frm-vol-drag/main';
+    </script>
+
+    <!-- KaTeX auto-render: scans for \( \) inline and \[ \] block math
+         and rewrites them in place. Runs once DOM and KaTeX libs are ready. -->
+    <script is:inline>
+      (function () {
+        function renderMath() {
+          if (typeof window.renderMathInElement !== 'function') {
+            return setTimeout(renderMath, 50);
+          }
+          window.renderMathInElement(document.body, {
+            delimiters: [
+              { left: '\\(', right: '\\)', display: false },
+              { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false,
+            strict: 'ignore'
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', renderMath);
+        } else {
+          renderMath();
+        }
+      })();
     </script>
   </body>
 </html>

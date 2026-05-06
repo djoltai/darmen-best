@@ -159,13 +159,19 @@
 
 .frm-vol-drag-page .opener-hero {
   text-align: left;
-  max-width: 620px;
   margin: 0;
-  font-size: clamp(32px, 5vw, 44px);
+  /* Tighter clamp than before so the longest sentence "Положительное
+     матожидание." fits on one line at every viewport — at 320px phone
+     ~24px font, at 1500px desktop capped at 44px. No max-width because
+     each sentence-span needs whatever horizontal room it needs to avoid
+     wrapping mid-sentence. */
+  font-size: clamp(24px, 5.2vw, 44px);
   font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.15;
-  text-wrap: balance;
+}
+.frm-vol-drag-page .opener-hero span {
+  display: block;
 }
 
 .frm-vol-drag-page .ev-formula {
@@ -246,17 +252,19 @@
 .frm-vol-drag-page .metric-row .final-cap {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-variant-numeric: tabular-nums;
-  font-size: 14px;
+  font-size: 24px;
+  font-weight: 500;
   letter-spacing: 0;
   color: var(--v3-text-primary);
   transition: color 120ms;
+  margin-left: 6px;
 }
 .frm-vol-drag-page .metric-row .final-cap.is-win  { color: var(--v3-teal); }
 .frm-vol-drag-page .metric-row .final-cap.is-lose { color: var(--v3-coral); }
 
 .frm-vol-drag-page .charts-grid--all-in {
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: 1fr 320px;
   gap: 20px;
   margin-bottom: 20px;
   align-items: stretch;
