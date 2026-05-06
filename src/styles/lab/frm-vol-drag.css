@@ -717,13 +717,25 @@
     min-height: 520px;
   }
 
+  /* Charts stack vertically on mobile */
   .frm-vol-drag-page .charts-grid--all-in,
   .frm-vol-drag-page .charts-grid--slider {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 24px;
   }
 
-  .frm-vol-drag-page .canvas-wrap--hist-all-in { aspect-ratio: 380 / 220; }
+  /* Histogram stays narrow-tall (designed for that orientation) but
+     centred and capped so it doesn't smear across the viewport. */
+  .frm-vol-drag-page .canvas-wrap--hist-all-in {
+    aspect-ratio: 220 / 280;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* Trajectory aspect a bit shorter on mobile so it doesn't dominate */
+  .frm-vol-drag-page .canvas-wrap--traj-all-in {
+    aspect-ratio: 380 / 240;
+  }
 
   .frm-vol-drag-page .metrics-pair {
     grid-template-columns: 1fr;
@@ -732,13 +744,73 @@
 
   .frm-vol-drag-page .metrics-pair .metric .value { font-size: 24px; }
 
+  /* EV formula — drop the rigid 9-col grid, render inline.
+     Labels (P(орёл), выигрыш, …) hide on narrow viewports — keeping
+     them would scramble the alignment and add clutter. The colour
+     coding on (+50%) teal / (−40%) coral preserves the win/lose hint. */
   .frm-vol-drag-page .ev-formula {
-    grid-template-columns: repeat(5, auto);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
     column-gap: 6px;
+    row-gap: 2px;
     font-size: 14px;
+    margin-top: 36px;
+    grid-template-columns: none;
+  }
+  .frm-vol-drag-page .ev-formula .lbl,
+  .frm-vol-drag-page .ev-formula .col-empty {
+    display: none;
+  }
+  .frm-vol-drag-page .ev-formula > span {
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
+  /* Slider row — tag and value on top, slider full width below */
+  .frm-vol-drag-page .slider-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 6px 12px;
+    align-items: baseline;
+  }
+  .frm-vol-drag-page .slider-row .slider-tag    { grid-column: 1; grid-row: 1; }
+  .frm-vol-drag-page .slider-row .slider-value  { grid-column: 2; grid-row: 1; min-width: auto; }
+  .frm-vol-drag-page .slider-row .slider-input  { grid-column: 1 / -1; grid-row: 2; }
+
+  /* Presets centre + smaller gap on mobile */
+  .frm-vol-drag-page .presets {
+    gap: 12px 14px;
+    justify-content: flex-start;
+  }
+
+  /* Play row — keep button + coin on one line, allow wrap */
+  .frm-vol-drag-page .play-row {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  /* Shtorka — body slightly smaller, formulas can scroll horizontally
+     when they're wider than the viewport instead of overflowing. */
   .frm-vol-drag-page details.shtorka .shtorka-body { font-size: 13.5px; }
+  .frm-vol-drag-page details.shtorka .shtorka-body .formula-block {
+    overflow-x: auto;
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  /* Finale — sub-line + hero a touch tighter; nav links stack */
+  .frm-vol-drag-page .screen--finale .finale-hero {
+    margin-top: 20px;
+  }
+  .frm-vol-drag-page .finale-nav {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 
 /* ============================================================
