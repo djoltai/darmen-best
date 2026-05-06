@@ -161,9 +161,11 @@ export function drawHistogramAllIn(
   lastFinal: number | null
 ) {
   const { ctx, w, h } = setupHiDPI(canvas);
-  // padL matches drawTrajectoryAllIn (52) so when the two charts stack on
-  // mobile their Y-axes line up vertically and read as one shared scale.
-  const padL = 52, padR = 56, padT = 12, padB = 22;
+  // No Y-axis labels here — the trajectory chart above/beside owns the
+  // scale, this picture is the distribution view of the same scale.
+  // padL kept just enough for a thin spine; padR holds the median/mean
+  // text labels on the right.
+  const padL = 20, padR = 56, padT = 12, padB = 22;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
   const yMin = dist.yMin, yMax = dist.yMax;
@@ -177,8 +179,7 @@ export function drawHistogramAllIn(
   const binSpan = (yMax - yMin) / dist.histBins;
   const binPxH = plotH / dist.histBins;
 
-  // Y-axis spine + tick labels — same TICKS_ALL_IN as the trajectory chart,
-  // so the histogram is self-readable when stacked under the trajectory.
+  // Y-axis spine — thin vertical reference at padL. No tick text labels.
   ctx.strokeStyle = 'rgba(26,26,26,0.18)';
   ctx.lineWidth = 0.5;
   ctx.beginPath();
@@ -186,18 +187,10 @@ export function drawHistogramAllIn(
   ctx.lineTo(padL, padT + plotH);
   ctx.stroke();
 
-  ctx.font = '10px Inter, system-ui, sans-serif';
-  ctx.fillStyle = COL.textFaint;
-  ctx.textAlign = 'right';
-  ctx.textBaseline = 'middle';
+  // Faint horizontal gridlines at the same Y levels as the trajectory
+  // chart's ticks, no text — just structure for the eye to anchor on.
   for (const lv of TICKS_ALL_IN) {
     const y = yPx(Math.pow(10, lv));
-    // Win-zone labels ($10, $1k) suppressed — same Y scale as the
-    // trajectory chart above/beside, the reader infers from there.
-    // Loss-zone labels ($1, $0.01, $0.0001) kept for orientation.
-    if (lv <= 0) {
-      ctx.fillText(fmtAxisTick(lv), padL - 6, y);
-    }
     ctx.strokeStyle = 'rgba(26,26,26,0.06)';
     ctx.lineWidth = 0.5;
     ctx.beginPath();
