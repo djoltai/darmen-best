@@ -284,7 +284,7 @@
 .frm-vol-drag-page .canvas-wrap--hist-all-in    { aspect-ratio: 220 / 280; }
 .frm-vol-drag-page .canvas-wrap--traj-slider    { aspect-ratio: 320 / 220; }
 .frm-vol-drag-page .canvas-wrap--curve-slider   { aspect-ratio: 320 / 220; }
-.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 120; max-width: 620px; margin: 24px auto 0; }
+.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 170; max-width: 620px; margin: 24px auto 0; }
 
 .frm-vol-drag-page .chart-caption {
   font-size: 11px;
@@ -649,11 +649,29 @@
   height: 0.7em;
   margin-left: 0.18em;
   vertical-align: -0.08em;
+  perspective: 240px;
 }
 .frm-vol-drag-page .finale-coin svg {
   width: 100%;
   height: 100%;
   display: block;
+  transform-origin: center;
+  backface-visibility: visible;
+}
+/* Animation triggers when .screen--finale enters the viewport (main.ts).
+   Spins 4 full turns ending in original orientation, ease-out so it
+   physically decelerates and "settles" star-up. */
+.frm-vol-drag-page .finale-coin svg.is-flipping {
+  animation: v3-coin-flip 2.2s cubic-bezier(0.16, 0.84, 0.32, 1) 1 both;
+}
+@keyframes v3-coin-flip {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(1440deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frm-vol-drag-page .finale-coin svg.is-flipping {
+    animation: none;
+  }
 }
 
 .frm-vol-drag-page .finale-coda {

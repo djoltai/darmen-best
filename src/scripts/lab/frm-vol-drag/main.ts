@@ -208,6 +208,30 @@ function init() {
       if (curveCanvas3) drawCurveSlider(curveCanvas3, currentF);
     }, 120);
   });
+
+  // ===== Finale coin flip — fires once when screen 4 enters viewport =====
+  // Animation stays in CSS (.finale-coin svg.is-flipping). We just toggle
+  // the class when the user actually scrolls down to the finale, otherwise
+  // the spin happens off-screen and the coin is already settled by the
+  // time the reader gets there. prefers-reduced-motion already nulls the
+  // animation in CSS, so we still add the class — it'll just show static.
+  const finaleSection = document.querySelector('.screen--finale');
+  const finaleCoinSvg = document.querySelector('.finale-coin svg');
+  if (finaleSection && finaleCoinSvg && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          finaleCoinSvg.classList.add('is-flipping');
+          obs.disconnect();
+          break;
+        }
+      }
+    }, { threshold: 0.4 });
+    obs.observe(finaleSection);
+  } else if (finaleCoinSvg) {
+    // No IntersectionObserver support — just trigger right away.
+    finaleCoinSvg.classList.add('is-flipping');
+  }
 }
 
 if (document.readyState === 'loading') {
