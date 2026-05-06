@@ -284,7 +284,7 @@
 .frm-vol-drag-page .canvas-wrap--hist-all-in    { aspect-ratio: 220 / 280; }
 .frm-vol-drag-page .canvas-wrap--traj-slider    { aspect-ratio: 320 / 220; }
 .frm-vol-drag-page .canvas-wrap--curve-slider   { aspect-ratio: 320 / 220; }
-.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 300; max-width: 620px; margin: 24px auto 0; }
+.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 520; max-width: 540px; margin: 24px auto 0; }
 
 .frm-vol-drag-page .chart-caption {
   font-size: 11px;
@@ -744,12 +744,14 @@
     gap: 24px;
   }
 
-  /* Histogram stays narrow-tall (designed for that orientation) but
-     centred and capped so it doesn't smear across the viewport. */
+  /* Histogram on mobile takes the full width so its Y-axis spine sits at
+     the same screen-x as the trajectory's Y-axis above it (both have
+     padL=52 inside the canvas). Centring the histogram with max-width
+     would offset it inward and break that alignment. */
   .frm-vol-drag-page .canvas-wrap--hist-all-in {
-    aspect-ratio: 220 / 280;
-    max-width: 280px;
-    margin: 0 auto;
+    aspect-ratio: 380 / 320;
+    max-width: none;
+    margin: 0;
   }
 
   /* Trajectory aspect a bit shorter on mobile so it doesn't dominate */

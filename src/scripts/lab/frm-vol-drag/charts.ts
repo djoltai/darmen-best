@@ -489,89 +489,147 @@ export function drawCurveSlider(canvas: HTMLCanvasElement, fCurrent: number) {
 
 export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   const { ctx, w, h } = setupHiDPI(canvas);
-  // Number-line schematic: density curve fills upper area, baseline is the
-  // X axis, all four landmark dots sit ON the baseline. Labels for median /
-  // mean stack below the axis (name + value); lucky-point labels sit just
-  // above each dot (curve is essentially flat there). No more collisions,
-  // no more dashed connectors — alignment is achieved by being literally on
-  // the same line.
-  // X clipped to -5..+6 instead of -7..+6: density at log10 < -5 is below
-  // 6% of the peak, so the leftmost two log units are dead horizontal space.
-  // Removing them lets the visible peak occupy more of the canvas width.
-  const padL = 18, padR = 18, padT = 10, padB = 28;
+  // Schematic skewed distribution — NOT the strict lognormal density on
+  // log10 X (which is symmetric Gaussian on that scale and visually flat).
+  // Hand-tuned for the asymmetry the reader expects to see: narrow Gaussian
+  // on the left side of the peak, slow power-law decay on the right.
+  // Fill is split at $1 (log10 = 0): coral below (loss zone), teal above.
+  // X is clipped to -4..+6 so the short left tail and long right tail are
+  // both visible without dead margins.
+  const padL = 18, padR = 18, padT = 16, padB = 32;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
 
-  const xMin = -5, xMax = 6;
+  const xMin = -4, xMax = 6;
   const mu = -2.29;
-  const sigma = 1.99;
   const lvMean = 2.12;
   const xPx = (lv: number) => padL + ((lv - xMin) / (xMax - xMin)) * plotW;
-  const baseY  = padT + plotH * 0.86;
-  const curveH = (baseY - padT) - 6;
+  const baseY  = padT + plotH * 0.92;
+  const curveH = (baseY - padT) - 8;
 
-  // density curve sampled on log10 X
-  const STEPS = 240;
-  const samples: { lv: number, p: number }[] = [];
-  let pMax = 0;
+  // schematic curve: sharp rise on the left of the peak, long power-law
+  // decay on the right. Peak at lv = mu (median).
+  function schematicH(lv: number): number {
+    const dx = lv - mu;
+    return dx < 0
+      ? Math.exp(-0.5 * Math.pow(dx / 0.95, 2))
+      : 1 / Math.pow(1 + dx * 0.55, 2);
+  }
+
+  const STEPS = 320;
+  const samples: { lv: number, h: number }[] = [];
   for (let i = 0; i <= STEPS; i++) {
     const lv = xMin + (i / STEPS) * (xMax - xMin);
-    const z = (lv - mu) / sigma;
-    const p = Math.exp(-0.5 * z * z) / (sigma * Math.sqrt(2 * Math.PI));
-    samples.push({ lv, p });
-    if (p > pMax) pMax = p;
+    samples.push({ lv, h: schematicH(lv) });
   }
-  const yPxFor = (p: number) => baseY - (p / pMax) * curveH;
+  const yPxFor = (h: number) => baseY - h * curveH;
 
-  // filled area under the density curve
-  ctx.fillStyle = COL.tealSoft;
+  // === Fill split at lv = 0 (i.e. $1 boundary) ===
+  // Coral fill: lv < 0 (loss zone, below $1).
+  // Teal fill:  lv >= 0 (win/safe zone, $1 and above).
+  // Build polygons that follow the curve, then drop to baseline at the boundary.
+  const lvBoundary = 0;
+  const xBoundary = xPx(lvBoundary);
+
+  ctx.fillStyle = COL.coralSoft;
   ctx.beginPath();
   ctx.moveTo(xPx(xMin), baseY);
-  for (const s of samples) ctx.lineTo(xPx(s.lv), yPxFor(s.p));
+  for (const s of samples) {
+    if (s.lv > lvBoundary) break;
+    ctx.lineTo(xPx(s.lv), yPxFor(s.h));
+  }
+  ctx.lineTo(xBoundary, yPxFor(schematicH(lvBoundary)));
+  ctx.lineTo(xBoundary, baseY);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = COL.tealSoft;
+  ctx.beginPath();
+  ctx.moveTo(xBoundary, baseY);
+  ctx.lineTo(xBoundary, yPxFor(schematicH(lvBoundary)));
+  for (const s of samples) {
+    if (s.lv < lvBoundary) continue;
+    ctx.lineTo(xPx(s.lv), yPxFor(s.h));
+  }
   ctx.lineTo(xPx(xMax), baseY);
   ctx.closePath();
   ctx.fill();
 
-  // density curve drawn before baseline so the line sits on top
-  ctx.strokeStyle = COL.teal;
-  ctx.lineWidth = 1.6;
+  // === Curve outline — same two-tone split ===
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
+  ctx.lineWidth = 1.8;
+
+  ctx.strokeStyle = COL.coral;
   ctx.beginPath();
-  for (let i = 0; i < samples.length; i++) {
-    const s = samples[i];
-    const x = xPx(s.lv), y = yPxFor(s.p);
-    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  let started = false;
+  for (const s of samples) {
+    if (s.lv > lvBoundary) {
+      // join cleanly to boundary
+      ctx.lineTo(xBoundary, yPxFor(schematicH(lvBoundary)));
+      break;
+    }
+    const x = xPx(s.lv), y = yPxFor(s.h);
+    if (!started) { ctx.moveTo(x, y); started = true; }
+    else ctx.lineTo(x, y);
   }
   ctx.stroke();
 
-  // baseline (the X axis the dots sit on) — strong enough to read as an axis
+  ctx.strokeStyle = COL.teal;
+  ctx.beginPath();
+  ctx.moveTo(xBoundary, yPxFor(schematicH(lvBoundary)));
+  for (const s of samples) {
+    if (s.lv < lvBoundary) continue;
+    ctx.lineTo(xPx(s.lv), yPxFor(s.h));
+  }
+  ctx.stroke();
+
+  // baseline — the X axis the dots sit on
   ctx.strokeStyle = 'rgba(26,26,26,0.40)';
   ctx.lineWidth = 0.8;
+  ctx.setLineDash([]);
   ctx.beginPath();
   ctx.moveTo(padL, baseY);
   ctx.lineTo(padL + plotW, baseY);
   ctx.stroke();
 
+  // $1 boundary line — vertical dashed marker, top "$1" tag
+  ctx.strokeStyle = 'rgba(26,26,26,0.30)';
+  ctx.lineWidth = 0.5;
+  ctx.setLineDash([2, 3]);
+  ctx.beginPath();
+  ctx.moveTo(xBoundary, baseY);
+  ctx.lineTo(xBoundary, padT + 4);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.fillStyle = COL.textMuted;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText('$1', xBoundary, padT - 4);
+
   // === DOTS — all four landmarks on the X axis ===
   const dotR = 3.8;
 
-  // median: filled graphite (analogue of "solid line" in the histogram convention)
-  ctx.fillStyle = COL.text;
+  // median: filled coral (it sits in the loss zone, < $1)
+  ctx.fillStyle = COL.coral;
   ctx.beginPath();
   ctx.arc(xPx(mu), baseY, dotR, 0, Math.PI * 2);
   ctx.fill();
 
-  // mean: outlined graphite (analogue of "dashed line" — same hue, less weight)
+  // mean: outlined teal (sits in the win zone, ≥ $1, but still distinct from
+  // the lucky outliers — outline preserves the histogram convention of
+  // "solid for median, dashed for mean")
   ctx.fillStyle = COL.bg;
-  ctx.strokeStyle = COL.text;
+  ctx.strokeStyle = COL.teal;
   ctx.lineWidth = 1.4;
   ctx.beginPath();
   ctx.arc(xPx(lvMean), baseY, dotR, 0, Math.PI * 2);
   ctx.fill();
   ctx.stroke();
 
-  // lucky points: filled teal — the rare wins carrying the right tail
+  // lucky points: filled teal — far right wins
   const luckies: { lv: number, big: string }[] = [
     { lv: 3.68, big: '$4.8k' },
     { lv: 5.66, big: '$456k' },
@@ -584,8 +642,6 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   }
 
   // === LABELS ===
-  ctx.font = '10px Inter, system-ui, sans-serif';
-
   // median + mean: stack below the X axis (name then value)
   ctx.fillStyle = COL.textMuted;
   ctx.textAlign = 'center';
@@ -595,8 +651,8 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   ctx.fillText('среднее', xPx(lvMean), baseY + 9);
   ctx.fillText('$131',    xPx(lvMean), baseY + 21);
 
-  // lucky labels: just price, sit just above each dot. Rarity ("1 из 1000",
-  // "1 из 25k") is in the surrounding paragraph, no need to repeat here.
+  // lucky labels: just price, just above each dot. Rarity is in the
+  // surrounding paragraph, no need to repeat here.
   ctx.textBaseline = 'bottom';
   ctx.fillStyle = COL.teal;
   for (const p of luckies) {
