@@ -274,9 +274,17 @@
   width: 100%;
 }
 .frm-vol-drag-page .canvas-wrap canvas {
+  /* Canvas elements have intrinsic HTML width/height attrs (e.g. 220×280 on
+     the histogram). With height: auto the canvas displays at that intrinsic
+     aspect, ignoring the wrap's aspect-ratio CSS — which produces overflow
+     when the wrap's aspect differs (e.g. histogram canvas drawing 426px
+     tall inside a 282px wrap, leaking onto the next section). height: 100%
+     forces the canvas to fill its wrap; setupHiDPI() then snaps the
+     intrinsic dimensions to the actual rendered size × dpr so drawing
+     coordinates match what's on screen. */
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   max-width: 100%;
 }
 
@@ -749,7 +757,7 @@
      padL=52 inside the canvas). Centring the histogram with max-width
      would offset it inward and break that alignment. */
   .frm-vol-drag-page .canvas-wrap--hist-all-in {
-    aspect-ratio: 380 / 320;
+    aspect-ratio: 380 / 280;
     max-width: none;
     margin: 0;
   }
