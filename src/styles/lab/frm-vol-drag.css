@@ -158,26 +158,28 @@
    ============================================================ */
 
 .frm-vol-drag-page .opener-hero {
-  text-align: center;
+  text-align: left;
   max-width: 620px;
-  margin: 0 auto;
+  margin: 0;
   font-size: clamp(32px, 5vw, 44px);
   font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.15;
+  text-wrap: balance;
 }
 
 .frm-vol-drag-page .ev-formula {
-  margin: 56px auto 0;
+  margin: 56px 0 0;
   display: grid;
   grid-template-columns: repeat(9, auto);
   align-items: end;
-  justify-content: center;
+  justify-content: flex-start;
   column-gap: 10px;
   row-gap: 8px;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-variant-numeric: tabular-nums;
   font-size: clamp(15px, 1.7vw, 19px);
+  font-weight: 500;
 }
 
 .frm-vol-drag-page .ev-formula .lbl {
@@ -206,9 +208,9 @@
 .frm-vol-drag-page .ev-formula .col-empty { visibility: hidden; }
 
 .frm-vol-drag-page .opener-bridge {
-  text-align: center;
+  text-align: left;
   max-width: 520px;
-  margin: 56px auto 0;
+  margin: 56px 0 0;
   color: var(--v3-text-muted);
 }
 
@@ -272,9 +274,17 @@
   width: 100%;
 }
 .frm-vol-drag-page .canvas-wrap canvas {
+  /* Canvas elements have intrinsic HTML width/height attrs (e.g. 220×280 on
+     the histogram). With height: auto the canvas displays at that intrinsic
+     aspect, ignoring the wrap's aspect-ratio CSS — which produces overflow
+     when the wrap's aspect differs (e.g. histogram canvas drawing 426px
+     tall inside a 282px wrap, leaking onto the next section). height: 100%
+     forces the canvas to fill its wrap; setupHiDPI() then snaps the
+     intrinsic dimensions to the actual rendered size × dpr so drawing
+     coordinates match what's on screen. */
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   max-width: 100%;
 }
 
@@ -282,7 +292,7 @@
 .frm-vol-drag-page .canvas-wrap--hist-all-in    { aspect-ratio: 220 / 280; }
 .frm-vol-drag-page .canvas-wrap--traj-slider    { aspect-ratio: 320 / 220; }
 .frm-vol-drag-page .canvas-wrap--curve-slider   { aspect-ratio: 320 / 220; }
-.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 120; max-width: 620px; margin: 24px auto 0; }
+.frm-vol-drag-page .canvas-wrap--density        { aspect-ratio: 540 / 520; max-width: 540px; margin: 24px auto 0; }
 
 .frm-vol-drag-page .chart-caption {
   font-size: 11px;
@@ -647,11 +657,29 @@
   height: 0.7em;
   margin-left: 0.18em;
   vertical-align: -0.08em;
+  perspective: 240px;
 }
 .frm-vol-drag-page .finale-coin svg {
   width: 100%;
   height: 100%;
   display: block;
+  transform-origin: center;
+  backface-visibility: visible;
+}
+/* Animation triggers when .screen--finale enters the viewport (main.ts).
+   Spins 4 full turns ending in original orientation, ease-out so it
+   physically decelerates and "settles" star-up. */
+.frm-vol-drag-page .finale-coin svg.is-flipping {
+  animation: v3-coin-flip 2.2s cubic-bezier(0.16, 0.84, 0.32, 1) 1 both;
+}
+@keyframes v3-coin-flip {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(1440deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frm-vol-drag-page .finale-coin svg.is-flipping {
+    animation: none;
+  }
 }
 
 .frm-vol-drag-page .finale-coda {
@@ -717,13 +745,27 @@
     min-height: 520px;
   }
 
+  /* Charts stack vertically on mobile */
   .frm-vol-drag-page .charts-grid--all-in,
   .frm-vol-drag-page .charts-grid--slider {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 24px;
   }
 
-  .frm-vol-drag-page .canvas-wrap--hist-all-in { aspect-ratio: 380 / 220; }
+  /* Histogram on mobile takes the full width so its Y-axis spine sits at
+     the same screen-x as the trajectory's Y-axis above it (both have
+     padL=52 inside the canvas). Centring the histogram with max-width
+     would offset it inward and break that alignment. */
+  .frm-vol-drag-page .canvas-wrap--hist-all-in {
+    aspect-ratio: 380 / 280;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* Trajectory aspect a bit shorter on mobile so it doesn't dominate */
+  .frm-vol-drag-page .canvas-wrap--traj-all-in {
+    aspect-ratio: 380 / 240;
+  }
 
   .frm-vol-drag-page .metrics-pair {
     grid-template-columns: 1fr;
@@ -732,13 +774,76 @@
 
   .frm-vol-drag-page .metrics-pair .metric .value { font-size: 24px; }
 
+  /* EV formula — drop the rigid 9-col grid, render inline.
+     Labels (P(орёл), выигрыш, …) hide on narrow viewports — keeping
+     them would scramble the alignment and add clutter. The colour
+     coding on (+50%) teal / (−40%) coral preserves the win/lose hint.
+     Bumped to 16px / weight 500 so the formula reads as the punchline
+     of the opener, not as fine print. */
   .frm-vol-drag-page .ev-formula {
-    grid-template-columns: repeat(5, auto);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: baseline;
     column-gap: 6px;
-    font-size: 14px;
+    row-gap: 2px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 36px;
+    grid-template-columns: none;
+  }
+  .frm-vol-drag-page .ev-formula .lbl,
+  .frm-vol-drag-page .ev-formula .col-empty {
+    display: none;
+  }
+  .frm-vol-drag-page .ev-formula > span {
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
+  /* Slider row — tag and value on top, slider full width below */
+  .frm-vol-drag-page .slider-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 6px 12px;
+    align-items: baseline;
+  }
+  .frm-vol-drag-page .slider-row .slider-tag    { grid-column: 1; grid-row: 1; }
+  .frm-vol-drag-page .slider-row .slider-value  { grid-column: 2; grid-row: 1; min-width: auto; }
+  .frm-vol-drag-page .slider-row .slider-input  { grid-column: 1 / -1; grid-row: 2; }
+
+  /* Presets centre + smaller gap on mobile */
+  .frm-vol-drag-page .presets {
+    gap: 12px 14px;
+    justify-content: flex-start;
+  }
+
+  /* Play row — keep button + coin on one line, allow wrap */
+  .frm-vol-drag-page .play-row {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  /* Shtorka — body slightly smaller, formulas can scroll horizontally
+     when they're wider than the viewport instead of overflowing. */
   .frm-vol-drag-page details.shtorka .shtorka-body { font-size: 13.5px; }
+  .frm-vol-drag-page details.shtorka .shtorka-body .formula-block {
+    overflow-x: auto;
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  /* Finale — sub-line + hero a touch tighter; nav links stack */
+  .frm-vol-drag-page .screen--finale .finale-hero {
+    margin-top: 20px;
+  }
+  .frm-vol-drag-page .finale-nav {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 
 /* ============================================================
