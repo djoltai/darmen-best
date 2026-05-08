@@ -501,30 +501,33 @@ export function drawCurveSlider(canvas: HTMLCanvasElement, fCurrent: number) {
   }
   ctx.stroke();
 
-  // f* = 25% peak marker (always)
+  // f* = 25% peak — reduced reference dot + label (movable dot is the hero)
   const F_STAR = 0.25;
   const G_STAR = geomReturn(F_STAR);
   ctx.fillStyle = COL.teal;
   ctx.beginPath();
-  ctx.arc(xPx(F_STAR), yPx(G_STAR), 3.5, 0, Math.PI * 2);
+  ctx.arc(xPx(F_STAR), yPx(G_STAR), 2.5, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = COL.teal;
   ctx.font = '11px Inter, system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'bottom';
   ctx.fillText('f* = 25%', xPx(F_STAR), yPx(G_STAR) - 8);
 
-  // current f marker (open circle) — only when far from f*
-  if (Math.abs(fCurrent - F_STAR) > 0.005) {
-    const gCur = Math.max(yMin, geomReturn(fCurrent));
-    ctx.strokeStyle = COL.text;
-    ctx.lineWidth = 1.2;
-    ctx.fillStyle = COL.bg;
-    ctx.beginPath();
-    ctx.arc(xPx(fCurrent), yPx(gCur), 4, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-  }
+  // current f marker — always visible; halo + filled teal token to mirror slider thumb
+  const gCur = Math.max(yMin, geomReturn(fCurrent));
+  const cx = xPx(fCurrent);
+  const cy = yPx(gCur);
+  ctx.fillStyle = 'rgba(7, 67, 75, 0.18)';
+  ctx.beginPath();
+  ctx.arc(cx, cy, 9, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = COL.teal;
+  ctx.strokeStyle = COL.bg;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 6.5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
 }
 
 // ============================================================

@@ -511,39 +511,59 @@
   appearance: none;
   background: transparent;
   cursor: pointer;
-  height: 18px;
+  height: 22px;
   width: 100%;
   padding: 0;
   margin: 0;
 }
 .frm-vol-drag-page input[type="range"].v3-slider::-webkit-slider-runnable-track {
-  height: 2px;
-  background: rgba(26, 26, 26, 0.2);
+  height: 3px;
+  background: rgba(26, 26, 26, 0.28);
   border-radius: 2px;
 }
 .frm-vol-drag-page input[type="range"].v3-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  height: 16px;
-  width: 16px;
+  height: 18px;
+  width: 18px;
   background: var(--v3-teal);
   border: none;
   border-radius: 50%;
-  margin-top: -7px;
+  margin-top: -8px;
+  box-shadow: 0 0 0 1px rgba(250, 243, 221, 0.6), 0 1px 4px rgba(7, 67, 75, 0.22);
 }
 .frm-vol-drag-page input[type="range"].v3-slider::-moz-range-track {
-  height: 2px;
-  background: rgba(26, 26, 26, 0.2);
+  height: 3px;
+  background: rgba(26, 26, 26, 0.28);
   border-radius: 2px;
 }
 .frm-vol-drag-page input[type="range"].v3-slider::-moz-range-thumb {
-  height: 16px;
-  width: 16px;
+  height: 18px;
+  width: 18px;
   background: var(--v3-teal);
   border: none;
   border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(250, 243, 221, 0.6), 0 1px 4px rgba(7, 67, 75, 0.22);
 }
 .frm-vol-drag-page input[type="range"].v3-slider:focus { outline: none; }
+
+/* pristine pulse — drops on first interaction (см. main.ts) */
+@keyframes v3-thumb-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(7, 67, 75, 0.55), 0 0 0 1px rgba(250, 243, 221, 0.6), 0 1px 4px rgba(7, 67, 75, 0.22); }
+  50%      { box-shadow: 0 0 0 8px rgba(7, 67, 75, 0),    0 0 0 1px rgba(250, 243, 221, 0.6), 0 1px 4px rgba(7, 67, 75, 0.22); }
+}
+.frm-vol-drag-page input[type="range"].v3-slider.is-pristine::-webkit-slider-thumb {
+  animation: v3-thumb-pulse 1.8s ease-out infinite;
+}
+.frm-vol-drag-page input[type="range"].v3-slider.is-pristine::-moz-range-thumb {
+  animation: v3-thumb-pulse 1.8s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .frm-vol-drag-page input[type="range"].v3-slider.is-pristine::-webkit-slider-thumb,
+  .frm-vol-drag-page input[type="range"].v3-slider.is-pristine::-moz-range-thumb {
+    animation: none;
+  }
+}
 
 /* ============================================================
    9. Primary CTA — design.md §8.2
@@ -567,6 +587,22 @@
 .frm-vol-drag-page .v3-btn-primary:disabled {
   opacity: 0.55;
   cursor: default;
+}
+
+/* pristine pulse — drops on first click (см. main.ts) */
+@keyframes v3-btn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(7, 67, 75, 0.45); }
+  50%      { box-shadow: 0 0 0 9px rgba(7, 67, 75, 0); }
+}
+.frm-vol-drag-page .v3-btn-primary.is-pristine {
+  animation: v3-btn-pulse 1.8s ease-out infinite;
+}
+.frm-vol-drag-page .v3-btn-primary.is-pristine:hover,
+.frm-vol-drag-page .v3-btn-primary.is-pristine:focus {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .frm-vol-drag-page .v3-btn-primary.is-pristine { animation: none; }
 }
 
 /* ============================================================
@@ -820,6 +856,20 @@
   .frm-vol-drag-page .slider-row .slider-tag    { grid-column: 1; grid-row: 1; }
   .frm-vol-drag-page .slider-row .slider-value  { grid-column: 2; grid-row: 1; min-width: auto; }
   .frm-vol-drag-page .slider-row .slider-input  { grid-column: 1 / -1; grid-row: 2; }
+
+  /* Slider — bigger touch target on mobile (Apple HIG ~44pt; компромисс 24px) */
+  .frm-vol-drag-page input[type="range"].v3-slider { height: 28px; }
+  .frm-vol-drag-page input[type="range"].v3-slider::-webkit-slider-runnable-track { height: 4px; }
+  .frm-vol-drag-page input[type="range"].v3-slider::-webkit-slider-thumb {
+    height: 24px;
+    width: 24px;
+    margin-top: -10px;
+  }
+  .frm-vol-drag-page input[type="range"].v3-slider::-moz-range-track { height: 4px; }
+  .frm-vol-drag-page input[type="range"].v3-slider::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+  }
 
   /* Presets centre + smaller gap on mobile */
   .frm-vol-drag-page .presets {
