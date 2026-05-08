@@ -90,6 +90,7 @@ function init() {
     if (isPlaying) return;
     isPlaying = true;
     if (playBtn) {
+      playBtn.classList.remove('is-pristine');
       playBtn.disabled = true;
       playBtn.textContent = 'бросаю...';
     }
@@ -180,6 +181,7 @@ function init() {
 
   if (slider) {
     slider.addEventListener('input', e => {
+      slider.classList.remove('is-pristine');
       const raw = parseInt((e.target as HTMLInputElement).value, 10);
       const f = raw / 100;
       updateSlider(f);
@@ -191,7 +193,10 @@ function init() {
   presets.forEach(b => {
     b.addEventListener('click', () => {
       const f = parseInt(b.dataset.f || '0', 10);
-      if (slider) slider.value = String(f);
+      if (slider) {
+        slider.classList.remove('is-pristine');
+        slider.value = String(f);
+      }
       updateSlider(f / 100);
       setActivePreset(f);
     });
