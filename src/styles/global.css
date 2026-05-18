@@ -1,8 +1,5 @@
+@import './design-system.css';
 @import "tailwindcss";
-
-@theme {
-  --font-sans: 'Inter', sans-serif;
-}
 
 /* /lab-двери — поведение по data-portal. */
 .lab-door[data-portal=""] {
