@@ -1,5 +1,4 @@
 @import './design-system.css';
-@import "tailwindcss";
 
 /* /lab-двери — поведение по data-portal. */
 .lab-door[data-portal=""] {
