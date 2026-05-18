@@ -1,0 +1,77 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  body: string;
+  href: string;
+  meta?: string;
+}
+const { kicker, title, body, href, meta } = Astro.props;
+---
+
+<a href={href} class="home-row">
+  <div class="kicker">{kicker}</div>
+  <div class="content">
+    <div class="title">{title}</div>
+    <div class="body">{body}</div>
+    {meta && <div class="meta">{meta}</div>}
+  </div>
+</a>
+
+<style>
+  .home-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-bottom: 0.5px solid var(--ink-whisper);
+    color: var(--ink);
+    text-decoration: none;
+    align-items: baseline;
+    transition: color var(--t-fast);
+  }
+  .home-row:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink-whisper);
+  }
+  .home-row:hover .title {
+    color: var(--teal-hover);
+  }
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--ink-muted);
+    padding-top: 4px;
+  }
+  .title {
+    font-size: 19px;
+    font-weight: var(--w-medium);
+    letter-spacing: -0.015em;
+    line-height: var(--lh-snug);
+    transition: color var(--t-fast);
+  }
+  .body {
+    margin-top: 6px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    max-width: 540px;
+  }
+  .meta {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+  }
+
+  @media (max-width: 640px) {
+    .home-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .kicker {
+      padding-top: 0;
+    }
+  }
+</style>
