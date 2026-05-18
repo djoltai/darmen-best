@@ -1,0 +1,199 @@
+/* darmen.best — design tokens
+ * One system. One ink with three opacities. One type ladder.
+ * Density knob (data-density="dense") lets the same tokens carry
+ * the calmer homepage register and the denser Stratechery-leaning labs.
+ *
+ * Source of truth: projects/labs/design-system/skill/colors_and_type.css
+ * in Cowork. Imported once in global.css.
+ * Production fonts are loaded via @fontsource (see src/pages/index.astro),
+ * not via the Google Fonts CDN line that sits at the top of the
+ * Cowork copy — that's for static mockups only.
+ */
+
+:root {
+  /* ---------- Surfaces ---------- */
+  --bg:           #FAF6E8;   /* warm off-white. One background everywhere. */
+  --bg-elev:      #F3EDD7;   /* one shade down, for the rare inset/card */
+  --bg-dark:      #1A1A1A;   /* only inside labs for drama moments */
+
+  /* ---------- Ink ---------- */
+  --ink:          #1A1A1A;
+  --ink-muted:    rgba(26, 26, 26, 0.58);
+  --ink-faint:    rgba(26, 26, 26, 0.38);
+  --ink-line:     rgba(26, 26, 26, 0.16);
+  --ink-whisper:  rgba(26, 26, 26, 0.06);
+
+  /* ---------- Accents — disciplined ---------- */
+  --teal:         #07434B;   /* links, positive numbers, the brand. Default link color. */
+  --teal-hover:   #0A565F;
+  --teal-active:  #053238;
+  --coral:        #C75B4F;   /* loss, risk, negative numbers — only */
+  --gold:         #C9A443;   /* once-only finale */
+
+  /* ---------- Type families ---------- */
+  --font:         'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif:   'EB Garamond', 'Iowan Old Style', Charter, Cambria, serif;
+  /* Serif used exclusively for the wordmark glyph. */
+
+  /* Weights — system uses 500 almost everywhere. 400 for long-form body. 600 for the rare strong. */
+  --w-body:       400;
+  --w-medium:     500;
+  --w-strong:     600;
+
+  /* ---------- Type scale — 6 sizes, no more ---------- */
+  --t-hero:       clamp(40px, 5.8vw, 64px);  /* H1 anchor on homepage; hero numbers in labs */
+  --t-h1:         clamp(26px, 3.2vw, 34px);  /* lab opener, section start */
+  --t-h2:         20px;                       /* in-page subhead */
+  --t-lead:       19px;                       /* hero subtitle, lead paragraph */
+  --t-body:       17px;                       /* default body */
+  --t-small:      14px;                       /* meta, footnote, kicker tag inline */
+  --t-tag:        11px;                       /* uppercase kicker tag */
+
+  /* ---------- Tracking ---------- */
+  --track-tight:  -0.025em;   /* applies to anything 26px+ */
+  --track-hero:   -0.035em;   /* applies to hero & numerals */
+  --track-tag:    0.18em;
+
+  /* ---------- Line height ---------- */
+  --lh-tight:     1.15;       /* hero, h1 */
+  --lh-snug:      1.3;        /* h2, h3 */
+  --lh-default:   1.6;        /* body */
+  --lh-loose:     1.7;        /* lab body (denser content) */
+
+  /* ---------- Measure (column widths) ---------- */
+  --col:          640px;      /* canonical reading column */
+  --col-narrow:   540px;      /* lab body, focused argument */
+  --col-wide:     880px;      /* lab inner shell */
+
+  /* ---------- Space — 4px ladder ---------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  16px;
+  --s-4:  24px;
+  --s-5:  40px;
+  --s-6:  64px;
+  --s-7:  96px;
+  --s-8:  128px;
+
+  /* ---------- Radius — almost none ---------- */
+  --r:    3px;          /* buttons */
+  --r-pill: 999px;      /* slider thumb, coin chip */
+
+  /* ---------- Motion ---------- */
+  --ease:    cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast:  120ms;
+  --t-med:   300ms;
+  --t-slow:  1500ms;
+}
+
+/* Density knob — applied per page, not per element.
+ * default = vas3k-middle: airy, calm, made for prose.
+ * data-density="dense" = Stratechery: tighter line-height, smaller body,
+ * meant to carry hero numbers and formula insets. */
+[data-density="dense"] {
+  --t-body:    16px;
+  --lh-default: 1.55;
+}
+
+/* Dark surface for shock moments inside labs.
+ * Same ink-opacity rule, flipped. */
+[data-mode="dark"] {
+  --bg:          #1A1A1A;
+  --ink:         #FAF6E8;
+  --ink-muted:   rgba(250, 246, 232, 0.58);
+  --ink-faint:   rgba(250, 246, 232, 0.38);
+  --ink-line:    rgba(250, 246, 232, 0.16);
+  --ink-whisper: rgba(250, 246, 232, 0.06);
+}
+
+/* ---------- Element baselines ---------- */
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-feature-settings: "tnum";
+  font-size: var(--t-body);
+  line-height: var(--lh-default);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color var(--t-slow) var(--ease),
+    color var(--t-slow) var(--ease);
+}
+
+h1, h2, h3 {
+  font-family: var(--font);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--track-tight);
+  margin: 0;
+}
+h1 { font-size: var(--t-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--t-h2); letter-spacing: -0.01em; line-height: var(--lh-snug); }
+h3 { font-size: var(--t-lead); letter-spacing: -0.01em; line-height: var(--lh-snug); }
+
+p { margin: 0; }
+p + p { margin-top: 1em; }
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--ink-line);
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+a:hover {
+  color: var(--teal-hover);
+  border-bottom-color: var(--teal);
+}
+
+::selection { background: rgba(7, 67, 75, 0.18); color: var(--ink); }
+
+/* ---------- Utility classes — short, ergonomic ---------- */
+.mono, .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.serif      { font-family: var(--font-serif); }
+
+.tag {
+  font-size: var(--t-tag);
+  letter-spacing: var(--track-tag);
+  color: var(--ink-muted);
+  text-transform: lowercase;
+}
+
+.hero-num {
+  font-family: var(--font);
+  font-weight: var(--w-medium);
+  font-size: var(--t-hero);
+  letter-spacing: var(--track-hero);
+  line-height: 0.98;
+  font-variant-numeric: tabular-nums;
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: var(--lh-default);
+  color: var(--ink-muted);
+}
+
+.small {
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+
+/* Inline number accents */
+.pos { color: var(--teal);  font-weight: var(--w-medium); font-variant-numeric: tabular-nums; }
+.neg { color: var(--coral); font-weight: var(--w-medium); font-variant-numeric: tabular-nums; }
+
+/* Pull-quote — used at most once per page */
+.pull {
+  font-family: var(--font-serif);
+  font-weight: var(--w-medium);
+  font-style: italic;
+  font-size: clamp(22px, 2.5vw, 28px);
+  line-height: 1.35;
+  color: var(--ink);
+  border-left: 2px solid var(--teal);
+  padding-left: 20px;
+  margin: 32px 0;
+  letter-spacing: -0.01em;
+}
