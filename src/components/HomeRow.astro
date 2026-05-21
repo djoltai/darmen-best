@@ -3,20 +3,31 @@ interface Props {
   kicker: string;
   title: string;
   body: string;
-  href: string;
+  href?: string;
   meta?: string;
 }
 const { kicker, title, body, href, meta } = Astro.props;
 ---
 
-<a href={href} class="home-row">
-  <div class="kicker">{kicker}</div>
-  <div class="content">
-    <div class="title">{title}</div>
-    <div class="body">{body}</div>
-    {meta && <div class="meta">{meta}</div>}
+{href ? (
+  <a href={href} class="home-row">
+    <div class="kicker">{kicker}</div>
+    <div class="content">
+      <div class="title">{title}</div>
+      <div class="body">{body}</div>
+      {meta && <div class="meta">{meta}</div>}
+    </div>
+  </a>
+) : (
+  <div class="home-row home-row--static">
+    <div class="kicker">{kicker}</div>
+    <div class="content">
+      <div class="title">{title}</div>
+      <div class="body">{body}</div>
+      {meta && <div class="meta">{meta}</div>}
+    </div>
   </div>
-</a>
+)}
 
 <style>
   .home-row {
@@ -30,11 +41,11 @@ const { kicker, title, body, href, meta } = Astro.props;
     align-items: baseline;
     transition: color var(--t-fast);
   }
-  .home-row:hover {
+  a.home-row:hover {
     color: var(--ink);
     border-bottom-color: var(--ink-whisper);
   }
-  .home-row:hover .title {
+  a.home-row:hover .title {
     color: var(--teal-hover);
   }
   .kicker {
