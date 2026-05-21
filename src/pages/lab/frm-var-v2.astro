@@ -1,7 +1,8 @@
 ---
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
 import '../../styles/lab/frm-var-v2.css';
+import Wordmark from '../../components/Wordmark.astro';
 ---
 <!DOCTYPE html>
 <html lang="ru">
@@ -17,6 +18,9 @@ import '../../styles/lab/frm-var-v2.css';
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer is:inline></script>
   </head>
   <body class="frm-var-page">
+    <header class="lab-header">
+      <Wordmark />
+    </header>
     <div class="v2-archive-banner">
       <p>Это <strong>архив v2</strong>: сторилэндинг про три девальвации тенге. Действующая страница — на <a href="/lab/frm-var">/lab/frm-var</a>.</p>
     </div>

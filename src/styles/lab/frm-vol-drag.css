@@ -2,40 +2,55 @@
    4 screens + 2 shtorky. Cream bg, graphite text, teal accent,
    coral only in risk moments, gold only in the finale coin. */
 
+@import '../design-system.css';
+
 /* ============================================================
-   1. Palette + page baseline
+   1. Palette + page baseline — алиасы системных токенов
    ============================================================ */
 
 :root {
-  --v3-bg: #faf3dd;
-  --v3-text-primary: #1a1a1a;
-  --v3-text-muted: rgba(26, 26, 26, 0.55);
-  --v3-text-subtle: rgba(26, 26, 26, 0.45);
+  --v3-bg: var(--bg);
+  --v3-text-primary: var(--ink);
+  --v3-text-muted: var(--ink-muted);
+  --v3-text-subtle: var(--ink-faint);
 
-  --v3-teal: #07434b;
+  --v3-teal: var(--teal);
   --v3-teal-soft: rgba(7, 67, 75, 0.10);
-  --v3-teal-hover: #0a565f;
-  --v3-teal-active: #053238;
+  --v3-teal-hover: var(--teal-hover);
+  --v3-teal-active: var(--teal-active);
 
+  /* design-system: one-off — lab coral предшествует токену, миграция
+     заявлена косметической; смена сигнального цвета это редизайн. */
   --v3-coral: #d97062;
   --v3-coral-soft: rgba(217, 112, 98, 0.10);
 
-  --v3-gold: #c9a443;
+  --v3-gold: var(--gold);
   --v3-gold-rim: #7e6322;
   --v3-gold-symbol: #5a4516;
 
-  --v3-border-subtle: rgba(26, 26, 26, 0.15);
-  --v3-border-faint: rgba(26, 26, 26, 0.06);
+  --v3-border-subtle: var(--ink-line);
+  --v3-border-faint: var(--ink-whisper);
 }
 
 .frm-vol-drag-page {
   background: var(--v3-bg);
   color: var(--v3-text-primary);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font);
   font-feature-settings: "ss01", "cv11", "tnum";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
+}
+
+/* Wordmark в шапке лаба — повторяет горизонтальный отступ контента .screen. */
+.lab-header {
+  padding: 24px 32px 0;
+  max-width: 1120px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  .lab-header { padding: 16px 20px 0; }
 }
 
 /* ============================================================
@@ -94,7 +109,7 @@
 
 .frm-vol-drag-page .mono,
 .frm-vol-drag-page .number-callout {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
@@ -182,7 +197,7 @@
   justify-content: flex-start;
   column-gap: 10px;
   row-gap: 8px;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-size: clamp(15px, 1.7vw, 19px);
   font-weight: 500;
@@ -191,7 +206,7 @@
 .frm-vol-drag-page .ev-formula .lbl {
   font-size: 10px;
   letter-spacing: 0.14em;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font);
   text-transform: lowercase;
   color: var(--v3-text-muted);
   text-align: center;
@@ -250,7 +265,7 @@
 }
 
 .frm-vol-drag-page .metric-row .final-cap {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-size: 24px;
   font-weight: 500;
@@ -369,7 +384,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -390,7 +405,7 @@
 }
 
 .frm-vol-drag-page .coin-sub {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-size: 13px;
   color: var(--v3-text-subtle);
@@ -429,7 +444,7 @@
   flex: 1 1 auto;
 }
 .frm-vol-drag-page .slider-row .slider-value {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-size: 18px;
   font-weight: 500;
@@ -478,7 +493,7 @@
   text-transform: lowercase;
 }
 .frm-vol-drag-page .metrics-pair .metric .value {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-size: 30px;
   font-weight: 500;
@@ -499,7 +514,7 @@
 .frm-vol-drag-page .kelly-block .pull-quote code,
 .frm-vol-drag-page .kelly-block .pull-quote .mono {
   font-size: 16px;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
 }
 
 /* ============================================================
@@ -577,7 +592,7 @@
   font-size: 14px;
   letter-spacing: 0.04em;
   cursor: pointer;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font);
   border-radius: 4px;
   font-weight: 500;
   transition: background 120ms;
@@ -652,12 +667,12 @@
 }
 .frm-vol-drag-page details.shtorka .shtorka-body .formula,
 .frm-vol-drag-page details.shtorka .shtorka-body .mono {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-size: 13px;
 }
 .frm-vol-drag-page details.shtorka .shtorka-body .formula-block {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.7;
   margin: 6px 0;
