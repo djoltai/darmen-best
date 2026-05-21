@@ -42,14 +42,16 @@
   margin: 0;
 }
 
-/* Wordmark в шапке лаба — повторяет горизонтальный отступ контента .screen. */
+/* Wordmark в шапке лаба — outer-box повторяет .screen--opener
+   (880 content-box + 48*2 padding = 976), чтобы D встал точно по
+   левому краю контента опенера. */
 .lab-header {
-  padding: 24px 32px 0;
-  max-width: 1120px;
+  max-width: 976px;
+  padding: 24px 48px 0;
   margin: 0 auto;
   box-sizing: border-box;
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .lab-header { padding: 16px 20px 0; }
 }
 
