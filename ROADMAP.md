@@ -23,9 +23,6 @@
   тест-раннер — прикрутить тесты к `scripts/lab/frm-vol-drag/`,
   `scripts/lab/frm-var-v2/` и snapshot-тест на детерминированный SVG в
   `src/components/LabCard.astro`.
-- **Favicon.ico пересборка.** SVG-фавикон обновлён на `D` засечкой teal
-  в сессии 2; `.ico` оставлен старым (Astro mountain) — пересобрать
-  растром из глифа `D` когда удобно по тулингу.
 
 ## В идеях
 
