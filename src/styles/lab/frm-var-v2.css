@@ -15,7 +15,7 @@
 
   background: var(--mode-bg);
   color: var(--mode-text);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
@@ -502,6 +502,19 @@
   }
 }
 
+/* === Wordmark в шапке v2 — всегда на cream-полосе поверх dark scrollytelling. === */
+.frm-var-page .lab-header {
+  background: #FAF6E8;
+  padding: 16px 24px;
+  border-bottom: 0.5px solid rgba(7, 67, 75, 0.15);
+}
+.frm-var-page .lab-header a.wordmark {
+  color: #1A1A1A;
+}
+.frm-var-page .lab-header .wordmark-d {
+  color: #07434B;
+}
+
 /* === v2 archive banner (added when v2 became archive at /lab/frm-var-v2) === */
 .v2-archive-banner {
   background: rgba(7, 67, 75, 0.06);
@@ -510,7 +523,7 @@
   text-align: center;
   font-size: 13px;
   color: rgba(26, 26, 26, 0.7);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
 }
 .v2-archive-banner p { margin: 0; }
 .v2-archive-banner a {

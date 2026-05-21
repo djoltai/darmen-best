@@ -1,0 +1,554 @@
+---
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/eb-garamond/500.css';
+import '@fontsource/eb-garamond/600.css';
+import '../styles/global.css';
+import Wordmark from '../components/Wordmark.astro';
+import SectionHead from '../components/SectionHead.astro';
+---
+
+<html lang="ru">
+  <head>
+    <!-- Primary -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>Дармен Жолтай — CV · darmen.best</title>
+    <meta name="description" content="Product & Transformation Leader. 10+ запущенных продуктов, команды до 70 человек. Кейсы, образование, сертификации, принципы работы." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="darmen.best" />
+    <meta property="og:url" content="https://darmen.best/cv" />
+    <meta property="og:title" content="Дармен Жолтай — CV" />
+    <meta property="og:description" content="Product & Transformation Leader. 10+ запущенных продуктов, команды до 70 человек. Кейсы, образование, сертификации, принципы работы." />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:image" content="https://darmen.best/og.png" />
+    <meta property="og:image:secure_url" content="https://darmen.best/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Дармен Жолтай · Product & Transformation Leader · darmen.best" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://darmen.best/cv" />
+    <meta name="twitter:title" content="Дармен Жолтай — CV" />
+    <meta name="twitter:description" content="Product & Transformation Leader. 10+ запущенных продуктов, команды до 70 человек." />
+    <meta name="twitter:image" content="https://darmen.best/og.png" />
+    <meta name="twitter:image:alt" content="Дармен Жолтай · Product & Transformation Leader · darmen.best" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://darmen.best/cv" />
+  </head>
+  <body>
+    <article>
+      <header class="logo-row">
+        <Wordmark />
+      </header>
+
+      <section class="hero">
+        <span class="tag">product &amp; transformation leader</span>
+        <h1>Дармен Жолтай</h1>
+        <p class="lead">Строю цифровые системы для государства, промышленности и школ Казахстана.</p>
+        <p class="intro">10+ продуктов за карьеру, команды до 70 человек. Сейчас — три свои компании: KazDevLab, Qazyna AI и QVision. До этого — партнёр в стратегическом консалтинге.</p>
+        <div class="contact-row">
+          <a href="mailto:darmen.joltai@gmail.com">darmen.joltai@gmail.com</a>
+          <a href="https://www.linkedin.com/in/darmen-joltai/">LinkedIn&nbsp;↗</a>
+        </div>
+        <p class="languages">Языки: казахский, английский, русский, немецкий.</p>
+      </section>
+
+      <SectionHead title="О себе" />
+      <div class="about-block">
+        <p>По образованию — математик-финансист и актуарий. Начинал в консалтинге. Ушёл оттуда по простой причине: там не виден итог. Отдаёшь клиенту презентации и финмодели — и редко когда узнаёшь, как прошло внедрение и какой получился результат.</p>
+        <p>В Center for Strategic Initiatives понял, чего хочу на самом деле: строить и внедрять, а не передавать советы. Повернул компанию к IT-продуктам и взялся за первые продукты сам. Главным стал eAkimat. В апреле 2025 ушёл строить своё.</p>
+        <p>С Казахстаном жизнь связывал всегда — это выбор, не стечение обстоятельств. Поэтому и продукты строю про эту среду: государственный учёт, корпоративные данные, школы. У всех трёх компаний одна цель за горизонтом — снять государственные и корпоративные системы страны с legacy-софта и перевести на собственную инфраструктуру. И вывести казахстанский продукт на международный рынок.</p>
+        <p>База — Астана. Семья, футбол, шахматы. Книги, к которым возвращаюсь чаще всего: «Extreme Ownership» Джоко Виллинка, «The Psychology of Money» Моргана Хаузела, «Outliers» Малкольма Гладуэлла.</p>
+      </div>
+
+      <SectionHead title="Три компании" />
+      <div class="rows">
+        <div class="company-row">
+          <div class="kicker">2025<br />сооснователь</div>
+          <div class="content">
+            <div class="title">KazDevLab</div>
+            <div class="body">Продукт — emissions.kz: платформа экологического учёта и отчётности для промышленных предприятий.</div>
+            <div class="meta">product-market-fit · ERG, 17 объектов</div>
+          </div>
+        </div>
+        <div class="company-row">
+          <div class="kicker">2026<br />сооснователь</div>
+          <div class="content">
+            <div class="title">Qazyna AI</div>
+            <div class="body">AI-first платформа бухгалтерского и финансового учёта для госсектора. Альтернатива 1С и Парусу.</div>
+            <div class="meta">MVP → prototype</div>
+          </div>
+        </div>
+        <div class="company-row">
+          <div class="kicker">2026<br />сооснователь</div>
+          <div class="content">
+            <div class="title">QVision</div>
+            <div class="body">Образовательная экосистема: eOqulyq на E-Ink, интерактивные школьные решения и школьный дизайн-код «Адал Азамат».</div>
+            <div class="meta">дизайн-код утверждён на уровне АП и Министерства просвещения</div>
+          </div>
+        </div>
+      </div>
+      <p class="advisory">Плюс advisory и commercial origination в корпоративной data &amp; AI-платформе энергетического холдинга. Бюджет 980,1 млн ₸, 2025–2026.</p>
+
+      <SectionHead title="Избранные кейсы" />
+      <div class="cases">
+        <article class="case-block">
+          <span class="tag">govtech · b2g erp</span>
+          <h3 class="case-title">eAkimat — бюджетный процесс области в одном цифровом контуре</h3>
+          <div class="case-meta">7 областей · ≈1 500 пользователей · контур бюджета &gt;1 трлн ₸ · команда 70 на пике</div>
+          <p class="case-body">ERP для местных исполнительных органов: стратегическое и бюджетное планирование, исполнение бюджета. До eAkimat всё это жило в Excel, локальных базах и бумажных согласованиях. Возглавлял продукт в Center for Strategic Initiatives. После моего ухода из компании в 2025 году система продолжает работать у клиентов.</p>
+        </article>
+        <article class="case-block">
+          <span class="tag">industrial · ecotech</span>
+          <h3 class="case-title">emissions.kz — экологический учёт промышленности в едином контуре</h3>
+          <div class="case-meta">17 объектов ERG · цель 2026 — около ста объектов</div>
+          <p class="case-body">Платформа экологического учёта и отчётности для объектов I и II категорий. Разрешительная документация, первичные данные, контроль качества и отчётность раньше лежали по разным файлам. Теперь связаны: цифра в отчёте имеет источник, источник имеет основание в нормативке. AI-помощник отвечает за первичное наполнение данными и их кросс-проверку. AI-аудитор находит отклонения в отчётах ещё до сдачи и до проверки регулятором.</p>
+        </article>
+        <article class="case-block">
+          <span class="tag">edtech · дизайн-код</span>
+          <h3 class="case-title">«Адал Азамат» — школьный дизайн-код, утверждённый государством</h3>
+          <div class="case-meta">утверждён на уровне Государственного советника (АП) и Министерства просвещения · ~100 школ с интерактивными решениями</div>
+          <p class="case-body">Бренд-платформа и визуальная система для школ республиканской программы «Адал Азамат». Это не школьная форма и не разовый брендинг под одну школу. Государственный дизайн-стандарт для всех школ программы — он соединяет цифровые продукты QVision с физической школьной средой.</p>
+        </article>
+        <article class="case-block">
+          <span class="tag">enterprise · data &amp; ai</span>
+          <h3 class="case-title">Корпоративная data &amp; AI-платформа энергетического холдинга</h3>
+          <div class="case-meta">бюджет 980,1 млн ₸ · 4 дочерние организации с субДЗО · 6+ AI-сценариев</div>
+          <p class="case-body">Один из стратегических холдингов энергетического сектора. Сначала — единая платформа данных группы: озеро данных, хранилище, веб-портал, дашборды. И только потом AI поверх, не AI поверх legacy. Моя роль — commercial origination и advisory: структурирование сделки и архитектура.</p>
+        </article>
+      </div>
+
+      <SectionHead title="Образование" />
+      <div class="edu">
+        <div class="edu-block">
+          <div class="edu-head">
+            <span class="edu-name">Technical University of Munich</span>
+            <span class="edu-year">2015–2017</span>
+          </div>
+          <p class="edu-degree">Магистр математических финансов и актуарной науки, с отличием.</p>
+          <p class="edu-aux">Дипломная работа — Statistical and Machine Learning Methods for the US National Football League.</p>
+        </div>
+        <div class="edu-block">
+          <div class="edu-head">
+            <span class="edu-name">Purdue University</span>
+            <span class="edu-year">2010–2014</span>
+          </div>
+          <p class="edu-degree">Бакалавр прикладной статистики и бакалавр актуарной науки — оба с наивысшим отличием.</p>
+          <p class="edu-aux">Стипендиат программы «Болашак». Dean&rsquo;s&nbsp;List ×8.</p>
+        </div>
+      </div>
+
+      <SectionHead title="Сертификации" />
+      <div class="rows">
+        <div class="cert-row">
+          <div class="cert-kicker">FRM</div>
+          <div class="content">
+            <div class="title">Financial Risk Manager</div>
+            <div class="body">Global Association of Risk Professionals · <a href="/lab/frm-var" class="cert-link">разбор Volatility Drag →</a></div>
+          </div>
+        </div>
+        <div class="cert-row">
+          <div class="cert-kicker">PMP</div>
+          <div class="content">
+            <div class="title">Project Management Professional</div>
+            <div class="body">Project Management Institute</div>
+          </div>
+        </div>
+        <div class="cert-row">
+          <div class="cert-kicker">SOA</div>
+          <div class="content">
+            <div class="title">Society of Actuaries</div>
+            <div class="body">сдал Exam P и Exam FM</div>
+          </div>
+        </div>
+        <div class="cert-row">
+          <div class="cert-kicker">DAV</div>
+          <div class="content">
+            <div class="title">German Association of Actuaries</div>
+            <div class="body">страхование имущества, здоровья и жизни</div>
+          </div>
+        </div>
+      </div>
+
+      <SectionHead title="Как работаю" />
+      <div class="principles">
+        <div class="principle">
+          <h3 class="principle-title">Extreme Ownership</h3>
+          <p class="principle-body">За всё в своём периметре отвечает лидер — и за успех, и за провал. Не обстоятельства, не команда, не подрядчик.</p>
+        </div>
+        <div class="principle">
+          <h3 class="principle-title">Продукт сделан, когда внедрён и работает у клиента</h3>
+          <p class="principle-body">Сданный этап или подписанный акт — это ещё не результат. Результат — когда системой пользуются каждый день.</p>
+        </div>
+        <div class="principle">
+          <h3 class="principle-title">Партнёр, а не подрядчик</h3>
+          <p class="principle-body">Внедрение — это процесс, а не точка. Продолжаю сопровождать клиента и после формальной сдачи.</p>
+        </div>
+        <div class="principle">
+          <h3 class="principle-title">Фреймворки — инструмент, не культ</h3>
+          <p class="principle-body">Здравый смысл лучше слепого следования модной методологии. Фреймворк подбирается под задачу, а не задача под фреймворк.</p>
+        </div>
+      </div>
+
+      <SectionHead title="Сотрудничество" />
+      <div class="collab-cols">
+        <div class="collab-col">
+          <div class="collab-head">открыт к</div>
+          <ul class="collab-list">
+            <li>Партнёрство в новых продуктах: co-founder или equity.</li>
+            <li>Advisory и board seats в enterprise и национальных холдингах.</li>
+            <li>Выступления и панели: GovTech, Enterprise Data &amp; AI, EdTech, цифровой суверенитет.</li>
+          </ul>
+        </div>
+        <div class="collab-col">
+          <div class="collab-head">чего не делаю</div>
+          <p class="collab-body">Не работаю в модели человеко-часов — только партнёрство или контракт с измеримым результатом. Не берусь за проекты без прямого заказчика и без человека, у которого есть право решения.</p>
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <div class="footer-links">
+          <a href="mailto:darmen.joltai@gmail.com">darmen.joltai@gmail.com</a>
+          <a href="https://www.linkedin.com/in/darmen-joltai/">LinkedIn&nbsp;↗</a>
+          <a href="/">darmen.best</a>
+        </div>
+        <div class="footer-copy">© 2026 Дармен Жолтай</div>
+      </footer>
+    </article>
+
+    <style>
+      article {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 64px 24px 80px;
+        box-sizing: border-box;
+      }
+      .logo-row {
+        margin-bottom: 64px;
+      }
+
+      /* Hero */
+      .hero .tag {
+        display: inline-block;
+        margin-bottom: 16px;
+      }
+      .hero h1 {
+        font-size: clamp(36px, 4vw, 52px);
+        font-weight: var(--w-medium);
+        letter-spacing: var(--track-hero);
+        line-height: 1.08;
+        margin: 0;
+        max-width: 720px;
+      }
+      .lead {
+        margin-top: 24px;
+        font-size: var(--t-lead);
+        line-height: 1.5;
+        color: var(--ink);
+        max-width: 620px;
+      }
+      .intro {
+        margin-top: 16px;
+        font-size: var(--t-body);
+        line-height: var(--lh-default);
+        color: var(--ink-muted);
+        max-width: 620px;
+      }
+      .contact-row {
+        margin-top: 28px;
+        display: flex;
+        gap: 24px;
+        font-size: 15px;
+        flex-wrap: wrap;
+      }
+      .languages {
+        margin-top: 20px;
+        font-size: var(--t-small);
+        color: var(--ink-faint);
+      }
+
+      /* About */
+      .about-block {
+        max-width: 560px;
+      }
+      .about-block p {
+        font-size: var(--t-body);
+        line-height: var(--lh-default);
+        color: var(--ink);
+      }
+      .about-block p + p {
+        margin-top: 1em;
+      }
+
+      /* Rows (companies + certifications share this container) */
+      .rows {
+        border-top: 0.5px solid var(--ink-line);
+      }
+
+      /* Company row — visually identical to HomeRow without href, supports multiline kicker */
+      .company-row {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 32px;
+        padding: 24px 0;
+        border-bottom: 0.5px solid var(--ink-whisper);
+        align-items: baseline;
+      }
+      .company-row .kicker {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        letter-spacing: 0.02em;
+        color: var(--ink-muted);
+        padding-top: 4px;
+        line-height: 1.5;
+      }
+      .company-row .title {
+        font-size: 19px;
+        font-weight: var(--w-medium);
+        letter-spacing: -0.015em;
+        line-height: var(--lh-snug);
+      }
+      .company-row .body {
+        margin-top: 6px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink-muted);
+        max-width: 540px;
+      }
+      .company-row .meta {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--ink-faint);
+        font-family: var(--font-mono);
+      }
+      .advisory {
+        margin-top: 24px;
+        font-size: var(--t-body);
+        line-height: var(--lh-default);
+        color: var(--ink-muted);
+        max-width: 620px;
+      }
+
+      /* Cases */
+      .cases {
+        border-top: 0.5px solid var(--ink-line);
+      }
+      .case-block {
+        padding: 24px 0;
+        border-bottom: 0.5px solid var(--ink-whisper);
+      }
+      .case-title {
+        margin: 8px 0 0 0;
+        font-size: 20px;
+        font-weight: var(--w-medium);
+        letter-spacing: -0.015em;
+        line-height: var(--lh-snug);
+        max-width: 620px;
+      }
+      .case-meta {
+        margin-top: 10px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--ink-faint);
+        max-width: 620px;
+        line-height: 1.5;
+      }
+      .case-body {
+        margin-top: 12px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink-muted);
+        max-width: 620px;
+      }
+
+      /* Education */
+      .edu {
+        border-top: 0.5px solid var(--ink-line);
+      }
+      .edu-block {
+        padding: 24px 0;
+        border-bottom: 0.5px solid var(--ink-whisper);
+      }
+      .edu-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .edu-name {
+        font-size: 19px;
+        font-weight: var(--w-medium);
+        letter-spacing: -0.015em;
+      }
+      .edu-year {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
+      .edu-degree {
+        margin-top: 8px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+      .edu-aux {
+        margin-top: 4px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ink-faint);
+      }
+
+      /* Certifications */
+      .cert-row {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 32px;
+        padding: 24px 0;
+        border-bottom: 0.5px solid var(--ink-whisper);
+        align-items: baseline;
+      }
+      .cert-kicker {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: var(--w-medium);
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        padding-top: 4px;
+      }
+      .cert-row .title {
+        font-size: 17px;
+        font-weight: var(--w-medium);
+        letter-spacing: -0.01em;
+      }
+      .cert-row .body {
+        margin-top: 6px;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--ink-muted);
+      }
+      .cert-link {
+        color: var(--teal);
+        border-bottom-color: var(--teal);
+      }
+      .cert-link:hover {
+        color: var(--teal-hover);
+        border-bottom-color: var(--teal-hover);
+      }
+
+      /* Principles */
+      .principles {
+        border-top: 0.5px solid var(--ink-line);
+      }
+      .principle {
+        padding: 24px 0;
+        border-bottom: 0.5px solid var(--ink-whisper);
+      }
+      .principle-title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: var(--w-medium);
+        letter-spacing: -0.01em;
+        line-height: var(--lh-snug);
+      }
+      .principle-body {
+        margin-top: 8px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink-muted);
+        max-width: 620px;
+      }
+
+      /* Collaboration */
+      .collab-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .collab-head {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--ink-faint);
+        margin-bottom: 12px;
+        text-transform: lowercase;
+      }
+      .collab-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-top: 0.5px solid var(--ink-whisper);
+      }
+      .collab-list li {
+        padding: 16px 0;
+        border-bottom: 0.5px solid var(--ink-whisper);
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+      .collab-body {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink-muted);
+        max-width: 420px;
+      }
+
+      /* Footer */
+      .page-footer {
+        margin-top: 96px;
+        padding-top: 24px;
+        border-top: 0.5px solid var(--ink-line);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 24px;
+        font-size: 14px;
+        color: var(--ink-muted);
+        flex-wrap: wrap;
+      }
+      .footer-copy {
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
+
+      /* Mobile */
+      @media (max-width: 640px) {
+        .company-row,
+        .cert-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .company-row .kicker,
+        .cert-kicker {
+          padding-top: 0;
+        }
+        .collab-cols {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        article { padding: 64px 64px 80px; }
+      }
+      @media (min-width: 1280px) {
+        article { padding: 64px 96px 80px; }
+      }
+    </style>
+  </body>
+</html>

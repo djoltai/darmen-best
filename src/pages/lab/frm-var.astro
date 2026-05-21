@@ -1,7 +1,10 @@
 ---
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
 import '../../styles/lab/frm-vol-drag.css';
+import Wordmark from '../../components/Wordmark.astro';
 ---
 <!DOCTYPE html>
 <html lang="ru">
@@ -18,15 +21,15 @@ import '../../styles/lab/frm-vol-drag.css';
     <meta property="og:image" content="https://darmen.best/og.png" />
     <meta property="og:url" content="https://darmen.best/lab/frm-var" />
     <meta property="og:type" content="article" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <!-- KaTeX for shtorka math typesetting. CSS in head, JS deferred + auto-render at end of body. -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
   </head>
   <body class="frm-vol-drag-page">
+    <header class="lab-header">
+      <Wordmark />
+    </header>
     <main>
 
       <!-- ================== ЭКРАН 1 — ОПЕНЕР ================== -->
@@ -277,7 +280,6 @@ import '../../styles/lab/frm-vol-drag.css';
         <div class="finale-coda">
           <p class="tag">опорные авторы и тексты</p>
           <div class="links">
-            <!-- TODO: подставить URL поста-анонса при деплое (post-vol-drag-anchor) -->
             <a href="https://www.linkedin.com/posts/darmen-joltai_share-7457744890303668224-ezqj" data-post-anchor>пост-анонс ↗</a>
             <a href="https://en.wikipedia.org/wiki/Kelly_criterion" target="_blank" rel="noopener noreferrer">Kelly · 1956 ↗</a>
             <a href="https://www.goodreads.com/book/show/36064445-skin-in-the-game" target="_blank" rel="noopener noreferrer">Taleb · Skin in the Game ↗</a>
