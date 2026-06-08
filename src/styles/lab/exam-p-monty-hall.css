@@ -1,6 +1,8 @@
 /* exam-p-monty-hall — два экрана про Монти Холла / «Поле чудес».
    Cream bg, teal — выигрыш/деньги/бренд, coral — пусто/проигрыш.
-   Перенос инлайн-стилей мокапов v9 / v4 в классы на токенах. */
+   Регистр и «воздух» взяты с /lab/frm-var (frm-vol-drag.css): широкая
+   колонка, крупные заголовки, generous-вертикаль, шов между экранами,
+   стиль кнопок и шторок. Механику/тексты несём из мокапов v9/v4. */
 
 @import '../design-system.css';
 
@@ -21,7 +23,7 @@
 }
 
 /* ============================================================
-   2. Шелл страницы
+   2. Шелл страницы — колонка как у frm-var (.screen), с воздухом
    ============================================================ */
 
 .exam-p-monty-hall-page {
@@ -35,22 +37,21 @@
 }
 
 .lab-header {
-  max-width: 600px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 24px 22px 0;
+  padding: 28px 40px 0;
   box-sizing: border-box;
 }
 
-.mh-main {
-  max-width: 600px;
+.mh-main { padding-bottom: 40px; }
+
+.mh-screen {
+  max-width: 760px;
   margin: 0 auto;
-  padding: 16px 22px 80px;
+  padding: 56px 40px;
   box-sizing: border-box;
 }
-
-.mh-screen + .mh-screen {
-  margin-top: 48px;
-}
+.mh-screen + .mh-screen { border-top: 0.5px solid var(--ink-line); }
 
 .sr-only {
   position: absolute;
@@ -69,24 +70,26 @@
   letter-spacing: 0.18em;
   text-transform: lowercase;
   color: var(--ink-muted);
-  margin: 0 0 8px;
+  margin: 0 0 14px;
 }
 
 .mh-h1 {
-  font-size: 22px;
+  font-size: clamp(24px, 3.2vw, 30px);
   font-weight: 500;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   line-height: 1.2;
-  margin: 0 0 10px;
+  margin: 0 0 16px;
 }
 
-.mh-h3 { font-size: 18px; font-weight: 500; margin: 0 0 8px; }
-.mh-h4 { font-size: 16px; font-weight: 500; margin: 0 0 6px; }
+.mh-h3 { font-size: 19px; font-weight: 500; letter-spacing: -0.01em; margin: 0 0 10px; }
+.mh-h4 { font-size: 17px; font-weight: 500; margin: 0 0 8px; }
 
-.mh-p { font-size: 15px; line-height: 1.6; margin: 0 0 10px; }
+.mh-p { font-size: 16px; line-height: 1.65; margin: 0 0 14px; }
 .mh-p--muted { color: var(--ink-muted); }
-.mh-p--prompt { font-size: 16px; font-weight: 500; line-height: 1.5; margin: 0 0 18px; }
-.mh-p--small { font-size: 13px; line-height: 1.55; color: var(--ink-muted); margin: 0 0 10px; }
+.mh-p--lead { font-size: 16px; line-height: 1.65; color: var(--ink-muted); margin: 0 0 24px; }
+.mh-p--lead b { color: var(--ink); }
+.mh-p--prompt { font-size: 17px; font-weight: 500; line-height: 1.5; margin: 0 0 24px; }
+.mh-p--small { font-size: 14px; line-height: 1.6; color: var(--ink-muted); margin: 0 0 12px; }
 
 .exam-p-monty-hall-page b,
 .exam-p-monty-hall-page strong { font-weight: 500; }
@@ -100,47 +103,52 @@
 .mh-mono.is-faint { color: var(--ink-faint); }
 
 .mh-hint {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-faint);
-  margin: 0 0 7px;
+  margin: 0 0 10px;
 }
 .mh-hint b { color: var(--ink-muted); }
 
 /* ============================================================
-   4. Кнопки
+   4. Кнопки — метрики как у frm-var .v3-btn-primary
    ============================================================ */
 
 .mh-btn {
   font-family: inherit;
   font-size: 14px;
+  letter-spacing: 0.02em;
   background: transparent;
   color: var(--ink);
   border: 0.5px solid var(--mh-btn-border);
-  border-radius: var(--r);
-  padding: 9px 16px;
+  border-radius: 4px;
+  padding: 12px 22px;
   cursor: pointer;
+  transition: background 120ms, border-color 120ms, color 120ms;
 }
+.mh-btn:hover { border-color: var(--teal); color: var(--teal); }
 .mh-btn--primary {
   background: var(--teal);
   color: var(--bg);
   border-color: var(--teal);
   font-weight: 500;
 }
-.mh-btn--sim   { font-size: 13px; padding: 8px 14px; }
-.mh-btn--reset { font-size: 13px; padding: 7px 13px; }
+.mh-btn--primary:hover { background: var(--teal-hover); border-color: var(--teal-hover); color: var(--bg); }
+.mh-btn--sim   { font-size: 13px; padding: 10px 18px; }
+.mh-btn--reset { font-size: 13px; padding: 9px 16px; }
 .mh-btn[disabled] { opacity: 0.5; cursor: default; }
+.mh-btn[disabled]:hover { border-color: var(--mh-btn-border); color: var(--ink); }
 
 /* ============================================================
    5. Шкатулки + чипы (общий компонент обоих экранов)
    ============================================================ */
 
-.mh-stage { position: relative; }
+.mh-stage { position: relative; margin-bottom: 4px; }
 
 .mh-chips {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .mh-boxes {
   display: grid;
@@ -151,7 +159,7 @@
 .mh-chip {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   text-align: center;
   padding: 5px 0;
@@ -167,31 +175,29 @@
   background: var(--mh-surface);
   border: 0.5px solid var(--ink-line);
   border-radius: 12px;
-  padding: 18px 6px 10px;
+  padding: 22px 6px 14px;
   text-align: center;
   cursor: default;
   transition: background 250ms, border-color 250ms;
 }
 .mh-box.is-clickable { cursor: pointer; }
-/* фон/контент по состоянию */
 .mh-box.is-money { background: var(--mh-money-bg); }
 .mh-box.is-empty { background: var(--mh-empty-bg); }
-/* рамка по состоянию */
 .mh-box.is-picked     { border: 2px solid var(--teal); }
 .mh-box.is-final-win  { border: 2px solid var(--teal); }
 .mh-box.is-final-lose { border: 2px solid var(--coral); }
 
-.mh-box-icon { font-size: 30px; color: var(--ink-muted); line-height: 1; }
+.mh-box-icon { font-size: 32px; color: var(--ink-muted); line-height: 1; }
 .mh-box.is-money .mh-box-icon { color: var(--teal); }
 .mh-box.is-empty .mh-box-icon { color: var(--coral); }
 
-.mh-box-label { font-size: 13px; color: var(--ink-muted); margin-top: 6px; }
+.mh-box-label { font-size: 13px; color: var(--ink-muted); margin-top: 8px; }
 .mh-box.is-money .mh-box-label { color: var(--teal); }
 .mh-box.is-empty .mh-box-label { color: var(--coral); }
 
 .mh-box-tag {
   font-size: 11px;
-  margin-top: 3px;
+  margin-top: 4px;
   min-height: 26px;
   line-height: 1.2;
 }
@@ -200,9 +206,9 @@
 .mh-box-tag.is-faint { color: var(--ink-faint); }
 
 .mh-status {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.55;
-  margin: 14px 0 12px;
+  margin: 18px 0 14px;
   min-height: 1.6em;
 }
 .mh-status .is-win  { color: var(--teal);  font-weight: 500; }
@@ -210,7 +216,7 @@
 
 .mh-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 4px;
 }
@@ -246,10 +252,10 @@
   display: none;
   background: var(--bg-elev);
   border-left: 2px solid var(--teal);
-  padding: 13px 16px;
-  margin: 0 0 14px;
+  padding: 16px 18px;
+  margin: 0 0 18px;
   font-size: 14px;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 .mh-why.is-visible { display: block; }
 
@@ -258,7 +264,7 @@
   font-variant-numeric: tabular-nums;
   font-size: 12px;
   color: var(--ink-muted);
-  margin: 14px 0 0;
+  margin: 18px 0 0;
   min-height: 1.2em;
 }
 
@@ -268,17 +274,18 @@
 
 .mh-divider {
   border-top: 0.5px solid var(--ink-line);
-  margin-top: 22px;
-  padding-top: 18px;
+  margin-top: 40px;
+  padding-top: 28px;
 }
 
 .mh-sim-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
+.mh-sim-row--spaced { margin-top: 28px; }
 .mh-sim-counter {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -290,13 +297,13 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .mh-mini-cell {
   background: var(--mh-surface);
   border: 0.5px solid var(--ink-line);
   border-radius: 6px;
-  padding: 7px 0;
+  padding: 8px 0;
   text-align: center;
 }
 .mh-mini-cell i { font-size: 17px; color: var(--ink-muted); }
@@ -309,18 +316,18 @@
 .mh-sim-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 .mh-sim-card {
   background: var(--bg-elev);
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 16px 18px;
 }
-.mh-sim-card-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 6px; }
+.mh-sim-card-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 8px; }
 .mh-sim-value {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 500;
   color: var(--ink);
 }
@@ -329,7 +336,7 @@
 .mh-sim-note {
   font-size: 12px;
   color: var(--ink-faint);
-  margin: 12px 0 0;
+  margin: 14px 0 0;
   min-height: 1.2em;
 }
 
@@ -337,9 +344,9 @@
   background: var(--teal);
   color: var(--bg);
   border-radius: 8px;
-  padding: 14px 16px;
-  margin: 22px 0 18px;
-  font-size: 15px;
+  padding: 18px 20px;
+  margin: 32px 0 24px;
+  font-size: 16px;
   line-height: 1.55;
 }
 
@@ -351,8 +358,8 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 4px;
-  max-width: 380px;
-  margin: 0 0 10px;
+  max-width: 400px;
+  margin: 8px 0 12px;
 }
 .mh-cell {
   aspect-ratio: 1;
@@ -372,32 +379,38 @@
 
 .mh-board-intro { transition: opacity 200ms; }
 .mh-board-note {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.55;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   min-height: 1.2em;
 }
 
 /* ============================================================
-   9. Шторки <details> + таблица + формулы
+   9. Шторки <details> — стиль frm-var (summary muted, body 1.7)
    ============================================================ */
 
 .mh-details {
   border-top: 0.5px solid var(--ink-line);
-  padding-top: 14px;
+  padding-top: 18px;
+  margin-top: 18px;
 }
-.mh-details + .mh-details { margin-top: 14px; }
-.mh-screen > .mh-details:first-of-type { margin-top: 20px; }
+.mh-screen > .mh-details:first-of-type { margin-top: 32px; }
 
 .mh-details summary {
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--teal);
   list-style: none;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  user-select: none;
+  transition: color 150ms;
 }
 .mh-details summary::-webkit-details-marker { display: none; }
-.mh-details-body { margin-top: 12px; }
+.mh-details summary:hover { color: var(--ink); }
+.mh-details[open] summary { color: var(--ink); margin-bottom: 16px; }
+
+.mh-details-body { font-size: 14px; line-height: 1.7; max-width: 640px; }
+.mh-details-body p { font-size: 14px; line-height: 1.7; margin: 0 0 10px; }
 
 .mh-table {
   width: 100%;
@@ -430,34 +443,32 @@
 .mh-plaque--win  { background: var(--mh-money-bg); color: var(--teal); }
 .mh-plaque--lose { background: var(--mh-empty-bg); color: var(--mh-empty-ink); }
 
-.mh-bayes { font-size: 14px; line-height: 1.6; }
+.mh-bayes { font-size: 14px; line-height: 1.7; }
 .mh-formula-inset {
   background: var(--bg-elev);
   border-radius: 8px;
-  padding: 6px 14px;
-  margin: 0 0 12px;
+  padding: 10px 16px;
+  margin: 0 0 14px;
 }
 
 /* ============================================================
    10. Экран 2 — тумблер, кадр/число, примеры, тезис
    ============================================================ */
 
-.mh-p--lead72 { font-size: 15px; line-height: 1.6; color: rgba(26, 26, 26, 0.72); margin: 0 0 18px; }
-.mh-p--lead72 b { color: var(--ink); }
-
 .mh-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 8px; }
 
-.mh-toggle { display: flex; gap: 8px; margin-bottom: 8px; }
+.mh-toggle { display: flex; gap: 8px; margin-bottom: 10px; }
 .mh-toggle-btn {
   font-family: inherit;
   font-size: 14px;
-  padding: 9px 16px;
-  border-radius: var(--r);
+  padding: 11px 18px;
+  border-radius: 4px;
   cursor: pointer;
   border: 0.5px solid var(--mh-btn-border);
   background: transparent;
   color: var(--ink);
   font-weight: 400;
+  transition: background 120ms, border-color 120ms, color 120ms;
 }
 .mh-toggle-btn.is-on {
   border-color: var(--teal);
@@ -467,39 +478,39 @@
 }
 
 .mh-mode-desc {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--ink-muted);
   margin: 0 0 6px;
-  min-height: 2.8em;
+  min-height: 2.6em;
 }
-.mh-toggle-hint { font-size: 12px; color: var(--ink-faint); margin: 0 0 18px; }
+.mh-toggle-hint { font-size: 12px; color: var(--ink-faint); margin: 0 0 24px; }
 
 .mh-twocol {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   align-items: stretch;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
-.mh-card-soft { background: var(--bg-elev); border-radius: 10px; padding: 14px; }
-.mh-card-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 10px; }
+.mh-card-soft { background: var(--bg-elev); border-radius: 10px; padding: 18px; }
+.mh-card-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 12px; }
 
 .mh-frame-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.mh-frame-box { border-radius: 8px; padding: 10px 0; text-align: center; }
+.mh-frame-box { border-radius: 8px; padding: 12px 0; text-align: center; }
 .mh-frame-box i { font-size: 20px; color: var(--ink-muted); }
 .mh-frame-box--picked { border: 1.5px solid var(--teal); }
 .mh-frame-box--empty  { background: var(--mh-empty-bg); border: 0.5px solid var(--mh-empty-border); }
 .mh-frame-box--empty i { color: var(--coral); }
 .mh-frame-box--plain  { border: 0.5px solid var(--ink-line); }
-.mh-frame-caption { font-size: 12px; color: var(--ink-muted); margin-top: 10px; line-height: 1.4; }
-.mh-frame-note { font-size: 12px; color: var(--teal); margin-top: 8px; font-weight: 500; }
+.mh-frame-caption { font-size: 12px; color: var(--ink-muted); margin-top: 12px; line-height: 1.4; }
+.mh-frame-note { font-size: 12px; color: var(--teal); margin-top: 10px; font-weight: 500; }
 
 .mh-hero { display: flex; flex-direction: column; }
 .mh-hero-num {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 46px;
+  font-size: 48px;
   font-weight: 500;
   line-height: 1;
   color: var(--teal);
@@ -509,17 +520,17 @@
   font-variant-numeric: tabular-nums;
   font-size: 13px;
   color: var(--ink-muted);
-  margin-top: 8px;
+  margin-top: 10px;
 }
 .mh-hero-why {
   font-size: 12px;
   line-height: 1.45;
   color: var(--ink-muted);
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 12px;
 }
 
-.mh-lead-strong { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+.mh-lead-strong { font-size: 16px; font-weight: 500; line-height: 1.5; margin-bottom: 6px; }
 .mh-counter {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -530,17 +541,16 @@
 }
 
 /* экран 2: вариации общих компонентов */
-[data-screen="rule"] .mh-box { padding-bottom: 12px; }
-[data-screen="rule"] .mh-box-tag { min-height: 16px; color: var(--teal); }
-[data-screen="rule"] .mh-status { font-size: 14px; min-height: 2.8em; }
+[data-screen="rule"] .mh-box-tag { min-height: 18px; color: var(--teal); }
+[data-screen="rule"] .mh-status { font-size: 15px; min-height: 2.8em; }
 [data-screen="rule"] .mh-sim-value { font-size: 24px; }
 
 .mh-examples {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 14px;
 }
-.mh-example { background: var(--bg-elev); border-radius: 10px; padding: 14px 16px; }
+.mh-example { background: var(--bg-elev); border-radius: 10px; padding: 16px 18px; }
 .mh-example-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .mh-example-head i { font-size: 18px; color: var(--teal); }
 .mh-example-kicker {
@@ -552,28 +562,29 @@
 .mh-example-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
 .mh-example-text { font-size: 13px; line-height: 1.5; color: var(--ink-muted); margin: 0; }
 
-.mh-conclusion { font-size: 16px; font-weight: 500; line-height: 1.5; margin: 26px 0 0; }
+.mh-conclusion { font-size: 17px; font-weight: 500; line-height: 1.5; margin: 40px 0 0; }
 .mh-thesis {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: clamp(20px, 2.2vw, 22px);
   line-height: 1.4;
   color: var(--ink);
   border-left: 2px solid var(--teal);
-  padding-left: 18px;
-  margin: 14px 0 0;
+  padding-left: 20px;
+  margin: 16px 0 0;
 }
 
 /* ============================================================
    11. Мобильная раскладка
    ============================================================ */
 
-@media (max-width: 560px) {
-  .lab-header { padding: 16px 18px 0; }
-  .mh-main { padding: 12px 18px 64px; }
+@media (max-width: 600px) {
+  .lab-header { padding: 20px 22px 0; }
+  .mh-screen { padding: 40px 22px; }
   .mh-twocol { grid-template-columns: 1fr; }
   .mh-examples { grid-template-columns: 1fr; }
-  .mh-hero-num { font-size: 40px; }
+  .mh-hero-num { font-size: 42px; }
 }
 
 /* ============================================================

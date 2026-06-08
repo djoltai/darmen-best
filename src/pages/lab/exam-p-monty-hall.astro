@@ -3,6 +3,7 @@ import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/eb-garamond/600.css';
 import '@fontsource/eb-garamond/500-italic.css';
 import '../../styles/lab/exam-p-monty-hall.css';
 import Wordmark from '../../components/Wordmark.astro';
@@ -83,7 +84,7 @@ import Wordmark from '../../components/Wordmark.astro';
         <!-- доказательство: прогон 1000 -->
         <div class="mh-divider">
           <h3 class="mh-h3">Всё ещё не верится?</h3>
-          <p class="mh-p mh-p--muted" style="font-size:14px; margin-bottom:16px;">Это нормально. Даже Пол Эрдёш — великий математик XX века — не верил в эти 2/3, пока машина не проиграла эту игру тысячу раз у него на глазах. Сыграй и ты:</p>
+          <p class="mh-p--lead">Это нормально. Даже Пол Эрдёш — великий математик XX века — не верил в эти 2/3, пока машина не проиграла эту игру тысячу раз у него на глазах. Сыграй и ты:</p>
 
           <div class="mh-sim-row">
             <button type="button" class="mh-btn mh-btn--sim mh-sim-btn">Сыграть 1000 раз</button>
@@ -119,7 +120,7 @@ import Wordmark from '../../components/Wordmark.astro';
         <details class="mh-details">
           <summary>Все исходы одной таблицей</summary>
           <div class="mh-details-body">
-            <p class="mh-p mh-p--muted" style="font-size:13px; margin-bottom:10px;">Смена выигрывает ровно тогда, когда первоначальный выбор был мимо.</p>
+            <p class="mh-p--small">Смена выигрывает ровно тогда, когда первоначальный выбор был мимо.</p>
             <table class="mh-table">
               <thead>
                 <tr>
@@ -141,7 +142,7 @@ import Wordmark from '../../components/Wordmark.astro';
                 </tr>
               </tbody>
             </table>
-            <p class="mh-p" style="font-size:13px;">Промахнуться легко — <span class="mh-mono is-teal">2 шанса из 3</span>. Вот откуда берётся 2/3.</p>
+            <p class="mh-p--small">Промахнуться легко — <span class="mh-mono is-teal">2 шанса из 3</span>. Вот откуда берётся 2/3.</p>
           </div>
         </details>
 
@@ -149,14 +150,14 @@ import Wordmark from '../../components/Wordmark.astro';
         <details class="mh-details">
           <summary>Для тех, кто говорит на голубином языке: формальный Байес</summary>
           <div class="mh-details-body mh-bayes">
-            <p class="mh-p" style="font-size:14px; margin-bottom:6px;">Пусть \(H_i\) — событие «деньги в шкатулке \(i\)», а \(D_3\) — «ведущий открыл шкатулку 3». Ты выбрал шкатулку 1.</p>
+            <p>Пусть \(H_i\) — событие «деньги в шкатулке \(i\)», а \(D_3\) — «ведущий открыл шкатулку 3». Ты выбрал шкатулку 1.</p>
             <div class="mh-formula-inset">
               \[ P(H_1)=P(H_2)=P(H_3)=\tfrac13 \]
               \[ P(D_3\mid H_1)=\tfrac12,\quad P(D_3\mid H_2)=1,\quad P(D_3\mid H_3)=0 \]
               \[ P(H_1\mid D_3)=\frac&#123;P(D_3\mid H_1)\,P(H_1)&#125;&#123;\sum_&#123;i=1&#125;^&#123;3&#125;P(D_3\mid H_i)\,P(H_i)&#125;=\frac&#123;\tfrac12\cdot\tfrac13&#125;&#123;\tfrac12\cdot\tfrac13+1\cdot\tfrac13+0\cdot\tfrac13&#125;=\tfrac13 \]
               \[ P(H_2\mid D_3)=\frac&#123;1\cdot\tfrac13&#125;&#123;\tfrac12&#125;=\tfrac23 \]
             </div>
-            <p class="mh-p" style="font-size:14px;">Остаться даёт \(P(H_1\mid D_3)=\tfrac13\), сменить — \(P(H_2\mid D_3)=\tfrac23\). Весь перекос создаёт один множитель \(P(D_3\mid H_2)=1\): правило «открываю только пустую» вынуждает ведущего открыть именно 3 — и перебрасывает вес на шкатулку 2. Это и есть likelihood. Поменяй правило ведущего — поедут и числа. Об этом второй экран.</p>
+            <p>Остаться даёт \(P(H_1\mid D_3)=\tfrac13\), сменить — \(P(H_2\mid D_3)=\tfrac23\). Весь перекос создаёт один множитель \(P(D_3\mid H_2)=1\): правило «открываю только пустую» вынуждает ведущего открыть именно 3 — и перебрасывает вес на шкатулку 2. Это и есть likelihood. Поменяй правило ведущего — поедут и числа. Об этом второй экран.</p>
           </div>
         </details>
       </section>
@@ -167,7 +168,7 @@ import Wordmark from '../../components/Wordmark.astro';
 
         <p class="mh-kicker">экран 2 · правило ведущего</p>
         <h3 class="mh-h1">Что если Якубович не знает, где деньги?</h3>
-        <p class="mh-p--lead72">В прошлый раз ты понял: менять первоначальный выбор выгодно. Но 2/3 жили не в шкатулках, а в правиле Якубовича — <b>«открываю только пустую»</b>. Это правило давало тебе подсказку. Сейчас уберём его и посмотрим, что станет с вероятностью.</p>
+        <p class="mh-p--lead">В прошлый раз ты понял: менять первоначальный выбор выгодно. Но 2/3 жили не в шкатулках, а в правиле Якубовича — <b>«открываю только пустую»</b>. Это правило давало тебе подсказку. Сейчас уберём его и посмотрим, что станет с вероятностью.</p>
 
         <p class="mh-label">настроение Якубовича:</p>
         <div class="mh-toggle"></div>
@@ -196,7 +197,7 @@ import Wordmark from '../../components/Wordmark.astro';
         <!-- игра в текущем настроении -->
         <div class="mh-divider">
           <div class="mh-lead-strong">Картинка одна и та же, а шансы разные. Не верится — сыграй сам.</div>
-          <p class="mh-p--small" style="margin-bottom:14px;">Включи режим «наугад» и посчитай, как часто Якубович сам натыкается на деньги.</p>
+          <p class="mh-p--small">Включи режим «наугад» и посчитай, как часто Якубович сам натыкается на деньги.</p>
 
           <div class="mh-boxes">
             <div class="mh-box" data-i="0">
@@ -219,7 +220,7 @@ import Wordmark from '../../components/Wordmark.astro';
           <div class="mh-actions"></div>
           <p class="mh-counter"></p>
 
-          <div class="mh-sim-row" style="margin-top:20px;">
+          <div class="mh-sim-row mh-sim-row--spaced">
             <button type="button" class="mh-btn mh-btn--sim mh-sim-btn">Сыграть 1000 раз в этом настроении</button>
             <span class="mh-sim-counter">игра — / 1000</span>
           </div>
@@ -243,7 +244,7 @@ import Wordmark from '../../components/Wordmark.astro';
 
         <!-- два земных примера -->
         <div class="mh-divider">
-          <p class="mh-p" style="font-size:15px; margin-bottom:14px;">Поменялось не то, что ты видишь, а <b>как ты это узнал</b>. Так не только со шкатулками.</p>
+          <p class="mh-p">Поменялось не то, что ты видишь, а <b>как ты это узнал</b>. Так не только со шкатулками.</p>
           <div class="mh-examples">
             <div class="mh-example">
               <div class="mh-example-head"><i class="ti ti-trending-up" aria-hidden="true"></i><span class="mh-example-kicker">деньги</span></div>
@@ -262,12 +263,12 @@ import Wordmark from '../../components/Wordmark.astro';
         <details class="mh-details">
           <summary>Для тех, кто говорит на голубином языке: почему ровно 50/50</summary>
           <div class="mh-details-body mh-bayes">
-            <p class="mh-p" style="font-size:14px; margin-bottom:8px;">Ты выбрал шкатулку 1, ведущий открыл 3 (пустую). Меняется один множитель — \(P(\text&#123;открыл &#125;3\mid \text&#123;деньги в &#125;2)\):</p>
+            <p>Ты выбрал шкатулку 1, ведущий открыл 3 (пустую). Меняется один множитель — \(P(\text&#123;открыл &#125;3\mid \text&#123;деньги в &#125;2)\):</p>
             <div class="mh-formula-inset">
               \[ \textbf&#123;знает:&#125;\quad P(D_3\mid H_2)=1 \;\Rightarrow\; P(H_2\mid D_3)=\frac&#123;1\cdot\tfrac13&#125;&#123;\tfrac12\cdot\tfrac13+1\cdot\tfrac13&#125;=\tfrac23 \]
               \[ \textbf&#123;наугад:&#125;\quad P(D_3\mid H_2)=\tfrac12 \;\Rightarrow\; P(H_2\mid D_3)=\frac&#123;\tfrac12\cdot\tfrac13&#125;&#123;\tfrac12\cdot\tfrac13+\tfrac12\cdot\tfrac13&#125;=\tfrac12 \]
             </div>
-            <p class="mh-p" style="font-size:14px;">Поменялось одно: «обязан открыть пустую» (\(=1\)) стало «случайно попал в пустую» (\(=\tfrac12\)). Этого хватило, чтобы 2/3 превратились в 1/2. Likelihood держится на правиле ведущего — в этом весь экран.</p>
+            <p>Поменялось одно: «обязан открыть пустую» (\(=1\)) стало «случайно попал в пустую» (\(=\tfrac12\)). Этого хватило, чтобы 2/3 превратились в 1/2. Likelihood держится на правиле ведущего — в этом весь экран.</p>
           </div>
         </details>
 
