@@ -9,6 +9,8 @@ import '@fontsource/eb-garamond/600.css';
 import '../styles/global.css';
 import Wordmark from '../components/Wordmark.astro';
 import LabCard from '../components/LabCard.astro';
+import LabPreviewVolDrag from '../components/LabPreviewVolDrag.astro';
+import LabPreviewMontyHall from '../components/LabPreviewMontyHall.astro';
 import HomeRow from '../components/HomeRow.astro';
 ---
 
@@ -71,9 +73,26 @@ import HomeRow from '../components/HomeRow.astro';
 
       <section class="lab-section">
         <div class="section-tag">lab — интерактивные разборы</div>
-        <LabCard />
+        <div class="lab-cards">
+          <LabCard
+            href="/lab/frm-var"
+            tag="FRM · май 2026"
+            title="Volatility Drag"
+            body="Положительное матожидание. Сто бросков. Ноль на руках. Игра в монетку и доля Kelly через интерактивный симулятор."
+          >
+            <LabPreviewVolDrag />
+          </LabCard>
+          <LabCard
+            href="/lab/exam-p-monty-hall"
+            tag="exam P · июнь 2026"
+            title="Монти Холл"
+            body="Три шкатулки. Деньги в одной. Якубович вскрыл пустую. Менять или остаться — и почему смена выигрывает вдвое чаще."
+          >
+            <LabPreviewMontyHall />
+          </LabCard>
+        </div>
         <div class="archive-link">
-          <a href="/lab">архив /lab&nbsp;→</a>
+          <a href="/lab">все разборы /lab&nbsp;→</a>
         </div>
       </section>
 
@@ -154,6 +173,12 @@ import HomeRow from '../components/HomeRow.astro';
       .lab-section,
       .building-section {
         margin-top: 96px;
+      }
+
+      .lab-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
       }
 
       .section-tag {

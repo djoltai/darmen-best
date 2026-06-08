@@ -1,0 +1,118 @@
+---
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/eb-garamond/500.css';
+import '@fontsource/eb-garamond/600.css';
+import '../../styles/global.css';
+import Wordmark from '../../components/Wordmark.astro';
+import LabCard from '../../components/LabCard.astro';
+import LabPreviewVolDrag from '../../components/LabPreviewVolDrag.astro';
+import LabPreviewMontyHall from '../../components/LabPreviewMontyHall.astro';
+---
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>lab — интерактивные разборы · darmen.best</title>
+    <meta name="description" content="Лаборатория darmen.best: интерактивные разборы финансовых и вероятностных идей. Volatility Drag и парадокс Монти Холла." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="darmen.best" />
+    <meta property="og:url" content="https://darmen.best/lab" />
+    <meta property="og:title" content="lab — интерактивные разборы · darmen.best" />
+    <meta property="og:description" content="Интерактивные разборы финансовых и вероятностных идей. Покрутить ручки и увидеть интуицию за формулой." />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:image" content="https://darmen.best/og.png" />
+
+    <link rel="canonical" href="https://darmen.best/lab" />
+  </head>
+  <body>
+    <article>
+      <header class="logo-row">
+        <Wordmark />
+      </header>
+
+      <h1>Лаборатория</h1>
+      <p class="subtitle">
+        Интерактивные разборы финансовых и вероятностных идей. Покрутить
+        ручки и увидеть интуицию за формулой.
+      </p>
+
+      <div class="lab-cards">
+        <LabCard
+          href="/lab/frm-var"
+          tag="FRM · май 2026"
+          title="Volatility Drag"
+          body="Положительное матожидание. Сто бросков. Ноль на руках. Игра в монетку и доля Kelly через интерактивный симулятор."
+        >
+          <LabPreviewVolDrag />
+        </LabCard>
+        <LabCard
+          href="/lab/exam-p-monty-hall"
+          tag="exam P · июнь 2026"
+          title="Монти Холл"
+          body="Три шкатулки. Деньги в одной. Якубович вскрыл пустую. Менять или остаться — и почему смена выигрывает вдвое чаще."
+        >
+          <LabPreviewMontyHall />
+        </LabCard>
+      </div>
+
+      <div class="back-link">
+        <a href="/">← darmen.best</a>
+      </div>
+    </article>
+
+    <style>
+      article {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 64px 24px 80px;
+        box-sizing: border-box;
+      }
+      .logo-row { margin-bottom: 64px; }
+
+      h1 {
+        font-size: clamp(32px, 4vw, 44px);
+        font-weight: var(--w-medium);
+        letter-spacing: var(--track-hero);
+        line-height: 1.1;
+        margin: 0;
+      }
+
+      .subtitle {
+        margin-top: 24px;
+        font-size: var(--t-lead);
+        line-height: 1.5;
+        color: var(--ink-muted);
+        max-width: 620px;
+      }
+
+      .lab-cards {
+        margin-top: 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .back-link {
+        margin-top: 64px;
+        font-size: 14px;
+        color: var(--ink-muted);
+      }
+      .back-link a { color: inherit; }
+
+      @media (min-width: 768px) {
+        article { padding: 64px 64px 80px; }
+      }
+      @media (min-width: 1280px) {
+        article { padding: 64px 96px 80px; }
+      }
+    </style>
+  </body>
+</html>
