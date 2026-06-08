@@ -1,0 +1,309 @@
+---
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/eb-garamond/600.css';
+import '@fontsource/eb-garamond/500-italic.css';
+import '../../styles/lab/exam-p-monty-hall.css';
+import Wordmark from '../../components/Wordmark.astro';
+---
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Монти Холл · условная вероятность · darmen.best</title>
+    <meta name="description" content="Парадокс Монти Холла в сеттинге «Поле чудес»: три шкатулки и Якубович. Почему менять выбор выгодно — и почему смысл факта зависит от того, как ты его узнал." />
+    <meta property="og:title" content="Условная вероятность — это не про то, что произошло, а про то, как вы об этом узнали." />
+    <meta property="og:description" content="Парадокс Монти Холла на «Поле чудес»: перетекание вероятности, тумблер «знает / наугад», тысяча симуляций и сто шкатулок." />
+    <meta property="og:image" content="https://darmen.best/og.png" />
+    <meta property="og:url" content="https://darmen.best/lab/exam-p-monty-hall" />
+    <meta property="og:type" content="article" />
+    <!-- Tabler icons webfont — ТОЛЬКО jsDelivr (cdnjs не отдаёт woff2 для этого пакета). -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" />
+    <!-- KaTeX для формул в шторках. CSS в head, JS deferred + auto-render в конце body. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="exam-p-monty-hall-page">
+    <header class="lab-header">
+      <Wordmark />
+    </header>
+    <main class="mh-main">
+
+      <!-- ================== ЭКРАН 1 — КЛАССИКА ================== -->
+      <section class="mh-screen" data-screen="classic">
+        <h2 class="sr-only">Экран 1, классика. Поле чудес, три шкатулки. Числа — вероятность, пустые красные, деньги зелёные. Главная мысль: менять выгодно тогда, когда сначала промахнулся, а промахнуться легко — два из трёх, со ста шкатулками девяносто девять из ста. Доказательства: тысяча симуляций и сто шкатулок; таблица всех исходов и формальный Байес — в шторках.</h2>
+
+        <p class="mh-kicker">экран 1 · классика</p>
+        <h3 class="mh-h1">Как мечтал в детстве — ты на «Поле чудес»</h3>
+        <p class="mh-p">Отгадал три буквы подряд, и, раз ты такой дофига умный, тебе выносят не две, а три шкатулки — деньги лишь в одной, две другие пусты.</p>
+        <p class="mh-p mh-p--muted">Правила простые. Ты выбираешь шкатулку, не открывая. Дальше Леонид Аркадьевич — а он-то знает, где деньги — откроет одну из двух оставшихся, всегда пустую. И игриво предложит: поменять выбор или остаться при своей.</p>
+        <p class="mh-p--prompt">Леонид Аркадьевич игриво спрашивает: какую берёшь?</p>
+
+        <p class="mh-hint">число над шкатулкой — <b>вероятность</b>, что деньги в ней</p>
+        <div class="mh-stage">
+          <div class="mh-chips">
+            <div class="mh-chip is-faint" data-i="0">1/3</div>
+            <div class="mh-chip is-faint" data-i="1">1/3</div>
+            <div class="mh-chip is-faint" data-i="2">1/3</div>
+          </div>
+          <div class="mh-boxes">
+            <div class="mh-box" data-i="0">
+              <i class="mh-box-icon ti ti-box" aria-hidden="true"></i>
+              <div class="mh-box-label">Шкатулка 1</div>
+              <div class="mh-box-tag"></div>
+            </div>
+            <div class="mh-box" data-i="1">
+              <i class="mh-box-icon ti ti-box" aria-hidden="true"></i>
+              <div class="mh-box-label">Шкатулка 2</div>
+              <div class="mh-box-tag"></div>
+            </div>
+            <div class="mh-box" data-i="2">
+              <i class="mh-box-icon ti ti-box" aria-hidden="true"></i>
+              <div class="mh-box-label">Шкатулка 3</div>
+              <div class="mh-box-tag"></div>
+            </div>
+          </div>
+          <div class="mh-bracket"></div>
+        </div>
+
+        <p class="mh-status"></p>
+
+        <div class="mh-why">
+          <b>Почему все 2/3, а не половина?</b> Твою шкатулку Якубович не трогает — её шанс так и застыл на <span class="mh-mono is-teal">1/3</span>. У двух других вместе — <span class="mh-mono is-teal">2/3</span>. Он открыл среди них пустую, но шанс пары не отнял: в открытой теперь <span class="mh-mono is-coral">0</span>, а все <span class="mh-mono is-teal">2/3</span> перешли на ту, что осталась закрытой.
+        </div>
+
+        <div class="mh-actions"></div>
+        <p class="mh-manual"></p>
+
+        <!-- доказательство: прогон 1000 -->
+        <div class="mh-divider">
+          <h3 class="mh-h3">Всё ещё не верится?</h3>
+          <p class="mh-p--lead">Это нормально. Даже Пол Эрдёш — великий математик XX века — не верил в эти 2/3, пока машина не проиграла эту игру тысячу раз у него на глазах. Сыграй и ты:</p>
+
+          <div class="mh-sim-row">
+            <button type="button" class="mh-btn mh-btn--sim mh-sim-btn">Сыграть 1000 раз</button>
+            <span class="mh-sim-counter">игра — / 1000</span>
+          </div>
+          <div class="mh-mini">
+            <div class="mh-mini-cell"><i class="ti ti-box" aria-hidden="true"></i></div>
+            <div class="mh-mini-cell"><i class="ti ti-box" aria-hidden="true"></i></div>
+            <div class="mh-mini-cell"><i class="ti ti-box" aria-hidden="true"></i></div>
+          </div>
+          <div class="mh-sim-cards">
+            <div class="mh-sim-card">
+              <div class="mh-sim-card-label">Всегда меняешь</div>
+              <div class="mh-sim-value is-teal" data-stat="switch">—</div>
+            </div>
+            <div class="mh-sim-card">
+              <div class="mh-sim-card-label">Всегда остаёшься</div>
+              <div class="mh-sim-value" data-stat="stay">—</div>
+            </div>
+          </div>
+          <p class="mh-sim-note"></p>
+
+          <div class="mh-callout">Тысяча симуляций убеждает, но не объясняет. Весь фокус в одной фразе: <b>менять выгодно тогда, когда сначала ты промахнулся.</b></div>
+
+          <h4 class="mh-h4">А теперь — сто шкатулок</h4>
+          <p class="mh-board-intro mh-p--small">Та же игра, но шкатулок сто, деньги в одной. Угадать с первого раза — <span class="mh-mono">1 из 100</span>, то есть почти наверняка мимо. Выбери любую — Якубович откроет 98 пустых, а одну оставит закрытой.</p>
+          <div class="mh-board"></div>
+          <p class="mh-board-note"></p>
+          <button type="button" class="mh-btn mh-btn--reset mh-board-reset" style="display:none;">Заново</button>
+        </div>
+
+        <!-- шторка: таблица исходов -->
+        <details class="mh-details">
+          <summary>Все исходы одной таблицей</summary>
+          <div class="mh-details-body">
+            <p class="mh-p--small">Смена выигрывает ровно тогда, когда первоначальный выбор был мимо.</p>
+            <table class="mh-table">
+              <thead>
+                <tr>
+                  <th class="col-pick">первоначальный выбор</th>
+                  <th class="col-chance">шанс</th>
+                  <th>если поменяешь</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>сразу попал на деньги</td>
+                  <td class="mh-num-coral">1/3</td>
+                  <td><span class="mh-plaque mh-plaque--lose">проигрыш</span></td>
+                </tr>
+                <tr>
+                  <td>промахнулся</td>
+                  <td class="mh-num-teal">2/3</td>
+                  <td><span class="mh-plaque mh-plaque--win">выигрыш</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="mh-p--small">Промахнуться легко — <span class="mh-mono is-teal">2 шанса из 3</span>. Вот откуда берётся 2/3.</p>
+          </div>
+        </details>
+
+        <!-- шторка: формальный Байес -->
+        <details class="mh-details">
+          <summary>Для тех, кто говорит на голубином языке: формальный Байес</summary>
+          <div class="mh-details-body mh-bayes">
+            <p>Пусть \(H_i\) — событие «деньги в шкатулке \(i\)», а \(D_3\) — «ведущий открыл шкатулку 3». Ты выбрал шкатулку 1.</p>
+            <div class="mh-formula-inset">
+              \[ P(H_1)=P(H_2)=P(H_3)=\tfrac13 \]
+              \[ P(D_3\mid H_1)=\tfrac12,\quad P(D_3\mid H_2)=1,\quad P(D_3\mid H_3)=0 \]
+              \[ P(H_1\mid D_3)=\frac&#123;P(D_3\mid H_1)\,P(H_1)&#125;&#123;\sum_&#123;i=1&#125;^&#123;3&#125;P(D_3\mid H_i)\,P(H_i)&#125;=\frac&#123;\tfrac12\cdot\tfrac13&#125;&#123;\tfrac12\cdot\tfrac13+1\cdot\tfrac13+0\cdot\tfrac13&#125;=\tfrac13 \]
+              \[ P(H_2\mid D_3)=\frac&#123;1\cdot\tfrac13&#125;&#123;\tfrac12&#125;=\tfrac23 \]
+            </div>
+            <p>Остаться даёт \(P(H_1\mid D_3)=\tfrac13\), сменить — \(P(H_2\mid D_3)=\tfrac23\). Весь перекос создаёт один множитель \(P(D_3\mid H_2)=1\): правило «открываю только пустую» вынуждает ведущего открыть именно 3 — и перебрасывает вес на шкатулку 2. Это и есть likelihood. Поменяй правило ведущего — поедут и числа. Об этом второй экран.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ================== ЭКРАН 2 — ПРАВИЛО ВЕДУЩЕГО ================== -->
+      <section class="mh-screen" data-screen="rule">
+        <h2 class="sr-only">Экран 2. Тумблер: Якубович знает, где деньги, или открывает наугад. Картинка на экране одна и та же, но шанс выиграть сменой падает с 67% до 50%. Когда он открывает наугад, его пустая шкатулка ничего не говорит о деньгах. Главная мысль: важно не то, что открылось, а как ты об этом узнал. Примеры из жизни: деньги и здоровье.</h2>
+
+        <p class="mh-kicker">экран 2 · правило ведущего</p>
+        <h3 class="mh-h1">Что если Якубович не знает, где деньги?</h3>
+        <p class="mh-p--lead">В прошлый раз ты понял: менять первоначальный выбор выгодно. Но 2/3 жили не в шкатулках, а в правиле Якубовича — <b>«открываю только пустую»</b>. Это правило давало тебе подсказку. Сейчас уберём его и посмотрим, что станет с вероятностью.</p>
+
+        <p class="mh-label">настроение Якубовича:</p>
+        <div class="mh-toggle"></div>
+        <p class="mh-mode-desc"></p>
+        <p class="mh-toggle-hint">Переключи тумблер. Картинка слева не изменится, а число справа поедет.</p>
+
+        <div class="mh-twocol">
+          <div class="mh-card-soft">
+            <div class="mh-card-label">что ты видишь</div>
+            <div class="mh-frame-grid">
+              <div class="mh-frame-box mh-frame-box--picked"><i class="ti ti-box" aria-hidden="true"></i></div>
+              <div class="mh-frame-box mh-frame-box--empty"><i class="ti ti-square-x" aria-hidden="true"></i></div>
+              <div class="mh-frame-box mh-frame-box--plain"><i class="ti ti-box" aria-hidden="true"></i></div>
+            </div>
+            <div class="mh-frame-caption">выбрал · одну открыли пустой · меняешь?</div>
+            <div class="mh-frame-note">одинаково в обоих режимах</div>
+          </div>
+          <div class="mh-card-soft mh-hero">
+            <div class="mh-card-label">шанс выиграть, если сменишь</div>
+            <div class="mh-hero-num">67%</div>
+            <div class="mh-hero-stay">останешься — 33%</div>
+            <div class="mh-hero-why"></div>
+          </div>
+        </div>
+
+        <!-- игра в текущем настроении -->
+        <div class="mh-divider">
+          <div class="mh-lead-strong">Картинка одна и та же, а шансы разные. Не верится — сыграй сам.</div>
+          <p class="mh-p--small">Включи режим «наугад» и посчитай, как часто Якубович сам натыкается на деньги.</p>
+
+          <div class="mh-boxes">
+            <div class="mh-box" data-i="0">
+              <i class="mh-box-icon ti ti-box" aria-hidden="true"></i>
+              <div class="mh-box-label">Шкатулка 1</div>
+              <div class="mh-box-tag"></div>
+            </div>
+            <div class="mh-box" data-i="1">
+              <i class="mh-box-icon ti ti-box" aria-hidden="true"></i>
+              <div class="mh-box-label">Шкатулка 2</div>
+              <div class="mh-box-tag"></div>
+            </div>
+            <div class="mh-box" data-i="2">
+              <i class="mh-box-icon ti ti-box" aria-hidden="true"></i>
+              <div class="mh-box-label">Шкатулка 3</div>
+              <div class="mh-box-tag"></div>
+            </div>
+          </div>
+          <p class="mh-status"></p>
+          <div class="mh-actions"></div>
+          <p class="mh-counter"></p>
+
+          <div class="mh-sim-row mh-sim-row--spaced">
+            <button type="button" class="mh-btn mh-btn--sim mh-sim-btn">Сыграть 1000 раз в этом настроении</button>
+            <span class="mh-sim-counter">игра — / 1000</span>
+          </div>
+          <div class="mh-mini">
+            <div class="mh-mini-cell"><i class="ti ti-box" aria-hidden="true"></i></div>
+            <div class="mh-mini-cell"><i class="ti ti-box" aria-hidden="true"></i></div>
+            <div class="mh-mini-cell"><i class="ti ti-box" aria-hidden="true"></i></div>
+          </div>
+          <div class="mh-sim-cards">
+            <div class="mh-sim-card">
+              <div class="mh-sim-card-label">Меняешь</div>
+              <div class="mh-sim-value is-teal" data-stat="switch">—</div>
+            </div>
+            <div class="mh-sim-card">
+              <div class="mh-sim-card-label">Остаёшься</div>
+              <div class="mh-sim-value" data-stat="stay">—</div>
+            </div>
+          </div>
+          <p class="mh-sim-note"></p>
+        </div>
+
+        <!-- два земных примера -->
+        <div class="mh-divider">
+          <p class="mh-p">Поменялось не то, что ты видишь, а <b>как ты это узнал</b>. Так не только со шкатулками.</p>
+          <div class="mh-examples">
+            <div class="mh-example">
+              <div class="mh-example-head"><i class="ti ti-trending-up" aria-hidden="true"></i><span class="mh-example-kicker">деньги</span></div>
+              <div class="mh-example-title">«Этот фонд рос 10 лет»</div>
+              <p class="mh-example-text">Звучит надёжно. Но в рекламе — только те, кто выжил. Фонды, что прогорели, давно закрылись и молчат. Ты видишь победителей не потому, что фонд хорош, а потому что проигравших тебе не показали.</p>
+            </div>
+            <div class="mh-example">
+              <div class="mh-example-head"><i class="ti ti-stethoscope" aria-hidden="true"></i><span class="mh-example-kicker">здоровье</span></div>
+              <div class="mh-example-title">«Тест показал болезнь»</div>
+              <p class="mh-example-text">Страшно. Но смотря почему тебя проверяли. Пришёл с симптомами — это повод. Сдал анализ просто так, для профилактики — чаще ложная тревога. Результат один, а вес у него разный.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- шторка: почему 50/50 -->
+        <details class="mh-details">
+          <summary>Для тех, кто говорит на голубином языке: почему ровно 50/50</summary>
+          <div class="mh-details-body mh-bayes">
+            <p>Ты выбрал шкатулку 1, ведущий открыл 3 (пустую). Меняется один множитель — \(P(\text&#123;открыл &#125;3\mid \text&#123;деньги в &#125;2)\):</p>
+            <div class="mh-formula-inset">
+              \[ \textbf&#123;знает:&#125;\quad P(D_3\mid H_2)=1 \;\Rightarrow\; P(H_2\mid D_3)=\frac&#123;1\cdot\tfrac13&#125;&#123;\tfrac12\cdot\tfrac13+1\cdot\tfrac13&#125;=\tfrac23 \]
+              \[ \textbf&#123;наугад:&#125;\quad P(D_3\mid H_2)=\tfrac12 \;\Rightarrow\; P(H_2\mid D_3)=\frac&#123;\tfrac12\cdot\tfrac13&#125;&#123;\tfrac12\cdot\tfrac13+\tfrac12\cdot\tfrac13&#125;=\tfrac12 \]
+            </div>
+            <p>Поменялось одно: «обязан открыть пустую» (\(=1\)) стало «случайно попал в пустую» (\(=\tfrac12\)). Этого хватило, чтобы 2/3 превратились в 1/2. Likelihood держится на правиле ведущего — в этом весь экран.</p>
+          </div>
+        </details>
+
+        <div class="mh-conclusion">Короче: не верь голому факту — спрашивай, как он к тебе попал.</div>
+        <p class="mh-thesis">Условная вероятность — это не про то, что произошло, а про то, как вы об этом узнали.</p>
+      </section>
+
+    </main>
+
+    <script>
+      import '../../scripts/lab/exam-p-monty-hall/main';
+    </script>
+
+    <!-- KaTeX auto-render: сканирует \( \) и \[ \] и рендерит на месте. -->
+    <script is:inline>
+      (function () {
+        function renderMath() {
+          if (typeof window.renderMathInElement !== 'function') {
+            return setTimeout(renderMath, 50);
+          }
+          window.renderMathInElement(document.body, {
+            delimiters: [
+              { left: '\\(', right: '\\)', display: false },
+              { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false,
+            strict: 'ignore'
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', renderMath);
+        } else {
+          renderMath();
+        }
+      })();
+    </script>
+  </body>
+</html>
