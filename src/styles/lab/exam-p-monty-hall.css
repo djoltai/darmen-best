@@ -48,7 +48,7 @@
 .mh-screen {
   max-width: 760px;
   margin: 0 auto;
-  padding: 56px 40px;
+  padding: 64px 40px;
   box-sizing: border-box;
 }
 .mh-screen + .mh-screen { border-top: 0.5px solid var(--ink-line); }
@@ -84,7 +84,7 @@
 .mh-h3 { font-size: 19px; font-weight: 500; letter-spacing: -0.01em; margin: 0 0 10px; }
 .mh-h4 { font-size: 17px; font-weight: 500; margin: 0 0 8px; }
 
-.mh-p { font-size: 16px; line-height: 1.65; margin: 0 0 14px; }
+.mh-p { font-size: 16px; line-height: 1.65; margin: 0 0 16px; }
 .mh-p--muted { color: var(--ink-muted); }
 .mh-p--lead { font-size: 16px; line-height: 1.65; color: var(--ink-muted); margin: 0 0 24px; }
 .mh-p--lead b { color: var(--ink); }
@@ -208,7 +208,7 @@
 .mh-status {
   font-size: 16px;
   line-height: 1.55;
-  margin: 18px 0 14px;
+  margin: 22px 0 16px;
   min-height: 1.6em;
 }
 .mh-status .is-win  { color: var(--teal);  font-weight: 500; }
@@ -253,7 +253,7 @@
   background: var(--bg-elev);
   border-left: 2px solid var(--teal);
   padding: 16px 18px;
-  margin: 0 0 18px;
+  margin: 0 0 22px;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -264,7 +264,7 @@
   font-variant-numeric: tabular-nums;
   font-size: 12px;
   color: var(--ink-muted);
-  margin: 18px 0 0;
+  margin: 24px 0 0;
   min-height: 1.2em;
 }
 
@@ -274,8 +274,8 @@
 
 .mh-divider {
   border-top: 0.5px solid var(--ink-line);
-  margin-top: 40px;
-  padding-top: 28px;
+  margin-top: 56px;
+  padding-top: 36px;
 }
 
 .mh-sim-row {
@@ -285,7 +285,7 @@
   flex-wrap: wrap;
   margin-bottom: 14px;
 }
-.mh-sim-row--spaced { margin-top: 28px; }
+.mh-sim-row--spaced { margin-top: 36px; }
 .mh-sim-counter {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -345,7 +345,7 @@
   color: var(--bg);
   border-radius: 8px;
   padding: 18px 20px;
-  margin: 32px 0 24px;
+  margin: 40px 0 40px;
   font-size: 16px;
   line-height: 1.55;
 }
@@ -562,7 +562,7 @@
 .mh-example-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
 .mh-example-text { font-size: 13px; line-height: 1.5; color: var(--ink-muted); margin: 0; }
 
-.mh-conclusion { font-size: 17px; font-weight: 500; line-height: 1.5; margin: 40px 0 0; }
+.mh-conclusion { font-size: 17px; font-weight: 500; line-height: 1.5; margin: 52px 0 0; }
 .mh-thesis {
   font-family: var(--font-serif);
   font-style: italic;
@@ -581,7 +581,7 @@
 
 @media (max-width: 600px) {
   .lab-header { padding: 20px 22px 0; }
-  .mh-screen { padding: 40px 22px; }
+  .mh-screen { padding: 48px 22px; }
   .mh-twocol { grid-template-columns: 1fr; }
   .mh-examples { grid-template-columns: 1fr; }
   .mh-hero-num { font-size: 42px; }
