@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Монти Холл / Якубович — экран 2, правило ведущего (snapshot v3, инфостиль)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=EB+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  html,body{ margin:0; padding:0; }
+  body{ background:#EFE9D6; padding:28px 16px; }
+</style>
+</head>
+<body>
+<div style="font-family:'IBM Plex Sans',system-ui,sans-serif; color:#1A1A1A; background:#FAF6E8; border-radius:12px; padding:24px 22px; max-width:600px; margin:0 auto;">
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Экран 2. Тумблер: Якубович знает, где деньги, или открывает наугад. Картинка на экране одна и та же, но шанс выиграть сменой падает с 67% до 50%. Когда он открывает наугад, его пустая шкатулка ничего не говорит о деньгах. Главная мысль: важно не то, что открылось, а как ты об этом узнал. Примеры из жизни: деньги и здоровье.</h2>
+
+<div style="font-size:11px; letter-spacing:0.18em; text-transform:lowercase; color:rgba(26,26,26,0.58); margin-bottom:8px;">экран 2 · правило ведущего</div>
+<div style="font-size:22px; font-weight:500; letter-spacing:-0.015em; line-height:1.2; margin-bottom:10px;">Что если Якубович не знает, где деньги?</div>
+<p style="font-size:15px; line-height:1.6; color:rgba(26,26,26,0.72); margin:0 0 18px;">В прошлый раз ты понял: менять первоначальный выбор выгодно. Но 2/3 жили не в шкатулках, а в правиле Якубовича — <b style="font-weight:500; color:#1A1A1A;">«открываю только пустую»</b>. Это правило давало тебе подсказку. Сейчас уберём его и посмотрим, что станет с вероятностью.</p>
+
+<div style="font-size:12px; color:rgba(26,26,26,0.58); margin-bottom:8px;">настроение Якубовича:</div>
+<div id="toggle" style="display:flex; gap:8px; margin-bottom:8px;"></div>
+<p id="mode-desc" style="font-size:13px; line-height:1.5; color:rgba(26,26,26,0.58); margin:0 0 6px; min-height:2.8em;"></p>
+<p style="font-size:12px; color:rgba(26,26,26,0.38); margin:0 0 18px;">Переключи тумблер. Картинка слева не изменится, а число справа поедет.</p>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:stretch; margin-bottom:6px;">
+  <div style="background:#F3EDD7; border-radius:10px; padding:14px;">
+    <div style="font-size:12px; color:rgba(26,26,26,0.58); margin-bottom:10px;">что ты видишь</div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
+      <div style="border:1.5px solid #07434B; border-radius:8px; padding:10px 0; text-align:center;"><i class="ti ti-box" style="font-size:20px; color:rgba(26,26,26,0.58);"></i></div>
+      <div style="background:#FAECE7; border:0.5px solid rgba(199,91,79,0.5); border-radius:8px; padding:10px 0; text-align:center;"><i class="ti ti-square-x" style="font-size:20px; color:#C75B4F;"></i></div>
+      <div style="border:0.5px solid rgba(26,26,26,0.16); border-radius:8px; padding:10px 0; text-align:center;"><i class="ti ti-box" style="font-size:20px; color:rgba(26,26,26,0.58);"></i></div>
+    </div>
+    <div style="font-size:12px; color:rgba(26,26,26,0.58); margin-top:10px; line-height:1.4;">выбрал · одну открыли пустой · меняешь?</div>
+    <div style="font-size:12px; color:#07434B; margin-top:8px; font-weight:500;">одинаково в обоих режимах</div>
+  </div>
+  <div style="background:#F3EDD7; border-radius:10px; padding:14px; display:flex; flex-direction:column;">
+    <div style="font-size:12px; color:rgba(26,26,26,0.58); margin-bottom:10px;">шанс выиграть, если сменишь</div>
+    <div id="hero-num" style="font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; font-size:46px; font-weight:500; line-height:1; color:#07434B;">67%</div>
+    <div id="hero-stay" style="font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; font-size:13px; color:rgba(26,26,26,0.58); margin-top:8px;">останешься — 33%</div>
+    <div id="hero-why" style="font-size:12px; line-height:1.45; color:rgba(26,26,26,0.58); margin-top:auto; padding-top:10px;"></div>
+  </div>
+</div>
+
+<div style="border-top:0.5px solid rgba(26,26,26,0.16); margin-top:22px; padding-top:18px;">
+  <div style="font-size:15px; font-weight:500; margin-bottom:4px;">Картинка одна и та же, а шансы разные. Не верится — сыграй сам.</div>
+  <p style="font-size:13px; color:rgba(26,26,26,0.58); margin:0 0 14px;">Включи режим «наугад» и посчитай, как часто Якубович сам натыкается на деньги.</p>
+
+  <div id="boxes" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px;"></div>
+  <p id="status" style="font-size:14px; line-height:1.55; margin:14px 0 12px; min-height:2.8em;"></p>
+  <div id="actions" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+  <p id="counter" style="font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; font-size:12px; color:rgba(26,26,26,0.58); margin:14px 0 0; min-height:1.2em;"></p>
+
+  <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:20px 0 12px;">
+    <button id="b-sim" style="font-family:inherit; font-size:13px; background:transparent; border:0.5px solid rgba(26,26,26,0.3); border-radius:3px; padding:8px 14px; cursor:pointer; color:#1A1A1A;">Сыграть 1000 раз в этом настроении</button>
+    <span id="sim-counter" style="font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; font-size:12px; color:rgba(26,26,26,0.38);">игра — / 1000</span>
+  </div>
+  <div id="sim-mini" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-bottom:12px;"></div>
+  <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;">
+    <div style="background:#F3EDD7; border-radius:8px; padding:14px 16px;">
+      <div style="font-size:12px; color:rgba(26,26,26,0.58); margin-bottom:6px;">Меняешь</div>
+      <div id="sim-switch" style="font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; font-size:24px; font-weight:500; color:#07434B;">—</div>
+    </div>
+    <div style="background:#F3EDD7; border-radius:8px; padding:14px 16px;">
+      <div style="font-size:12px; color:rgba(26,26,26,0.58); margin-bottom:6px;">Остаёшься</div>
+      <div id="sim-stay" style="font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; font-size:24px; font-weight:500; color:#1A1A1A;">—</div>
+    </div>
+  </div>
+  <p id="sim-note" style="font-size:12px; color:rgba(26,26,26,0.38); margin:12px 0 0; min-height:1.2em;"></p>
+</div>
+
+<div style="border-top:0.5px solid rgba(26,26,26,0.16); margin-top:22px; padding-top:18px;">
+  <p style="font-size:15px; line-height:1.6; margin:0 0 14px;">Поменялось не то, что ты видишь, а <b style="font-weight:500;">как ты это узнал</b>. Так не только со шкатулками.</p>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+    <div style="background:#F3EDD7; border-radius:10px; padding:14px 16px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><i class="ti ti-trending-up" style="font-size:18px; color:#07434B;"></i><span style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(26,26,26,0.58);">деньги</span></div>
+      <div style="font-size:14px; font-weight:500; margin-bottom:6px;">«Этот фонд рос 10 лет»</div>
+      <p style="font-size:13px; line-height:1.5; color:rgba(26,26,26,0.58); margin:0;">Звучит надёжно. Но в рекламе — только те, кто выжил. Фонды, что прогорели, давно закрылись и молчат. Ты видишь победителей не потому, что фонд хорош, а потому что проигравших тебе не показали.</p>
+    </div>
+    <div style="background:#F3EDD7; border-radius:10px; padding:14px 16px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><i class="ti ti-stethoscope" style="font-size:18px; color:#07434B;"></i><span style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(26,26,26,0.58);">здоровье</span></div>
+      <div style="font-size:14px; font-weight:500; margin-bottom:6px;">«Тест показал болезнь»</div>
+      <p style="font-size:13px; line-height:1.5; color:rgba(26,26,26,0.58); margin:0;">Страшно. Но смотря почему тебя проверяли. Пришёл с симптомами — это повод. Сдал анализ просто так, для профилактики — чаще ложная тревога. Результат один, а вес у него разный.</p>
+    </div>
+  </div>
+</div>
+
+<details style="margin-top:20px; border-top:0.5px solid rgba(26,26,26,0.16); padding-top:14px;">
+  <summary style="cursor:pointer; font-size:14px; font-weight:500; color:#07434B; list-style:none;">Для тех, кто говорит на голубином языке: почему ровно 50/50</summary>
+  <div style="font-size:14px; line-height:1.6; margin-top:12px;">
+    <p style="margin:0 0 8px;">Ты выбрал шкатулку 1, ведущий открыл 3 (пустую). Меняется один множитель — \(P(\text{открыл }3\mid \text{деньги в }2)\):</p>
+    <div style="background:#F3EDD7; border-radius:8px; padding:6px 14px; margin:0 0 12px;">
+      \[ \textbf{знает:}\quad P(D_3\mid H_2)=1 \;\Rightarrow\; P(H_2\mid D_3)=\frac{1\cdot\tfrac13}{\tfrac12\cdot\tfrac13+1\cdot\tfrac13}=\tfrac23 \]
+      \[ \textbf{наугад:}\quad P(D_3\mid H_2)=\tfrac12 \;\Rightarrow\; P(H_2\mid D_3)=\frac{\tfrac12\cdot\tfrac13}{\tfrac12\cdot\tfrac13+\tfrac12\cdot\tfrac13}=\tfrac12 \]
+    </div>
+    <p style="margin:0;">Поменялось одно: «обязан открыть пустую» (\(=1\)) стало «случайно попал в пустую» (\(=\tfrac12\)). Этого хватило, чтобы 2/3 превратились в 1/2. Likelihood держится на правиле ведущего — в этом весь экран.</p>
+  </div>
+</details>
+
+<p style="font-family:'EB Garamond',serif; font-style:italic; font-size:20px; line-height:1.4; color:#1A1A1A; border-left:2px solid #07434B; padding-left:18px; margin:26px 0 0;">Условная вероятность — это не про то, что произошло, а про то, как вы об этом узнали.</p>
+</div>
+
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" async></script>
+<script>
+(function(){
+  var mode='knows', money=-1, pick=-1, opened=-1, phase='pick', simRunning=false;
+  var nStarted=0, nSpoiled=0, tally={swW:0,swT:0,stW:0,stT:0};
+  var rnd=function(n){return Math.floor(Math.random()*n);};
+  var INK='#1A1A1A', MUTE='rgba(26,26,26,0.58)', FAINT='rgba(26,26,26,0.38)', LINE='rgba(26,26,26,0.16)';
+  var TEAL='#07434B', TEALBG='#E1F5EE', CORAL='#C75B4F', CORALBG='#FAECE7';
+  var el=function(id){return document.getElementById(id);};
+  function other(p,o){ return [0,1,2].find(function(x){return x!==p&&x!==o;}); }
+  function hostOpen(p,mny,m){ var c=[0,1,2].filter(function(x){return x!==p;}); if(m==='knows'){ c=c.filter(function(x){return x!==mny;}); } return c[rnd(c.length)]; }
+
+  function renderToggle(){
+    var t=el('toggle'); t.innerHTML='';
+    [['knows','Знает, где деньги'],['random','Открывает наугад']].forEach(function(o){
+      var b=document.createElement('button'), on=(mode===o[0]);
+      b.textContent=o[1];
+      b.style.cssText='font-family:inherit; font-size:14px; padding:9px 16px; border-radius:3px; cursor:pointer; border:0.5px solid '+(on?TEAL:'rgba(26,26,26,0.3)')+'; background:'+(on?TEAL:'transparent')+'; color:'+(on?'#FAF6E8':INK)+'; font-weight:'+(on?'500':'400')+';';
+      b.onclick=function(){ setMode(o[0]); };
+      t.appendChild(b);
+    });
+  }
+
+  function setMode(m){
+    mode=m; renderToggle();
+    el('mode-desc').innerHTML = (m==='knows')
+      ? 'Знает, где деньги. Открывает пустую нарочно — и этим подсказывает, где денег нет.'
+      : 'Не знает, где деньги. Открывает любую из двух наугад. Иногда попадает на деньги — тогда раунд не в счёт. Когда попадает на пустую — это просто совпадение.';
+    animateHero(m==='knows'?67:50, m==='knows'?33:50);
+    el('hero-why').innerHTML = (m==='knows')
+      ? 'Он открыл пустую нарочно. Значит, деньги в той, что осталась. Поэтому смена и даёт 2/3.'
+      : 'Он открыл пустую случайно. Это ничего не говорит о деньгах. Поэтому менять или нет — без разницы.';
+    nStarted=0; nSpoiled=0; tally={swW:0,swT:0,stW:0,stT:0};
+    el('sim-switch').textContent='—'; el('sim-stay').textContent='—'; el('sim-note').textContent=''; el('sim-counter').textContent='игра — / 1000';
+    flashMini(); newRound();
+  }
+
+  var heroAnim=null;
+  function animateHero(tSw,tSt){
+    if(heroAnim) clearInterval(heroAnim);
+    var curSw=parseInt(el('hero-num').textContent)||67;
+    var curSt=parseInt((el('hero-stay').textContent.match(/\d+/)||[33])[0]);
+    var steps=18, i=0;
+    heroAnim=setInterval(function(){
+      i++;
+      el('hero-num').textContent=Math.round(curSw+(tSw-curSw)*i/steps)+'%';
+      el('hero-stay').textContent='останешься — '+Math.round(curSt+(tSt-curSt)*i/steps)+'%';
+      if(i>=steps){ clearInterval(heroAnim); heroAnim=null; el('hero-num').textContent=tSw+'%'; el('hero-stay').textContent='останешься — '+tSt+'%'; }
+    },26);
+  }
+
+  function render(){
+    var reveal=(phase==='result'||phase==='spoiled');
+    var bx=el('boxes'); bx.innerHTML='';
+    for(var i=0;i<3;i++){
+      var isPick=(i===pick), isOpen=(i===opened), isMoney=(i===money);
+      var bg='#FFFDF6', bcol=MUTE, bd='0.5px solid '+LINE, icon='ti-box', label='Шкатулка '+(i+1);
+      if(reveal&&isMoney){ bg=TEALBG; bcol=TEAL; icon='ti-coins'; label='Деньги'; }
+      else if(isOpen){ bg=CORALBG; bcol=CORAL; icon='ti-square-x'; label='Пусто'; }
+      else if(reveal){ bg=CORALBG; bcol=CORAL; icon='ti-square-x'; label='Пусто'; }
+      if(isPick){ bd='2px solid '+TEAL; }
+      var clickable=(phase==='pick');
+      var d=document.createElement('div');
+      d.style.cssText='background:'+bg+'; border:'+bd+'; border-radius:12px; padding:18px 6px 12px; text-align:center; cursor:'+(clickable?'pointer':'default')+'; transition:background 250ms, border-color 250ms;';
+      d.innerHTML='<i class="ti '+icon+'" aria-hidden="true" style="font-size:30px; color:'+bcol+';"></i>'
+        +'<div style="font-size:13px; color:'+bcol+'; margin-top:6px;">'+label+'</div>'
+        +'<div style="font-size:11px; margin-top:3px; min-height:16px; color:'+TEAL+';">'+(isPick?'твой выбор':'')+'</div>';
+      if(clickable){ (function(idx){ d.onclick=function(){ choose(idx); }; })(i); }
+      bx.appendChild(d);
+    }
+    setActions(); setStatus(); renderCounter();
+  }
+
+  function setStatus(){
+    var s=el('status');
+    if(phase==='pick'){ s.textContent='Деньги в одной из трёх. Выбери шкатулку — Якубович откроет одну из оставшихся.'; }
+    else if(phase==='decide'){ s.innerHTML='Якубович открыл пустую шкатулку '+(opened+1)+'. Меняешь на закрытую или остаёшься?'; }
+    else if(phase==='spoiled'){ s.innerHTML='<span style="color:'+CORAL+'; font-weight:500;">Раунд не в счёт.</span> Якубович наугад открыл шкатулку '+(opened+1)+' — а там деньги. Он же не знал. Менять нечего.'; }
+  }
+
+  function setActions(){
+    var a=el('actions'); a.innerHTML='';
+    function btn(txt,fn,accent){
+      var b=document.createElement('button'); b.textContent=txt;
+      b.style.cssText='font-family:inherit; font-size:14px; background:'+(accent?TEAL:'transparent')+'; color:'+(accent?'#FAF6E8':INK)+'; border:0.5px solid '+(accent?TEAL:'rgba(26,26,26,0.3)')+'; border-radius:3px; padding:9px 16px; cursor:pointer; font-weight:'+(accent?'500':'400')+';';
+      b.onclick=fn; a.appendChild(b);
+    }
+    if(phase==='decide'){ btn('Поменять шкатулку', function(){decide('switch');}, true); btn('Остаться при своей', function(){decide('stay');}); }
+    else if(phase==='result'||phase==='spoiled'){ btn('Ещё раз', newRound); }
+  }
+
+  function choose(i){
+    if(phase!=='pick')return;
+    pick=i; opened=hostOpen(pick,money,mode); nStarted++;
+    if(mode==='random' && opened===money){ phase='spoiled'; nSpoiled++; } else { phase='decide'; }
+    render();
+  }
+
+  function decide(action){
+    if(phase!=='decide')return;
+    var sw=other(pick,opened), fin=(action==='switch')?sw:pick, win=(fin===money);
+    if(action==='switch'){ tally.swT++; if(win)tally.swW++; } else { tally.stT++; if(win)tally.stW++; }
+    phase='result'; render();
+    el('status').innerHTML = win
+      ? '<span style="color:'+TEAL+'; font-weight:500;">Выигрыш.</span> '+(action==='switch'?'Сменил — деньги твои.':'Остался — повезло.')
+      : '<span style="color:'+CORAL+'; font-weight:500;">Мимо.</span> Деньги были в шкатулке '+(money+1)+'.';
+  }
+
+  function renderCounter(){
+    var c=el('counter');
+    if(nStarted===0){ c.textContent=''; return; }
+    if(mode==='random'){ c.textContent='сыграно: '+nStarted+'  ·  Якубович наткнулся на деньги: '+nSpoiled; }
+    else {
+      var parts=[];
+      if(tally.swT) parts.push('менял '+tally.swW+'/'+tally.swT);
+      if(tally.stT) parts.push('оставался '+tally.stW+'/'+tally.stT);
+      c.textContent = parts.length? ('вручную: '+parts.join('  ·  ')) : '';
+    }
+  }
+
+  function newRound(){ money=rnd(3); pick=-1; opened=-1; phase='pick'; render(); }
+
+  function flashMini(){
+    var p=rnd(3), mny=rnd(3), o=hostOpen(p,mny,mode), h='';
+    var spoil=(mode==='random' && o===mny);
+    for(var i=0;i<3;i++){
+      var op=(i===o), pk=(i===p);
+      var bg='#FFFDF6', bd='0.5px solid '+LINE, ic='ti-box', col=MUTE;
+      if(op && spoil){ bg=TEALBG; bd='0.5px solid '+TEAL; ic='ti-coins'; col=TEAL; }
+      else if(op){ bg=CORALBG; bd='0.5px solid '+CORAL; ic='ti-square-x'; col=CORAL; }
+      if(pk){ bd='1.5px solid '+TEAL; }
+      h+='<div style="background:'+bg+'; border:'+bd+'; border-radius:6px; padding:7px 0; text-align:center;"><i class="ti '+ic+'" style="font-size:17px; color:'+col+';"></i></div>';
+    }
+    el('sim-mini').innerHTML=h;
+  }
+
+  el('b-sim').onclick=function(){
+    if(simRunning)return; simRunning=true;
+    var total=1000, done=0, swW=0,swT=0,stW=0,stT=0,spoiled=0, per=25;
+    el('b-sim').style.opacity='0.5'; el('b-sim').disabled=true; el('sim-note').textContent='';
+    var iv=setInterval(function(){
+      var end=Math.min(done+per,total);
+      for(;done<end;done++){
+        var mny=rnd(3), p=rnd(3), o=hostOpen(p,mny,mode);
+        if(mode==='random' && o===mny){ spoiled++; continue; }
+        var sw=other(p,o);
+        if(sw===mny)swW++; swT++;
+        if(p===mny)stW++; stT++;
+      }
+      flashMini();
+      el('sim-counter').textContent='игра '+done+' / '+total;
+      el('sim-switch').textContent= swT? Math.round(100*swW/swT)+'%':'—';
+      el('sim-stay').textContent= stT? Math.round(100*stW/stT)+'%':'—';
+      if(done>=total){ clearInterval(iv); simRunning=false; el('b-sim').style.opacity='1'; el('b-sim').disabled=false;
+        el('sim-note').textContent = (mode==='random')
+          ? 'Из 1000 игр Якубович сам наткнулся на деньги в '+spoiled+' — они вылетели. В остальных смена и не-смена равны.'
+          : 'Все 1000 игр в счёт. Смена выигрывает вдвое чаще.';
+      }
+    }, 38);
+  };
+
+  renderToggle();
+  setMode('knows');
+})();
+</script>
+</body>
+</html>
