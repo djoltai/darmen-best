@@ -27,7 +27,9 @@ const COL = {
 // Theoretical median + mean for the all-in distribution.
 //   ln R ~ Bernoulli(0.5) on {ln 1.5, ln 0.6}
 //   μ = 0.5*(ln 1.5 + ln 0.6) = -0.0527,  σ² ≈ 0.2099
-// median(X_T) = exp(μT) ≈ $0.005,  mean = exp((μ+σ²/2)T) ≈ $131
+// median(X_T) = exp(μT) ≈ $0.005,  mean = (E[R])^T = 1.05^100 ≈ $131
+// (лог-нормальная аппроксимация среднего exp((μ+σ²/2)T) дала бы ≈$186 —
+// среднее тянется хвостом и точно считается только через E[R])
 const ALL_IN_MEDIAN = Math.exp(0.5 * (Math.log(1.5) + Math.log(0.6)) * N);
 const ALL_IN_MEAN   = Math.pow(0.5 * 1.5 + 0.5 * 0.6, N); // = 1.05^100 ≈ $131.5
 
@@ -105,7 +107,13 @@ export function drawTrajectoryAllIn(
   ctx.stroke();
   ctx.setLineDash([]);
 
-  // 30 background scenarios
+  // 30 background scenarios + active path, clipped to the plot rectangle
+  // so deep-loss paths (log10 ниже yMin) don't bleed over the bottom axis —
+  // same approach as drawTrajectorySlider.
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(padL, padT, plotW, plotH);
+  ctx.clip();
   ctx.lineWidth = 1;
   ctx.strokeStyle = COL.bgScenLine;
   for (const traj of dist.bgScenarios) {
@@ -132,14 +140,16 @@ export function drawTrajectoryAllIn(
       ctx.lineTo(xPx(i),     yPx(v1));
       ctx.stroke();
     }
-    // end dot
-    if (drawn === N + 1) {
-      const last = activeTraj[N];
-      ctx.fillStyle = last >= 1 ? COL.teal : COL.coral;
-      ctx.beginPath();
-      ctx.arc(xPx(N), yPx(last), 4, 0, Math.PI * 2);
-      ctx.fill();
-    }
+  }
+  ctx.restore();
+
+  // end dot — outside the clip so it isn't halved at the right plot edge
+  if (activeTraj && activeTraj.length === N + 1) {
+    const last = activeTraj[N];
+    ctx.fillStyle = last >= 1 ? COL.teal : COL.coral;
+    ctx.beginPath();
+    ctx.arc(xPx(N), yPx(last), 4, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   // x label

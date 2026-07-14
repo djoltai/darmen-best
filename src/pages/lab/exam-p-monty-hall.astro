@@ -286,8 +286,11 @@ import Wordmark from '../../components/Wordmark.astro';
     <!-- KaTeX auto-render: сканирует \( \) и \[ \] и рендерит на месте. -->
     <script is:inline>
       (function () {
+        var tries = 0;
         function renderMath() {
           if (typeof window.renderMathInElement !== 'function') {
+            // KaTeX с CDN не загрузился (оффлайн/блокировщик) — сдаёмся после ~10 с
+            if (++tries > 200) return;
             return setTimeout(renderMath, 50);
           }
           window.renderMathInElement(document.body, {

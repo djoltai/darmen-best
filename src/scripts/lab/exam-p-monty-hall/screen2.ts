@@ -46,6 +46,7 @@ export function initScreen2(): void {
   let nSpoiled = 0;
   const tally = { swW: 0, swT: 0, stW: 0, stT: 0 };
   let simRunning = false;
+  let simIv: number | null = null;
 
   // ---- тумблер ----
   function renderToggle(): void {
@@ -65,6 +66,14 @@ export function initScreen2(): void {
   }
 
   function setMode(m: Mode): void {
+    // смена режима обрывает бегущий прогон — иначе интервал дописал бы
+    // в сброшенные карточки смесь двух режимов
+    if (simIv !== null) {
+      window.clearInterval(simIv);
+      simIv = null;
+      simRunning = false;
+      simBtn.removeAttribute('disabled');
+    }
     mode = m;
     renderToggle();
     modeDesc.textContent =
@@ -315,10 +324,11 @@ export function initScreen2(): void {
       finish();
       return;
     }
-    const iv = window.setInterval(() => {
+    simIv = window.setInterval(() => {
       step(Math.min(per, total - done));
       if (done >= total) {
-        window.clearInterval(iv);
+        if (simIv !== null) window.clearInterval(simIv);
+        simIv = null;
         finish();
       }
     }, 38);

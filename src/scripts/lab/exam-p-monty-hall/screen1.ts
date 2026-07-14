@@ -33,6 +33,7 @@ export function initScreen1(): void {
   let finalPick = -1;
   let lastAction: Action | '' = '';
   let lastWin = false;
+  let chipFade: number | null = null;
   const tally = { swW: 0, swT: 0, stW: 0, stT: 0 };
 
   function boxTag(i: number): { text: string; cls: string } {
@@ -52,6 +53,12 @@ export function initScreen1(): void {
   }
 
   function render(): void {
+    // отменить отложенное гашение чипа — иначе устаревший таймер спрячет
+    // перерисованный чип, если решение принято раньше 660 мс
+    if (chipFade !== null) {
+      window.clearTimeout(chipFade);
+      chipFade = null;
+    }
     const reveal = phase === 'result';
     for (let i = 0; i < 3; i++) {
       const isPick = i === pick;
@@ -188,8 +195,9 @@ export function initScreen1(): void {
     oc.textContent = '1/3';
     oc.className = 'mh-chip is-teal';
     oc.style.transform = 'translateX(' + dx + 'px)';
-    window.setTimeout(() => {
+    chipFade = window.setTimeout(() => {
       oc.style.opacity = '0';
+      chipFade = null;
     }, 660);
   }
 
