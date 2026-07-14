@@ -137,9 +137,9 @@ import Wordmark from '../../components/Wordmark.astro';
 
             <div class="section">
               <p class="section-title">4. Median ≠ Mean.</p>
-              <p>Из свойств лог-нормального:</p>
-              <div class="formula-block">\[\begin&#123;aligned&#125; \mathrm&#123;Median&#125;(X_T) &amp;= e^&#123;\mu T&#125; \approx \$0.005 \\ \mathrm&#123;Mean&#125;(X_T) &amp;= e^&#123;(\mu + \sigma^2/2)\,T&#125; \approx \$131 \end&#123;aligned&#125;\]</div>
-              <p>Сдвиг <span class="formula">\(\sigma^2/2\)</span> в показателе и есть Volatility Drag.</p>
+              <p>Медиана — из свойств лог-нормального, среднее — точно, из независимости множителей:</p>
+              <div class="formula-block">\[\begin&#123;aligned&#125; \mathrm&#123;Median&#125;(X_T) &amp;= e^&#123;\mu T&#125; \approx \$0.005 \\ \mathrm&#123;Mean&#125;(X_T) &amp;= (E[R])^T = e^&#123;T \ln E[R]&#125; \approx \$131 \end&#123;aligned&#125;\]</div>
+              <p>Разрыв показателей <span class="formula">\(\ln E[R] - \mu \approx \sigma^2/2\)</span> и есть Volatility Drag.</p>
             </div>
 
             <div class="section">
@@ -280,7 +280,7 @@ import Wordmark from '../../components/Wordmark.astro';
         <div class="finale-coda">
           <p class="tag">опорные авторы и тексты</p>
           <div class="links">
-            <a href="https://www.linkedin.com/posts/darmen-joltai_share-7457744890303668224-ezqj" data-post-anchor>пост-анонс ↗</a>
+            <a href="https://www.linkedin.com/posts/darmen-joltai_share-7457744890303668224-ezqj" data-post-anchor target="_blank" rel="noopener noreferrer">пост-анонс ↗</a>
             <a href="https://en.wikipedia.org/wiki/Kelly_criterion" target="_blank" rel="noopener noreferrer">Kelly · 1956 ↗</a>
             <a href="https://www.goodreads.com/book/show/36064445-skin-in-the-game" target="_blank" rel="noopener noreferrer">Taleb · Skin in the Game ↗</a>
             <a href="https://ergodicityeconomics.com" target="_blank" rel="noopener noreferrer">Peters · Ergodicity Economics ↗</a>
@@ -303,8 +303,11 @@ import Wordmark from '../../components/Wordmark.astro';
          and rewrites them in place. Runs once DOM and KaTeX libs are ready. -->
     <script is:inline>
       (function () {
+        var tries = 0;
         function renderMath() {
           if (typeof window.renderMathInElement !== 'function') {
+            // KaTeX с CDN не загрузился (оффлайн/блокировщик) — сдаёмся после ~10 с
+            if (++tries > 200) return;
             return setTimeout(renderMath, 50);
           }
           window.renderMathInElement(document.body, {

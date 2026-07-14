@@ -212,7 +212,9 @@ function init() {
   window.addEventListener('resize', () => {
     if (resizeTimer !== null) window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => {
-      renderAllIn(currentTraj);
+      // во время анимации кадры перерисовываются каждые 22 мс сами —
+      // а renderAllIn(currentTraj) здесь показал бы весь путь (спойлер)
+      if (!isPlaying) renderAllIn(currentTraj);
       if (densityCanvas) drawDensitySchematic(densityCanvas);
       if (trajCanvas3)  drawTrajectorySlider(trajCanvas3, currentF, bgSides);
       if (curveCanvas3) drawCurveSlider(curveCanvas3, currentF);
