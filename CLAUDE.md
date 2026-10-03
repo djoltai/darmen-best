@@ -20,8 +20,6 @@ darmen.best — персональный сайт Дармена. Главная
   - **IBM Plex Sans** (sans) — главная и публичные страницы, веса 400/500/600
   - **JetBrains Mono** — числа в kicker, формулы, chart-labels
   - **EB Garamond** — только буква `D` в wordmark главной
-  - **Inter** — остался в лабах (`/lab/frm-var`, `/lab/frm-var-v2`),
-    миграция на IBM Plex Sans планируется отдельной сессией
 - Деплой: статика, билд в `dist/`
 
 ## Структура

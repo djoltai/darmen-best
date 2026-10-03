@@ -82,7 +82,7 @@ export function drawTrajectoryAllIn(
   ctx.stroke();
 
   // Y ticks + labels
-  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
   ctx.fillStyle = COL.textFaint;
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
@@ -156,7 +156,7 @@ export function drawTrajectoryAllIn(
   ctx.fillStyle = COL.textFaint;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
   ctx.fillText('0', padL, padT + plotH + 4);
   ctx.fillText('100', padL + plotW, padT + plotH + 4);
 }
@@ -204,7 +204,7 @@ export function drawHistogramAllIn(
 
   // Tick labels (mobile only) + faint gridlines (always).
   if (isMobile) {
-    ctx.font = '10px Inter, system-ui, sans-serif';
+    ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
     ctx.fillStyle = COL.textFaint;
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
@@ -265,7 +265,7 @@ export function drawHistogramAllIn(
   ctx.setLineDash([]);
 
   // labels right of each line
-  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
   ctx.fillStyle = COL.textMuted;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
@@ -328,7 +328,7 @@ export function drawTrajectorySlider(
   ctx.stroke();
 
   // Y ticks
-  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
   ctx.fillStyle = COL.textFaint;
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
@@ -409,7 +409,7 @@ export function drawTrajectorySlider(
   ctx.fillStyle = COL.textFaint;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
   ctx.fillText('0', padL, padT + plotH + 4);
   ctx.fillText('100', padL + plotW, padT + plotH + 4);
 }
@@ -442,7 +442,7 @@ export function drawCurveSlider(canvas: HTMLCanvasElement, fCurrent: number) {
 
   // Y ticks (1%, 0%, -2%, -4%, -6%)
   const Y_TICKS = [0.01, 0, -0.02, -0.04, -0.06];
-  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
   ctx.fillStyle = COL.textFaint;
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
@@ -518,7 +518,7 @@ export function drawCurveSlider(canvas: HTMLCanvasElement, fCurrent: number) {
   ctx.beginPath();
   ctx.arc(xPx(F_STAR), yPx(G_STAR), 2.5, 0, Math.PI * 2);
   ctx.fill();
-  ctx.font = '11px Inter, system-ui, sans-serif';
+  ctx.font = '11px "IBM Plex Sans", system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'bottom';
   ctx.fillText('f* = 25%', xPx(F_STAR), yPx(G_STAR) - 8);
@@ -660,7 +660,7 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   ctx.stroke();
   ctx.setLineDash([]);
 
-  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.font = '10px "IBM Plex Sans", system-ui, sans-serif';
   ctx.fillStyle = COL.textMuted;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
