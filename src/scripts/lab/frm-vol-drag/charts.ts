@@ -687,9 +687,9 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   ctx.stroke();
 
   // lucky points: filled teal — far right wins
-  const luckies: { lv: number, big: string }[] = [
-    { lv: 3.68, big: '$4.8k' },
-    { lv: 5.66, big: '$456k' },
+  const luckies: { lv: number, big: string, dy: number }[] = [
+    { lv: 3.68, big: '$4.8k', dy: 9 },
+    { lv: 5.66, big: '$456k', dy: 17 },
   ];
   ctx.fillStyle = COL.teal;
   for (const p of luckies) {
@@ -713,6 +713,6 @@ export function drawDensitySchematic(canvas: HTMLCanvasElement) {
   ctx.textBaseline = 'bottom';
   ctx.fillStyle = COL.teal;
   for (const p of luckies) {
-    ctx.fillText(p.big, xPx(p.lv), baseY - 9);
+    ctx.fillText(p.big, xPx(p.lv), baseY - p.dy);
   }
 }
